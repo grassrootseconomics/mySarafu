@@ -1,7 +1,5 @@
 part of 'tokens_cubit.dart';
 
-
-
 @immutable
 abstract class TokensState {
   const TokensState();

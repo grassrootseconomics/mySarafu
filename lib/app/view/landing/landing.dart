@@ -5,5 +5,5 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-export 'cubit/tokens_cubit.dart';
-export 'view/tokens_widget.dart';
+export 'cubit/landing_cubit.dart';
+export 'view/landing_page.dart';

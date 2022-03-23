@@ -7,7 +7,6 @@ class TokenItem {
   final String symbol;
   final double balance;
   final int decimals;
-  
   const TokenItem({
     required this.idx,
     required this.address,

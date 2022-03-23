@@ -6,8 +6,12 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:my_sarafu/app/components/bottom_nav/cubit/nav_cubit.dart';
 import 'package:my_sarafu/app/view/home/home.dart';
+import 'package:my_sarafu/app/view/landing/landing.dart';
+import 'package:my_sarafu/app/view/settings/cubit/account_cubit.dart';
 import 'package:my_sarafu/app/view/settings/settings.dart';
 import 'package:my_sarafu/app/view/tokens/view/tokens_page.dart';
 import 'package:my_sarafu/l10n/l10n.dart';
@@ -17,47 +21,62 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: const ColorScheme(
-          primary: Colors.green,
-          secondary: Colors.green,
-          background: Colors.green,
-          surface: Colors.green,
-          onBackground: Colors.white,
-          error: Colors.redAccent,
-          onError: Color.fromARGB(255, 70, 70, 70),
-          onPrimary: Color.fromARGB(255, 0, 0, 0),
-          onSecondary: Color.fromARGB(255, 0, 0, 0),
-          onSurface: Color.fromARGB(255, 0, 0, 0),
-          brightness: Brightness.dark,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => NavCubit(),
         ),
-      ),
-      darkTheme: ThemeData(
-        colorScheme: const ColorScheme(
-          primary: Colors.green,
-          secondary: Colors.green,
-          background: Colors.green,
-          surface: Colors.green,
-          onBackground: Colors.white,
-          error: Colors.redAccent,
-          onError: Colors.white,
-          onPrimary: Colors.white,
-          onSecondary: Colors.white,
-          onSurface: Colors.white,
-          brightness: Brightness.light,
+        BlocProvider(
+          create: (_) => SettingsCubit(),
         ),
-      ),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
+        BlocProvider(
+          create: (_) => AccountCubit(),
+        ),
       ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      routes: {
-        '/': (context) => HomePage(),
-        '/tokens': (context) => TokensPage(),
-        '/settings': (context) => SettingsPage(),
-      },
+      child: MaterialApp(
+        theme: ThemeData(
+          colorScheme: const ColorScheme(
+            primary: Colors.green,
+            secondary: Colors.green,
+            background: Colors.green,
+            surface: Colors.green,
+            onBackground: Colors.white,
+            error: Colors.redAccent,
+            onError: Color.fromARGB(255, 70, 70, 70),
+            onPrimary: Color.fromARGB(255, 0, 0, 0),
+            onSecondary: Color.fromARGB(255, 0, 0, 0),
+            onSurface: Color.fromARGB(255, 0, 0, 0),
+            brightness: Brightness.dark,
+          ),
+        ),
+        darkTheme: ThemeData(
+          colorScheme: const ColorScheme(
+            primary: Colors.green,
+            secondary: Colors.green,
+            background: Colors.green,
+            surface: Colors.green,
+            onBackground: Colors.white,
+            error: Colors.redAccent,
+            onError: Colors.white,
+            onPrimary: Colors.white,
+            onSecondary: Colors.white,
+            onSurface: Colors.white,
+            brightness: Brightness.light,
+          ),
+        ),
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const HomePage(),
+          '/tokens': (context) => const TokensPage(),
+          '/settings': (context) => const SettingsPage(),
+          '/landing': (context) => const LandingPage(),
+        },
+      ),
     );
   }
 }
