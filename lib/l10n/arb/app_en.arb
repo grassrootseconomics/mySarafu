@@ -1,0 +1,19 @@
+{
+  "@@locale": "en",
+  "counterAppBarTitle": "Counter",
+  "@counterAppBarTitle": {
+    "description": "Text shown in the AppBar of the Counter Page"
+  },
+  "homePageTitle": "Home",
+  "@homePageTitle": {
+    "description": "Text shown in the AppBar of the Home Page"
+  },
+  "settingsPageTitle": "Settings",
+  "@settingsPageTitle": {
+    "description": "Text shown in the AppBar of the Home Page"
+  },
+  "tokensPageTitle": "Tokens",
+  "@tokensPageTitle": {
+    "description": "Text shown in the AppBar of the Home Page"
+  }
+}

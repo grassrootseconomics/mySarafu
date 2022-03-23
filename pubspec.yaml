@@ -1,0 +1,34 @@
+name: my_sarafu
+description: Sarafu
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  bloc: ^8.0.3
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.0.1
+  flutter_localizations:
+    sdk: flutter
+  hydrated_bloc: ^8.1.0
+  intl: ^0.17.0
+  logger: ^1.1.0
+  path_provider: ^2.0.9
+  settings_ui: ^2.0.2
+  web3dart: ^2.3.5
+
+dev_dependencies:
+  bloc_test: ^9.0.3
+  build_runner: ^2.1.8
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+  very_good_analysis: ^2.4.0
+flutter:
+  uses-material-design: true
+  generate: true
+  assets:
+    - assets/images/
