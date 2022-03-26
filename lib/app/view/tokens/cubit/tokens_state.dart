@@ -1,45 +1,47 @@
 part of 'tokens_cubit.dart';
 
 @immutable
-abstract class TokensState {
-  const TokensState();
+abstract class TokensState extends Equatable {
+  final List<TokenItem> tokens;
+  const TokensState({required this.tokens});
 }
 
 class TokensInitial extends TokensState {
-  const TokensInitial();
+  final List<TokenItem> tokens;
+  const TokensInitial({required this.tokens}) : super(tokens: tokens);
+  get props {
+    print("TokensInitial");
+    print([...tokens]);
+    return [tokens];
+  }
 }
 
 class TokensLoading extends TokensState {
-  const TokensLoading();
+  final List<TokenItem> tokens;
+  const TokensLoading({required this.tokens}) : super(tokens: tokens);
+  get props {
+    print("TokensLoading");
+    print([...tokens]);
+    return [tokens];
+  }
 }
-
 
 class TokensLoaded extends TokensState {
   final List<TokenItem> tokens;
-  const TokensLoaded(this.tokens): super();
+  const TokensLoaded({required this.tokens}) : super(tokens: tokens);
 
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is TokensLoaded && o.tokens == tokens;
+  get props {
+    print("TokensLoaded");
+    print([...tokens]);
+    return [tokens];
   }
-
-  @override
-  int get hashCode => tokens.hashCode;
 }
 
 class TokensError extends TokensState {
   final String message;
-  TokensError(this.message);
+  final List<TokenItem> tokens;
 
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  TokensError(this.tokens, this.message) : super(tokens: tokens);
 
-    return o is TokensError && o.message == message;
-  }
-
-  @override
-  int get hashCode => message.hashCode;
+  get props => [...tokens, message];
 }

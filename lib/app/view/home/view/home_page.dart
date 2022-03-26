@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/app/components/balance/view/balance_widget.dart';
 import 'package:my_sarafu/app/components/bottom_nav/view/bottom_nav.dart';
 import 'package:my_sarafu/app/components/recent.dart';
-import 'package:my_sarafu/app/components/transactions.dart';
+import 'package:my_sarafu/app/components/transactions/view/transactions.dart';
 import 'package:my_sarafu/counter/counter.dart';
 import 'package:my_sarafu/l10n/l10n.dart';
 
@@ -39,7 +39,7 @@ class HomeView extends StatelessWidget {
             children: const <Widget>[
               BalanceWidget(),
               RecentWidget(),
-              TransactionsWidget(),
+              TransactionsView(),
             ],
           ),
         ));

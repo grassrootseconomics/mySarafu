@@ -5,6 +5,7 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart'; //You can also import the browser version
@@ -26,17 +27,17 @@ class TokensPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.select((SettingsCubit cubit) => cubit.state);
-    final account = context.select((AccountCubit cubit) => cubit.state);
-    final wallet = loadWallet(account.wallet, account.password);
     final httpClient = Client();
     final ethClient = Web3Client(settings.rpcProvider, httpClient);
+    final account = context.select((AccountCubit cubit) => cubit.state);
+    final wallet = loadWallet(account.wallet, account.password);
     return BlocProvider(
       create: (context) => TokensCubit(
         TokenRepository(
           tokenRegisteryAddress: settings.tokenRegistryAddress,
           client: ethClient,
         ),
-      )..fetchAllTokens(wallet.privateKey.address),
+      ),
       child: const TokensView(),
     );
   }
@@ -47,20 +48,14 @@ class TokensView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final account = context.select((AccountCubit cubit) => cubit.state);
-    final wallet = loadWallet(account.wallet, account.password);
     return Scaffold(
       bottomNavigationBar: const BottomNavBar(),
       body: SafeArea(
         child: Column(
           children: [
             BlocConsumer<TokensCubit, TokensState>(
-              buildWhen: (previous, current) {
-                log.d('previous $previous current $current');
-                return true;
-              },
               listener: (context, state) {
-                log.d('TokensCubit changed: ${state}');
+                log.d('TokensCubit changed: $state');
                 if (state is TokensError) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -72,16 +67,14 @@ class TokensView extends StatelessWidget {
               },
               builder: (context, state) {
                 if (state is TokensInitial) {
-                  final tokensCubit = context.read<TokensCubit>();
-                  tokensCubit.fetchAllTokens(wallet.privateKey.address);
-                  return buildInitialInput();
+                  return buildInitialInput(context);
                 } else if (state is TokensLoading) {
                   return buildLoading();
                 } else if (state is TokensLoaded) {
-                  return buildTokenList(state.tokens);
+                  return buildTokenList(context, state.tokens);
                 } else {
                   // (state is WeatherError)
-                  return buildInitialInput();
+                  return buildInitialInput(context);
                 }
               },
             ),
@@ -92,9 +85,18 @@ class TokensView extends StatelessWidget {
   }
 }
 
-Widget buildInitialInput() {
-  return const Center(
-    child: Text('Hmm'),
+Widget buildInitialInput(BuildContext context) {
+  final tokenCubit = context.read<TokensCubit>();
+  final account = context.select((AccountCubit cubit) => cubit.state);
+  final wallet = loadWallet(account.wallet, account.password);
+  return Center(
+    child: TextButton(
+      onPressed: () => tokenCubit.fetchAllTokens(wallet.privateKey.address),
+      child: const Text(
+        'Fetch All Tokens',
+        style: TextStyle(color: Colors.black),
+      ),
+    ),
   );
 }
 
@@ -104,18 +106,44 @@ Widget buildLoading() {
   );
 }
 
-Expanded buildTokenList(List<TokenItem> tokens) {
+Widget buildTokenList(BuildContext context, List<TokenItem> tokens) {
+  final tokenCubit = context.read<TokensCubit>();
+  final account = context.select((AccountCubit cubit) => cubit.state);
+  final wallet = loadWallet(account.wallet, account.password);
+  print(hex.encode(wallet.privateKey.privateKey));
+  print(wallet.privateKey.privateKey.length);
+
   return Expanded(
-    child: ListView.builder(
-      // Providing a restorationId allows the ListView to restore the
-      // scroll position when a user leaves and returns to the app after it
-      // has been killed while running in the background.
-      restorationId: 'tokensListView',
-      itemCount: tokens.length,
-      itemBuilder: (BuildContext context, int index) {
-        final token = tokens[index];
-        return TokenWidget(token: token);
-      },
+    child: Column(
+      children: [
+        TextButton(
+          onPressed: () => tokenCubit.fetchAllTokens(wallet.privateKey.address),
+          child: const Text(
+            'Refresh All Tokens',
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+        TextButton(
+          onPressed: () => tokenCubit.updateBalances(wallet.privateKey.address),
+          child: const Text(
+            'Update All Balances',
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            // Providing a restorationId allows the ListView to restore the
+            // scroll position when a user leaves and returns to the app after it
+            // has been killed while running in the background.
+            restorationId: 'tokensListView',
+            itemCount: tokens.length,
+            itemBuilder: (BuildContext context, int index) {
+              final token = tokens[index];
+              return TokenWidget(token: token);
+            },
+          ),
+        ),
+      ],
     ),
   );
 }

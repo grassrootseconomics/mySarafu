@@ -11,6 +11,7 @@ import 'package:my_sarafu/app/components/bottom_nav/view/bottom_nav.dart';
 import 'package:my_sarafu/app/view/settings/cubit/account_cubit.dart';
 import 'package:my_sarafu/app/view/settings/cubit/settings_cubit.dart';
 import 'package:my_sarafu/l10n/l10n.dart';
+import 'package:my_sarafu/utils/contracts.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -37,6 +38,8 @@ class SettingsView extends StatelessWidget {
     final l10n = context.l10n;
     final settings = context.select((SettingsCubit cubit) => cubit.state);
     final account = context.select((AccountCubit cubit) => cubit.state);
+    final wallet = loadWallet(account.wallet, 'password');
+
     return Scaffold(
         // To work with lists that may contain a large number of items, it’s best
         // to use the ListView.builder constructor.
@@ -57,11 +60,14 @@ class SettingsView extends StatelessWidget {
                     value: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "William",
+                        Text(
+                          account.name,
                           textAlign: TextAlign.left,
                         ),
-                        Text(account.name, textAlign: TextAlign.left)
+                        SelectableText(
+                          wallet.privateKey.address.toString(),
+                          textAlign: TextAlign.left,
+                        )
                       ],
                     ),
                   ),

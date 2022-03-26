@@ -42,7 +42,12 @@ class TokenRepository {
   }
 
   Future<List<TokenItem>> updateBalances(List<TokenItem> tokens) async {
-    return [];
+    List<TokenItem> updated = [];
+    await Future.wait(tokens.map((token) async {
+      final updatedToken = token.copyWith(balance: await getBalance(token));
+      updated.add(updatedToken);
+    }));
+    return updated;
   }
 
   Future<double> getBalance(TokenItem token) async {
