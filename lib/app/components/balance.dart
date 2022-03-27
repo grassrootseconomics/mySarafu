@@ -7,19 +7,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/app/components/balance/balance.dart';
-
-class BalanceWidget extends StatelessWidget {
-  const BalanceWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => BalanceCubit(),
-      child: const BalanceView(),
-    );
-  }
-}
+import 'package:my_sarafu/cubit/tokens/tokens_cubit.dart';
+import 'package:my_sarafu/data/model/token.dart';
 
 class BalanceView extends StatelessWidget {
   const BalanceView({Key? key}) : super(key: key);
@@ -45,9 +34,10 @@ class BalanceText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final balance = context.select((BalanceCubit cubit) => cubit.state);
+    final activeToken = context
+        .select<TokensCubit, TokenItem?>((cubit) => cubit.state.activeToken);
     return Text(
-      '${balance.balance} ${balance.symbol}',
+      '${activeToken?.userFacingBalance} ${activeToken?.symbol}',
       style: theme.textTheme.headlineMedium,
     );
   }

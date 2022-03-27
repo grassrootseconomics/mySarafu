@@ -17,15 +17,16 @@ part 'transactions_state.dart';
 
 class TransactionsCubit extends HydratedCubit<TransactionsState> {
   TransactionsCubit(this._transactionsRepository)
-      : super(const TransactionsInitial(
-            transactions: TransactionList(data: [], low: 0, high: 0)));
+      : super(
+          const TransactionsInitial(
+            transactions: TransactionList(data: [], low: 0, high: 0),
+          ),
+        );
   final TransactionsRepository _transactionsRepository;
 
   Future<void> fetchAllTransactions(EthereumAddress address) async {
-    log.d("Fetching");
     try {
       final transactions = await _transactionsRepository.getAllTransactions();
-      log.d('${transactions.data.length} Transactions loaded');
       emit(TransactionsLoaded(transactions: transactions));
     } catch (e) {
       log.e(e);
@@ -36,14 +37,14 @@ class TransactionsCubit extends HydratedCubit<TransactionsState> {
   TransactionsState fromJson(dynamic json) {
     try {
       final transactions = TransactionList.fromJson(json);
-      print(transactions);
       return TransactionsLoaded(transactions: transactions);
     } catch (e) {
       log.e(e);
     }
 
-    return TransactionsInitial(
-        transactions: TransactionList(data: [], low: 0, high: 0));
+    return const TransactionsInitial(
+      transactions: TransactionList(data: [], low: 0, high: 0),
+    );
   }
 
   @override

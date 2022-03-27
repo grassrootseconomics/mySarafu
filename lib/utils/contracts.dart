@@ -70,7 +70,7 @@ Future<EtherAmount> connectRPC(Wallet wallet, String rpcProvider) async {
     final balance = await erc20.balanceOf(wallet.privateKey.address);
     var converter = WeiConverter(6);
     print(
-        "${symbol}: ${address}: Balance: ${converter.getValueInUnit(balance)}");
+        "${symbol}: ${address}: Balance: ${converter.getUserFacingValue(balance)}");
   });
   return balance;
 }

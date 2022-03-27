@@ -19,12 +19,13 @@ class WeiConverter {
   /// especially for larger amounts or smaller units. While it can be used to
   /// display the amount of ether in a human-readable format, it should not be
   /// used for anything else.
-  double getValueInUnit(BigInt value) {
+  String getUserFacingValue(BigInt value) {
     final factor = BigInt.from(10).pow(decimals);
     final _value = value ~/ factor;
     final remainder = value.remainder(factor);
 
-    return _value.toInt() + (remainder.toInt() / factor.toInt());
+    return (_value.toInt() + (remainder.toInt() / factor.toInt()))
+        .toStringAsFixed(2);
   }
 
   @override

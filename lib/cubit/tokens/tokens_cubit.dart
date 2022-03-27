@@ -23,15 +23,20 @@ class TokensCubit extends HydratedCubit<TokensState> {
     log.d('Getting tokens for $address');
     final tokens = await _tokenRepository.getAllTokens(address);
     log.d('${tokens.length} Tokens loaded');
-    emit(TokensLoaded(tokens: tokens));
+    emit(
+      TokensLoaded(
+        tokens: tokens,
+        activeToken: state.activeToken ?? tokens[0],
+      ),
+    );
   }
 
   Future<void> updateBalances(EthereumAddress address) async {
-        
     log.d('Updating balances for $address for ${state.tokens.length} Tokens');
-    final updated = await _tokenRepository.updateBalances(state.tokens);
-    log.d('Balances updated');
-    emit(TokensLoaded(tokens: updated));
+    final updated =
+        await _tokenRepository.updateBalances(address, state.tokens);
+    log.d('Updated Balances for ${updated.length} Tokens');
+    emit(TokensLoaded(tokens: updated, activeToken: state.activeToken));
   }
 
   @override
@@ -42,7 +47,10 @@ class TokensCubit extends HydratedCubit<TokensState> {
         final token = TokenItem.fromJson(dToken);
         tokens.add(token);
       }
-      return TokensLoaded(tokens: tokens);
+      final activeToken = json['activeToken'] != null
+          ? TokenItem.fromJson(json['activeToken'])
+          : null;
+      return TokensLoaded(tokens: tokens, activeToken: activeToken);
     } catch (e) {
       log.e(e);
     }
@@ -55,6 +63,7 @@ class TokensCubit extends HydratedCubit<TokensState> {
     final data = {
       'tokens':
           state.tokens.map<Map<String, String>>((t) => t.toJson()).toList(),
+      'activeToken': state.activeToken?.toJson() ?? state.tokens[0].toJson(),
     };
     return data;
   }

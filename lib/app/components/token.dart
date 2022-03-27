@@ -29,7 +29,7 @@ class TokenWidget extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('${token.balance.toString()} ${token.symbol}',
+              child: Text('${token.userFacingBalance} ${token.symbol}',
                   textAlign: TextAlign.end),
             ),
           ),

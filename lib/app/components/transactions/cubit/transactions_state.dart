@@ -2,13 +2,12 @@ part of 'transactions_cubit.dart';
 
 @immutable
 abstract class TransactionsState extends Equatable {
-  final TransactionList transactions;
   const TransactionsState({required this.transactions});
+  final TransactionList transactions;
 }
 
 class TransactionsInitial extends TransactionsState {
-  final TransactionList transactions;
-  const TransactionsInitial({required this.transactions})
+  const TransactionsInitial({required TransactionList transactions})
       : super(transactions: transactions);
   get props {
     return [...transactions.data];
@@ -16,8 +15,7 @@ class TransactionsInitial extends TransactionsState {
 }
 
 class TransactionsLoading extends TransactionsState {
-  final TransactionList transactions;
-  const TransactionsLoading({required this.transactions})
+  const TransactionsLoading({required TransactionList transactions})
       : super(transactions: transactions);
   get props {
     return [...transactions.data];
@@ -25,8 +23,7 @@ class TransactionsLoading extends TransactionsState {
 }
 
 class TransactionsLoaded extends TransactionsState {
-  final TransactionList transactions;
-  const TransactionsLoaded({required this.transactions})
+  const TransactionsLoaded({required TransactionList transactions})
       : super(transactions: transactions);
 
   get props {
@@ -35,11 +32,10 @@ class TransactionsLoaded extends TransactionsState {
 }
 
 class TransactionsError extends TransactionsState {
-  final String message;
-  final TransactionList transactions;
 
-  TransactionsError(this.transactions, this.message)
+  TransactionsError(TransactionList transactions, this.message)
       : super(transactions: transactions);
+  final String message;
 
   get props => [...transactions.data, message];
 }

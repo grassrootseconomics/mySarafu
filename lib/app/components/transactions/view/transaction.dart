@@ -2,10 +2,9 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/app/components/icon.dart';
-import 'package:my_sarafu/app/view/tokens/cubit/tokens_cubit.dart';
+import 'package:my_sarafu/cubit/tokens/tokens_cubit.dart';
 import 'package:my_sarafu/data/model/transaction.dart';
 import 'package:my_sarafu/utils/Converter.dart';
-import 'package:my_sarafu/utils/logger.dart';
 import 'package:web3dart/credentials.dart';
 
 /// Displays a list of SampleItems.
@@ -33,7 +32,8 @@ class TransactionWidget extends StatelessWidget {
                 child: IconWidget(),
               ),
               Expanded(
-                child: Text(transaction.sender),
+                child:
+                    Text('${transaction.sender} -> ${transaction.recipient}'),
               ),
               Expanded(
                 child: Row(
@@ -42,7 +42,7 @@ class TransactionWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        '${getBalance(state, transaction.sourceToken, transaction.toValue).toString()} ${getSymbol(state, transaction.sourceToken)}',
+                        '${getBalance(state, transaction.sourceToken, transaction.toValue)} ${getSymbol(state, transaction.sourceToken)}',
                         textAlign: TextAlign.end,
                       ),
                     ),
@@ -62,17 +62,16 @@ class TransactionWidget extends StatelessWidget {
 String getSymbol(TokensState tokensState, String address) {
   final token = tokensState.tokens.firstWhereOrNull(
     (token) {
-      log.d(token.address.hex, address);
       return token.address == EthereumAddress.fromHex(address);
     },
   );
   return token?.symbol ?? 'Unknown';
 }
 
-double getBalance(TokensState tokensState, String address, int balance) {
+String getBalance(TokensState tokensState, String address, int balance) {
   final token = tokensState.tokens.firstWhereOrNull(
     (token) => token.address == EthereumAddress.fromHex(address),
   );
   var converter = WeiConverter(token?.decimals ?? 6);
-  return converter.getValueInUnit(BigInt.from(balance));
+  return converter.getUserFacingValue(BigInt.from(balance));
 }

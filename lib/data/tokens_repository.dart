@@ -1,6 +1,7 @@
 import 'package:my_sarafu/contracts/token-registery/TokenUniqueSymbolIndex.g.dart';
 import 'package:my_sarafu/data/model/token.dart';
 import 'package:my_sarafu/utils/Converter.dart';
+import 'package:my_sarafu/utils/logger.dart';
 import 'package:web3dart/contracts/erc20.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -33,7 +34,7 @@ class TokenRepository {
         address: tokenContractAddress,
         symbol: symbol,
         name: symbol,
-        balance: converter.getValueInUnit(balance),
+        balance: balance,
         decimals: decimals.toInt(),
       );
       tokens.add(token);
@@ -41,20 +42,23 @@ class TokenRepository {
     return tokens;
   }
 
-  Future<List<TokenItem>> updateBalances(List<TokenItem> tokens) async {
-    List<TokenItem> updated = [];
-    await Future.wait(tokens.map((token) async {
-      final updatedToken = token.copyWith(balance: await getBalance(token));
-      updated.add(updatedToken);
-    }));
+  Future<List<TokenItem>> updateBalances(
+      EthereumAddress address, List<TokenItem> tokens) async {
+    final updated = <TokenItem>[];
+    await Future.wait(
+      tokens.map((token) async {
+        final balance = await getBalance(address, token);
+        log.d("Balance of ${token.symbol} is ${balance}");
+        final updatedToken = token.copyWith(balance: balance);
+        updated.add(updatedToken);
+      }),
+    );
     return updated;
   }
 
-  Future<double> getBalance(TokenItem token) async {
+  Future<BigInt> getBalance(EthereumAddress address, TokenItem token) async {
     final erc20 = Erc20(address: token.address, client: client);
     final converter = WeiConverter(token.decimals);
-    final balance = await erc20.balanceOf(token.address);
-
-    return converter.getValueInUnit(balance);
+    return erc20.balanceOf(address);
   }
 }

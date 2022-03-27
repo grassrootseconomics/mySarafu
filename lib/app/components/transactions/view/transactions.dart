@@ -4,8 +4,8 @@ import 'package:http/http.dart'; //You can also import the browser version
 import 'package:my_sarafu/app/components/transactions/cubit/transactions_cubit.dart';
 import 'package:my_sarafu/app/components/transactions/view/transaction.dart';
 import 'package:my_sarafu/app/view/settings/cubit/account_cubit.dart';
-import 'package:my_sarafu/app/view/settings/cubit/settings_cubit.dart';
-import 'package:my_sarafu/app/view/tokens/cubit/tokens_cubit.dart';
+import 'package:my_sarafu/cubit/settings/settings_cubit.dart';
+import 'package:my_sarafu/cubit/tokens/tokens_cubit.dart';
 import 'package:my_sarafu/data/tokens_repository.dart';
 import 'package:my_sarafu/data/transactions_repository.dart';
 import 'package:my_sarafu/wallet/wallet.dart';
@@ -20,7 +20,7 @@ class TransactionsView extends StatelessWidget {
     final httpClient = Client();
     final ethClient = Web3Client(settings.rpcProvider, httpClient);
     final account = context.select((AccountCubit cubit) => cubit.state);
-    final wallet = loadWallet(account.wallet, account.password);
+    final wallet = unlockWallet(account.wallet, account.password);
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -52,7 +52,7 @@ class TransactionsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final account = context.select((AccountCubit cubit) => cubit.state);
-    final wallet = loadWallet(account.wallet, account.password);
+    final wallet = unlockWallet(account.wallet, account.password);
     return BlocConsumer<TransactionsCubit, TransactionsState>(
       listener: (context, state) {
         // TODO: implement listener

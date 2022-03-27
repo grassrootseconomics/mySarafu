@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/app/components/balance/view/balance_widget.dart';
+import 'package:my_sarafu/app/components/balance.dart';
 import 'package:my_sarafu/app/components/bottom_nav/view/bottom_nav.dart';
 import 'package:my_sarafu/app/components/recent.dart';
 import 'package:my_sarafu/app/components/transactions/view/transactions.dart';
@@ -37,7 +37,7 @@ class HomeView extends StatelessWidget {
         body: SafeArea(
           child: Column(
             children: const <Widget>[
-              BalanceWidget(),
+              BalanceView(),
               RecentWidget(),
               TransactionsView(),
             ],

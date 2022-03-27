@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/app/components/bottom_nav/view/bottom_nav.dart';
 import 'package:my_sarafu/app/view/settings/cubit/account_cubit.dart';
-import 'package:my_sarafu/app/view/settings/cubit/settings_cubit.dart';
+import 'package:my_sarafu/cubit/settings/settings_cubit.dart';
 import 'package:my_sarafu/l10n/l10n.dart';
 import 'package:my_sarafu/utils/contracts.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -19,14 +19,7 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(
-        create: (_) => SettingsCubit(),
-      ),
-      BlocProvider(
-        create: (_) => AccountCubit(),
-      ),
-    ], child: const SettingsView());
+    return const SettingsView();
   }
 }
 
@@ -39,7 +32,6 @@ class SettingsView extends StatelessWidget {
     final settings = context.select((SettingsCubit cubit) => cubit.state);
     final account = context.select((AccountCubit cubit) => cubit.state);
     final wallet = loadWallet(account.wallet, 'password');
-
     return Scaffold(
         // To work with lists that may contain a large number of items, it’s best
         // to use the ListView.builder constructor.
@@ -72,8 +64,10 @@ class SettingsView extends StatelessWidget {
                     ),
                   ),
                   SettingsTile.switchTile(
-                    onToggle: (value) {},
-                    initialValue: true,
+                    onToggle: (value) {
+                      context.read<SettingsCubit>().setDarkModel(value);
+                    },
+                    initialValue: settings.darkMode,
                     leading: const Icon(Icons.format_paint),
                     title: const Text('Dark Mode'),
                   ),
@@ -85,7 +79,7 @@ class SettingsView extends StatelessWidget {
                   SettingsTile.navigation(
                     leading: const Icon(Icons.document_scanner_rounded),
                     title: const Text('Contract Registry Address'),
-                    value: Text(settings.registeryAddress),
+                    value: Text(settings.contractRegisteryAddress),
                   ),
                   SettingsTile.navigation(
                     leading: const Icon(Icons.link_rounded),

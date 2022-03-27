@@ -11,15 +11,15 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:my_sarafu/utils/contracts.dart';
 
 class Account {
-  final String name;
-  final String wallet;
-  final String password;
 
   Account({
     required this.name,
     required this.wallet,
     required this.password,
   });
+  final String name;
+  final String wallet;
+  final String password;
 }
 
 var DefaultWallet = Account(
