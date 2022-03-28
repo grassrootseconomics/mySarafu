@@ -32,8 +32,9 @@ class TransactionWidget extends StatelessWidget {
                 child: IconWidget(),
               ),
               Expanded(
-                child:
-                    Text('${transaction.sender} -> ${transaction.recipient}'),
+                child: Text(
+                  '${truncateAddress(transaction.sender)} -> ${truncateAddress(transaction.recipient)}',
+                ),
               ),
               Expanded(
                 child: Row(
@@ -58,6 +59,9 @@ class TransactionWidget extends StatelessWidget {
     );
   }
 }
+
+String truncateAddress(String address) =>
+    address.replaceRange(4, address.length - 4, '...');
 
 String getSymbol(TokensState tokensState, String address) {
   final token = tokensState.tokens.firstWhereOrNull(

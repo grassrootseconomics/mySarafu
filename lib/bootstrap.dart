@@ -7,26 +7,25 @@
 
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
-import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 Future<Directory> getConfigDir() async {
-  final directory = await getApplicationDocumentsDirectory();
-  final configDir = p.join(directory.path, 'sarafu');
-  final directoryExists = await Directory(configDir).exists();
-  
-  if(!directoryExists) {
-    await Directory(configDir).create();
-  }
-  return Directory(configDir);
-}
+  final documentsDirectory = await getApplicationDocumentsDirectory();
+  final configDir = p.join(documentsDirectory.path, 'sarafu');
+  final directory = Directory(configDir);
 
+  if (directory.existsSync()) {
+    return Directory(configDir);
+  }
+  return Directory(configDir).create();
+}
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -48,12 +47,10 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   };
   await runZonedGuarded(
     () async {
-
       WidgetsFlutterBinding.ensureInitialized();
       final storage = await HydratedStorage.build(
-        storageDirectory: kIsWeb
-            ? HydratedStorage.webStorageDirectory
-            : await getConfigDir(),
+        storageDirectory:
+            kIsWeb ? HydratedStorage.webStorageDirectory : await getConfigDir(),
       );
       await HydratedBlocOverrides.runZoned(
         () async => runApp(await builder()),

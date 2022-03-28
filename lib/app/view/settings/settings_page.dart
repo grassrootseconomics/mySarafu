@@ -8,20 +8,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/app/components/bottom_nav/view/bottom_nav.dart';
-import 'package:my_sarafu/app/view/settings/cubit/account_cubit.dart';
+import 'package:my_sarafu/cubit/accounts/account_cubit.dart';
 import 'package:my_sarafu/cubit/settings/settings_cubit.dart';
 import 'package:my_sarafu/l10n/l10n.dart';
 import 'package:my_sarafu/utils/contracts.dart';
 import 'package:settings_ui/settings_ui.dart';
-
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const SettingsView();
-  }
-}
 
 class SettingsView extends StatelessWidget {
   const SettingsView({Key? key}) : super(key: key);
@@ -48,7 +39,7 @@ class SettingsView extends StatelessWidget {
                 tiles: <SettingsTile>[
                   SettingsTile.navigation(
                     leading: const Icon(Icons.account_circle_rounded),
-                    title: const Text('Active Account'),
+                    title: const Text('Account'),
                     value: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -65,7 +56,7 @@ class SettingsView extends StatelessWidget {
                   ),
                   SettingsTile.switchTile(
                     onToggle: (value) {
-                      context.read<SettingsCubit>().setDarkModel(value);
+                      context.read<SettingsCubit>().setDarkMode(value: value);
                     },
                     initialValue: settings.darkMode,
                     leading: const Icon(Icons.format_paint),

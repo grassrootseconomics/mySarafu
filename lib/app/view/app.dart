@@ -11,9 +11,9 @@ import 'package:http/http.dart'; //You can also import the browser version
 import 'package:my_sarafu/app/components/bottom_nav/cubit/nav_cubit.dart';
 import 'package:my_sarafu/app/view/home/home.dart';
 import 'package:my_sarafu/app/view/landing/landing.dart';
-import 'package:my_sarafu/app/view/settings/cubit/account_cubit.dart';
-import 'package:my_sarafu/app/view/settings/settings.dart';
+import 'package:my_sarafu/app/view/settings/settings_page.dart';
 import 'package:my_sarafu/app/view/tokens/tokens_page.dart';
+import 'package:my_sarafu/cubit/accounts/account_cubit.dart';
 import 'package:my_sarafu/cubit/settings/settings_cubit.dart';
 import 'package:my_sarafu/cubit/tokens/tokens_cubit.dart';
 import 'package:my_sarafu/data/tokens_repository.dart';
@@ -101,9 +101,9 @@ class AppView extends StatelessWidget {
         supportedLocales: AppLocalizations.supportedLocales,
         initialRoute: '/',
         routes: {
-          '/': (context) => const HomePage(),
+          '/': (context) => const HomeView(),
           '/tokens': (context) => const TokensView(),
-          '/settings': (context) => const SettingsPage(),
+          '/settings': (context) => const SettingsView(),
           '/landing': (context) => const LandingPage(),
         },
       ),

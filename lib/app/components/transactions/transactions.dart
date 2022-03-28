@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart'; //You can also import the browser version
-import 'package:my_sarafu/app/components/transactions/cubit/transactions_cubit.dart';
-import 'package:my_sarafu/app/components/transactions/view/transaction.dart';
-import 'package:my_sarafu/app/view/settings/cubit/account_cubit.dart';
+import 'package:my_sarafu/app/components/transactions/transaction.dart';
+import 'package:my_sarafu/cubit/accounts/account_cubit.dart';
 import 'package:my_sarafu/cubit/settings/settings_cubit.dart';
 import 'package:my_sarafu/cubit/tokens/tokens_cubit.dart';
+import 'package:my_sarafu/cubit/transactions/transactions_cubit.dart';
 import 'package:my_sarafu/data/tokens_repository.dart';
 import 'package:my_sarafu/data/transactions_repository.dart';
 import 'package:my_sarafu/wallet/wallet.dart';

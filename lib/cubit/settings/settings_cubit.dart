@@ -22,9 +22,7 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
     return state.toJson();
   }
 
-  void setDarkModel(bool value) {
-    final newState = state.copyWith(darkMode: value);
-    print(newState);
-    emit(newState);
+  void setDarkMode({required bool value}) {
+    emit(state.copyWith(darkMode: value));
   }
 }

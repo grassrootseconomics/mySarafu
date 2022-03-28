@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/app/components/bottom_nav/view/bottom_nav.dart';
 import 'package:my_sarafu/app/components/token.dart';
-import 'package:my_sarafu/app/view/settings/cubit/account_cubit.dart';
+import 'package:my_sarafu/cubit/accounts/account_cubit.dart';
 import 'package:my_sarafu/cubit/tokens/tokens_cubit.dart';
 import 'package:my_sarafu/data/model/token.dart';
 import 'package:my_sarafu/utils/logger.dart';
