@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_launcher_icons: ^0.9.2
   flutter_localizations:
     sdk: flutter
   hydrated_bloc: ^8.1.0
@@ -20,6 +21,11 @@ dependencies:
   path_provider: ^2.0.9
   settings_ui: ^2.0.2
   web3dart: ^2.3.5
+
+flutter_icons:
+  image_path: "assets/images/sarafu_logo.png"
+  android: true # can specify file name here e.g. "ic_launcher"
+  ios: true # can specify file name here e.g. "My-Launcher-Icon"
 
 dev_dependencies:
   bloc_test: ^9.0.3

@@ -11,13 +11,24 @@ Sarafu
 ---
 
 ## Getting Started 🚀
+
 ### Building Contracts from ABI
+
 ```
-flutter pub run build_runner build 
+flutter pub run build_runner build
 ```
+
+### Building Launcher Icons
+https://github.com/fluttercommunity/flutter_launcher_icons/issues/352
+```
+flutter pub run flutter_launcher_icons:main
+
+```
+
 ### Linux
+
 ```
- cd 
+ cd
  # Stable
  git clone https://github.com/flutter/flutter.git -b stable
 
@@ -27,7 +38,9 @@ flutter pub run build_runner build
  echo 'PATH="$PATH:`pwd`/flutter/bin"' >> ~/.profile
 
 ```
+
 ### General
+
 This project contains 3 flavors:
 
 - development
@@ -132,6 +145,7 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 
     ...
 ```
+
 flutter config --enable-linux-desktop
 
 ### Adding Translations
