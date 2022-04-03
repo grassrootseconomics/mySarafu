@@ -5,8 +5,8 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'package:my_sarafu/app/app.dart';
 import 'package:my_sarafu/bootstrap.dart';
+import 'package:my_sarafu/presentation/app.dart';
 
 void main() {
   bootstrap(() => const App());
