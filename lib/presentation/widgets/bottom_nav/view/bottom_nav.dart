@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/l10n/l10n.dart';
 import 'package:my_sarafu/logic/utils/logger.dart';
-import 'package:my_sarafu/presentation/components/bottom_nav/cubit/nav_cubit.dart';
+import 'package:my_sarafu/presentation/widgets/bottom_nav/cubit/nav_cubit.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({

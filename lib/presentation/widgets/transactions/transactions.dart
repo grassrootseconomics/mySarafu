@@ -6,7 +6,7 @@ import 'package:my_sarafu/logic/cubit/settings/settings_cubit.dart';
 import 'package:my_sarafu/logic/cubit/transactions/transactions_cubit.dart';
 import 'package:my_sarafu/logic/data/transactions_repository.dart';
 import 'package:my_sarafu/logic/wallet/wallet.dart';
-import 'package:my_sarafu/presentation/components/transactions/transaction.dart';
+import 'package:my_sarafu/presentation/widgets/transactions/transaction.dart';
 import 'package:web3dart/web3dart.dart';
 
 class TransactionsView extends StatelessWidget {

@@ -12,7 +12,7 @@ import 'package:my_sarafu/logic/cubit/accounts/account_cubit.dart';
 import 'package:my_sarafu/logic/cubit/settings/settings_cubit.dart';
 import 'package:my_sarafu/logic/data/network_presets.dart';
 import 'package:my_sarafu/logic/utils/contracts.dart';
-import 'package:my_sarafu/presentation/components/bottom_nav/view/bottom_nav.dart';
+import 'package:my_sarafu/presentation/widgets/bottom_nav/view/bottom_nav.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class SettingsView extends StatelessWidget {

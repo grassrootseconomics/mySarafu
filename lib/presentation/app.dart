@@ -15,11 +15,11 @@ import 'package:my_sarafu/logic/cubit/tokens/tokens_cubit.dart';
 import 'package:my_sarafu/logic/data/registry_repository.dart';
 import 'package:my_sarafu/logic/data/tokens_repository.dart';
 import 'package:my_sarafu/logic/wallet/wallet.dart';
-import 'package:my_sarafu/presentation/components/bottom_nav/cubit/nav_cubit.dart';
 import 'package:my_sarafu/presentation/screens/home/home.dart';
 import 'package:my_sarafu/presentation/screens/landing/landing_page.dart';
 import 'package:my_sarafu/presentation/screens/settings/settings_page.dart';
 import 'package:my_sarafu/presentation/screens/tokens/tokens_page.dart';
+import 'package:my_sarafu/presentation/widgets/bottom_nav/cubit/nav_cubit.dart';
 import 'package:web3dart/web3dart.dart';
 
 class App extends StatelessWidget {

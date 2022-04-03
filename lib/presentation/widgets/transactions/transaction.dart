@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/logic/cubit/tokens/tokens_cubit.dart';
 import 'package:my_sarafu/logic/data/model/transaction.dart';
 import 'package:my_sarafu/logic/utils/Converter.dart';
-import 'package:my_sarafu/presentation/components/icon.dart';
+import 'package:my_sarafu/presentation/widgets/icon.dart';
 import 'package:web3dart/credentials.dart';
 
 /// Displays a list of SampleItems.

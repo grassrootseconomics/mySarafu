@@ -36,11 +36,11 @@ class AccountCubit extends HydratedCubit<Account> {
       );
 
   @override
-  Map<String, String> toJson(Account accountState) {
+  Map<String, String> toJson(Account state) {
     return {
-      'name': accountState.name,
-      'wallet': json.encode(accountState.wallet),
-      'password': accountState.password,
+      'name': state.name,
+      'wallet': json.encode(state.wallet),
+      'password': state.password,
     };
   }
 

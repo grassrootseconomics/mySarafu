@@ -7,10 +7,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:my_sarafu/l10n/l10n.dart';
-import 'package:my_sarafu/presentation/components/balance.dart';
-import 'package:my_sarafu/presentation/components/bottom_nav/view/bottom_nav.dart';
-import 'package:my_sarafu/presentation/components/recent.dart';
-import 'package:my_sarafu/presentation/components/transactions/transactions.dart';
+import 'package:my_sarafu/presentation/widgets/balance.dart';
+import 'package:my_sarafu/presentation/widgets/bottom_nav/view/bottom_nav.dart';
+import 'package:my_sarafu/presentation/widgets/recent.dart';
+import 'package:my_sarafu/presentation/widgets/transactions/transactions.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);

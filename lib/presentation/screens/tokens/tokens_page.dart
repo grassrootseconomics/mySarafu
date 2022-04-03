@@ -13,8 +13,8 @@ import 'package:my_sarafu/logic/cubit/tokens/tokens_cubit.dart';
 import 'package:my_sarafu/logic/data/model/token.dart';
 import 'package:my_sarafu/logic/utils/logger.dart';
 import 'package:my_sarafu/logic/wallet/wallet.dart';
-import 'package:my_sarafu/presentation/components/bottom_nav/view/bottom_nav.dart';
-import 'package:my_sarafu/presentation/components/token.dart';
+import 'package:my_sarafu/presentation/widgets/bottom_nav/view/bottom_nav.dart';
+import 'package:my_sarafu/presentation/widgets/token.dart';
 
 class TokensView extends StatelessWidget {
   const TokensView({Key? key}) : super(key: key);

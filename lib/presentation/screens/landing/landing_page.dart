@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/presentation/components/bottom_nav/view/bottom_nav.dart';
+import 'package:my_sarafu/presentation/widgets/bottom_nav/view/bottom_nav.dart';
 
 class LandingView extends StatelessWidget {
   const LandingView({Key? key}) : super(key: key);
