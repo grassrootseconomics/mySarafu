@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart'; //You can also import the browser version
 import 'package:my_sarafu/logic/cubit/accounts/account_cubit.dart';
 import 'package:my_sarafu/logic/cubit/settings/settings_cubit.dart';
 import 'package:my_sarafu/logic/cubit/transactions/transactions_cubit.dart';
 import 'package:my_sarafu/logic/data/transactions_repository.dart';
 import 'package:my_sarafu/logic/wallet/wallet.dart';
 import 'package:my_sarafu/presentation/widgets/transactions/transaction.dart';
-import 'package:web3dart/web3dart.dart';
 
 class TransactionsView extends StatelessWidget {
   const TransactionsView({Key? key}) : super(key: key);
@@ -15,8 +13,6 @@ class TransactionsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.select((SettingsCubit cubit) => cubit.state);
-    final httpClient = Client();
-    final ethClient = Web3Client(settings.rpcProvider, httpClient);
     final account = context.select((AccountCubit cubit) => cubit.state);
     final wallet = unlockWallet(account.wallet, account.password);
     return MultiBlocProvider(
@@ -27,7 +23,7 @@ class TransactionsView extends StatelessWidget {
               address: wallet.privateKey.address,
               cacheUrl: settings.cacheUrl,
             ),
-          )..fetchAllTransactions(wallet.privateKey.address),
+          ),
         ),
       ],
       child: const TransactionsWidget(),

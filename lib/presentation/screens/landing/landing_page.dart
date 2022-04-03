@@ -22,11 +22,11 @@ class LandingView extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineLarge),
               TextButton(
                 onPressed: () => print('Pressed'),
-                child: const Text('Connect Exisiting Sarafu Wallet'),
+                child: const Text('Connect Sarafu Account'),
               ),
               TextButton(
                 onPressed: () => print('Pressed'),
-                child: const Text('Create new account'),
+                child: const Text('Create Account'),
               )
             ],
           ),

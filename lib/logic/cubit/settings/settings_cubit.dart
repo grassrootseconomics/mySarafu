@@ -27,16 +27,39 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
     emit(state.copyWith(darkMode: value));
   }
 
-  void changeNetworkPreset(NetworkPreset preset) {
-    emit(
-      state.copyWith(
-        chainSpec: preset.chainSpec,
-        cacheUrl: preset.cacheUrl,
-        rpcProvider: preset.rpcProvider,
-        contractRegisteryAddress: preset.contractRegisteryAddress,
-        metaUrl: preset.metaUrl,
-        tokenRegistryAddress: '',
-      ),
-    );
+  void changeNetworkPreset(NetworkPresets preset) {
+    switch (preset) {
+      case NetworkPresets.mainnet:
+        emit(
+          state.copyWith(
+              networkPreset: preset,
+              cacheUrl: mainnet.cacheUrl,
+              chainSpec: mainnet.chainSpec,
+              contractRegisteryAddress: mainnet.contractRegisteryAddress,
+              rpcProvider: mainnet.rpcProvider,
+              metaUrl: mainnet.metaUrl,
+              tokenRegistryAddress: ''),
+        );
+        break;
+      case NetworkPresets.testnet:
+        emit(
+          state.copyWith(
+              networkPreset: preset,
+              cacheUrl: testnet.cacheUrl,
+              chainSpec: testnet.chainSpec,
+              contractRegisteryAddress: testnet.contractRegisteryAddress,
+              rpcProvider: testnet.rpcProvider,
+              metaUrl: testnet.metaUrl,
+              tokenRegistryAddress: ''),
+        );
+        break;
+      case NetworkPresets.custom:
+        emit(
+          state.copyWith(networkPreset: preset),
+        );
+        break;
+      default:
+        throw Exception('Unknown network preset');
+    }
   }
 }

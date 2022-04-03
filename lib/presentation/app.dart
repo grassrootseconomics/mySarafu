@@ -104,7 +104,7 @@ class AppView extends StatelessWidget {
           GlobalMaterialLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.supportedLocales,
-        initialRoute: '/landing',
+        initialRoute: '/settings',
         routes: {
           '/': (context) => const HomeView(),
           '/tokens': (context) => const TokensView(),

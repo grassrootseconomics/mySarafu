@@ -7,7 +7,8 @@ class SettingsState extends Equatable {
     required this.metaUrl,
     required this.cacheUrl,
     required this.rpcProvider,
-    this.tokenRegistryAddress = null,
+    this.tokenRegistryAddress,
+    this.networkPreset = NetworkPresets.mainnet,
     this.darkMode = false,
   });
   factory SettingsState.fromJson(dynamic json) {
@@ -18,10 +19,15 @@ class SettingsState extends Equatable {
       metaUrl: json['metaUrl'] as String,
       cacheUrl: json['cacheUrl'] as String,
       rpcProvider: json['rpcProvider'] as String,
+      networkPreset: NetworkPresets.values.byName(
+        json['networkPreset'] is String
+            ? json['networkPreset'] as String
+            : NetworkPresets.mainnet.name,
+      ),
       darkMode: json['darkMode'] as bool,
     );
   }
-
+  final NetworkPresets networkPreset;
   final String chainSpec;
   final String contractRegisteryAddress;
   final String metaUrl;
@@ -37,6 +43,7 @@ class SettingsState extends Equatable {
     String? cacheUrl,
     String? rpcProvider,
     String? tokenRegistryAddress,
+    NetworkPresets? networkPreset,
     bool? darkMode,
   }) {
     final settings = SettingsState(
@@ -48,6 +55,7 @@ class SettingsState extends Equatable {
       rpcProvider: rpcProvider ?? this.rpcProvider,
       tokenRegistryAddress: tokenRegistryAddress ?? this.tokenRegistryAddress,
       darkMode: darkMode ?? this.darkMode,
+      networkPreset: networkPreset ?? this.networkPreset,
     );
     return settings;
   }
@@ -59,6 +67,7 @@ class SettingsState extends Equatable {
         'metaUrl': metaUrl,
         'cacheUrl': cacheUrl,
         'rpcProvider': rpcProvider,
+        'networkPreset': networkPreset.name,
         'darkMode': darkMode,
       };
 
@@ -70,6 +79,7 @@ class SettingsState extends Equatable {
         cacheUrl,
         rpcProvider,
         tokenRegistryAddress,
+        networkPreset,
         darkMode,
       ];
 }
