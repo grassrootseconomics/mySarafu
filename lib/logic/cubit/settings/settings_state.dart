@@ -9,13 +9,13 @@ class SettingsState extends Equatable {
     required this.rpcProvider,
     this.tokenRegistryAddress,
     this.networkPreset = NetworkPresets.mainnet,
-    this.darkMode = false,
+    this.themeMode = ThemeMode.system,
   });
   factory SettingsState.fromJson(dynamic json) {
     return SettingsState(
       chainSpec: json['chainSpec'] as String,
       contractRegisteryAddress: json['registeryAddress'] as String,
-      tokenRegistryAddress: json['tokenRegistryAddress'] as String,
+      tokenRegistryAddress: json['tokenRegistryAddress'] as String? ?? '',
       metaUrl: json['metaUrl'] as String,
       cacheUrl: json['cacheUrl'] as String,
       rpcProvider: json['rpcProvider'] as String,
@@ -24,7 +24,11 @@ class SettingsState extends Equatable {
             ? json['networkPreset'] as String
             : NetworkPresets.mainnet.name,
       ),
-      darkMode: json['darkMode'] as bool,
+      themeMode: ThemeMode.values.byName(
+        json['themeMode'] is String
+            ? json['themeMode'] as String
+            : ThemeMode.system.name,
+      ),
     );
   }
   final NetworkPresets networkPreset;
@@ -34,7 +38,7 @@ class SettingsState extends Equatable {
   final String cacheUrl;
   final String rpcProvider;
   final String? tokenRegistryAddress;
-  final bool darkMode;
+  final ThemeMode themeMode;
 
   SettingsState copyWith({
     String? chainSpec,
@@ -44,7 +48,7 @@ class SettingsState extends Equatable {
     String? rpcProvider,
     String? tokenRegistryAddress,
     NetworkPresets? networkPreset,
-    bool? darkMode,
+    ThemeMode? themeMode,
   }) {
     final settings = SettingsState(
       chainSpec: chainSpec ?? this.chainSpec,
@@ -54,7 +58,7 @@ class SettingsState extends Equatable {
       cacheUrl: cacheUrl ?? this.cacheUrl,
       rpcProvider: rpcProvider ?? this.rpcProvider,
       tokenRegistryAddress: tokenRegistryAddress ?? this.tokenRegistryAddress,
-      darkMode: darkMode ?? this.darkMode,
+      themeMode: themeMode ?? this.themeMode,
       networkPreset: networkPreset ?? this.networkPreset,
     );
     return settings;
@@ -68,7 +72,7 @@ class SettingsState extends Equatable {
         'cacheUrl': cacheUrl,
         'rpcProvider': rpcProvider,
         'networkPreset': networkPreset.name,
-        'darkMode': darkMode,
+        'themeMode': themeMode.name,
       };
 
   @override
@@ -80,20 +84,18 @@ class SettingsState extends Equatable {
         rpcProvider,
         tokenRegistryAddress,
         networkPreset,
-        darkMode,
+        themeMode,
       ];
 }
 
 class InitialSettings extends SettingsState {
-  const InitialSettings()
+  InitialSettings()
       : super(
-          chainSpec: 'evm:blockchain:kitabu',
-          contractRegisteryAddress:
-              '0xcf60ebc445b636a5ab787f9e8bc465a2a3ef8299',
-          tokenRegistryAddress: null,
-          metaUrl: 'https://meta.grassecon.net',
-          cacheUrl: 'https://cache.grassecon.net',
-          rpcProvider: 'https://rpc.grassecon.net',
+          chainSpec: mainnet.chainSpec,
+          contractRegisteryAddress: mainnet.contractRegisteryAddress,
+          metaUrl: mainnet.metaUrl,
+          cacheUrl: mainnet.cacheUrl,
+          rpcProvider: mainnet.rpcProvider,
         );
 }
 
@@ -105,7 +107,7 @@ class SettingsLoaded extends SettingsState {
     required String cacheUrl,
     required String rpcProvider,
     required String tokenRegistryAddress,
-    bool darkMode = false,
+    ThemeMode themeMode = ThemeMode.system,
   }) : super(
           chainSpec: chainSpec,
           contractRegisteryAddress: contractRegisteryAddress,
@@ -113,6 +115,6 @@ class SettingsLoaded extends SettingsState {
           cacheUrl: cacheUrl,
           rpcProvider: rpcProvider,
           tokenRegistryAddress: tokenRegistryAddress,
-          darkMode: darkMode,
+          themeMode: themeMode,
         );
 }

@@ -3,12 +3,12 @@ part of 'tokens_cubit.dart';
 @immutable
 abstract class TokensState extends Equatable {
   const TokensState({required this.tokens, this.activeTokenIdx});
-  final List<TokenItem> tokens;
+  final List<Token> tokens;
   final int? activeTokenIdx;
 }
 
 class TokensInitial extends TokensState {
-  const TokensInitial({required List<TokenItem> tokens, int? activeTokenIdx})
+  const TokensInitial({required List<Token> tokens, int? activeTokenIdx})
       : super(tokens: tokens, activeTokenIdx: activeTokenIdx);
 
   @override
@@ -18,7 +18,7 @@ class TokensInitial extends TokensState {
 }
 
 class TokensLoaded extends TokensState {
-  const TokensLoaded({required List<TokenItem> tokens, int? activeTokenIdx})
+  const TokensLoaded({required List<Token> tokens, int? activeTokenIdx})
       : super(tokens: tokens, activeTokenIdx: activeTokenIdx);
 
   @override
@@ -27,7 +27,7 @@ class TokensLoaded extends TokensState {
   }
 
   TokensLoaded copyWith({
-    List<TokenItem>? tokens,
+    List<Token>? tokens,
     int? activeTokenIdx,
   }) {
     return TokensLoaded(
@@ -39,7 +39,7 @@ class TokensLoaded extends TokensState {
 
 class TokensError extends TokensState {
   const TokensError(
-      List<TokenItem> tokens, int? activeTokenIdx, this.message)
+      List<Token> tokens, int? activeTokenIdx, this.message)
       : super(tokens: tokens, activeTokenIdx: activeTokenIdx);
   final String message;
 

@@ -11,14 +11,15 @@ import 'package:web3dart/web3dart.dart';
 
 // In either way, the library can derive the public key and the address
 // from a private key:
-Wallet createWallet() {
+String createAccount(String password) {
   final rng = Random.secure();
   final credentials = EthPrivateKey.createRandom(rng);
   final wallet = Wallet.createNew(credentials, 'password', rng);
-  return wallet;
+  final address = wallet.privateKey.address;
+  return wallet.toJson();
 }
 
-Wallet loadWallet(String walletJson, String password) {
+Wallet decryptWallet(String walletJson, String password) {
   final wallet = Wallet.fromJson(walletJson, password);
   return wallet;
 }

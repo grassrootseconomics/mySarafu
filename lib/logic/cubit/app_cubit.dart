@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:my_sarafu/logic/data/model/state.dart';
+import 'package:my_sarafu/logic/data/model/settings.dart';
 import 'package:my_sarafu/logic/data/model/token.dart';
 import 'package:my_sarafu/logic/data/tokens_repository.dart';
 import 'package:my_sarafu/logic/data/transactions_repository.dart';
@@ -24,7 +24,7 @@ class AppCubit extends HydratedCubit<Settings> {
         cacheUrl: json['cacheUrl'] as String,
         rpcProvider: json['rpcProvider'] as String,
         tokens: TokenList.fromJson(json['tokens'] as List),
-        activeToken: TokenItem.fromJson(json['activeToken']),
+        activeToken: Token.fromJson(json['activeToken']),
         encryptedWallet: jsonDecode(json['wallet'] as String) as String,
       );
 

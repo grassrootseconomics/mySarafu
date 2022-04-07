@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/l10n/l10n.dart';
-import 'package:my_sarafu/logic/cubit/accounts/account_cubit.dart';
+import 'package:my_sarafu/logic/cubit/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/logic/cubit/settings/settings_cubit.dart';
 import 'package:my_sarafu/logic/data/network_presets.dart';
-import 'package:my_sarafu/logic/utils/contracts.dart';
+import 'package:my_sarafu/presentation/widgets/account.dart';
 import 'package:my_sarafu/presentation/widgets/bottom_nav/view/bottom_nav.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -15,8 +15,7 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final settings = context.select((SettingsCubit cubit) => cubit.state);
-    final account = context.select((AccountCubit cubit) => cubit.state);
-    final wallet = loadWallet(account.wallet, 'password');
+    final account = context.select((AccountsCubit cubit) => cubit.state);
     return Scaffold(
       // To work with lists that may contain a large number of items, it’s best
       // to use the ListView.builder constructor.
@@ -34,62 +33,134 @@ class SettingsView extends StatelessWidget {
                 SettingsTile.navigation(
                   leading: const Icon(Icons.account_circle_rounded),
                   title: const Text('Account'),
+                  onPressed: (_) {
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (BuildContext _) {
+                        return Form(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () => Navigator.pushNamed(
+                                        context, '/landing'),
+                                    child: Text('Create New Account'),
+                                  ),
+                                  Expanded(
+                                    child: ListView.builder(
+                                      itemCount: account.accounts.length,
+                                      itemBuilder: (context, index) =>
+                                          AccountListItem(
+                                        onPressed: (accountIdx) {
+                                          context
+                                              .read<AccountsCubit>()
+                                              .setActiveAccount(accountIdx);
+                                          Navigator.pop(context);
+                                        },
+                                        accountIdx: index,
+                                        account: account.accounts[index],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
                   value: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        account.name,
+                        context.read<AccountsCubit>().activeAccount?.name ?? '',
                         textAlign: TextAlign.left,
                       ),
                       SelectableText(
-                        wallet.privateKey.address.toString(),
+                        context
+                                .read<AccountsCubit>()
+                                .activeAccount
+                                ?.address
+                                .hex ??
+                            '',
                         textAlign: TextAlign.left,
                       )
                     ],
                   ),
                 ),
-                SettingsTile.switchTile(
-                  onToggle: (value) {
-                    context.read<SettingsCubit>().setDarkMode(value: value);
-                  },
-                  initialValue: settings.darkMode,
+                SettingsTile.navigation(
                   leading: const Icon(Icons.format_paint),
                   title: const Text('Dark Mode'),
+                  trailing: DropdownButton(
+                    // Initial Value
+                    value: context.read<SettingsCubit>().state.themeMode,
+
+                    // Down Arrow Icon
+                    icon: const Icon(Icons.keyboard_arrow_down),
+
+                    // Array list of items
+                    items: const [
+                      DropdownMenuItem(
+                        value: ThemeMode.system,
+                        child: Text('System'),
+                      ),
+                      DropdownMenuItem(
+                        value: ThemeMode.dark,
+                        child: Text('Dark'),
+                      ),
+                      DropdownMenuItem(
+                        value: ThemeMode.light,
+                        child: Text('Light'),
+                      )
+                    ],
+                    // After selecting the desired option,it will
+                    // change button value to selected value
+                    onChanged: (ThemeMode? newValue) {
+                      if (newValue != null) {
+                        context
+                            .read<SettingsCubit>()
+                            .setThemeMode(value: newValue);
+                      }
+                    },
+                  ),
                 ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.account_circle_rounded),
                   title: const Text('Select Network Preset'),
-                  value: Wrap(
-                    runAlignment: WrapAlignment.spaceEvenly,
-                    children: [
-                      ChoiceChip(
-                        label: const Text('Mainnet'),
-                        selected:
-                            context.read<SettingsCubit>().state.networkPreset ==
-                                NetworkPresets.mainnet,
-                        onSelected: (selected) => context
-                            .read<SettingsCubit>()
-                            .changeNetworkPreset(NetworkPresets.mainnet),
+                  trailing: DropdownButton(
+                    // Initial Value
+                    value: context.read<SettingsCubit>().state.networkPreset,
+
+                    // Down Arrow Icon
+                    icon: const Icon(Icons.keyboard_arrow_down),
+
+                    // Array list of items
+                    items: const [
+                      DropdownMenuItem(
+                        value: NetworkPresets.mainnet,
+                        child: Text('Mainnet'),
                       ),
-                      ChoiceChip(
-                        label: const Text('Testnet'),
-                        onSelected: (selected) => context
-                            .read<SettingsCubit>()
-                            .changeNetworkPreset(NetworkPresets.testnet),
-                        selected:
-                            context.read<SettingsCubit>().state.networkPreset ==
-                                NetworkPresets.testnet,
+                      DropdownMenuItem(
+                        value: NetworkPresets.testnet,
+                        child: Text('Testnet'),
                       ),
-                      ChoiceChip(
-                        label: const Text('Custom'),
-                        onSelected: (selected) => context
-                            .read<SettingsCubit>()
-                            .changeNetworkPreset(NetworkPresets.custom),
-                        selected:
-                            context.read<SettingsCubit>().state.networkPreset ==
-                                NetworkPresets.custom,
+                      DropdownMenuItem(
+                        value: NetworkPresets.custom,
+                        child: Text('Custom'),
                       )
                     ],
+                    // After selecting the desired option,it will
+                    // change button value to selected value
+                    onChanged: (NetworkPresets? newValue) {
+                      if (newValue != null) {
+                        context
+                            .read<SettingsCubit>()
+                            .changeNetworkPreset(newValue);
+                      }
+                    },
                   ),
                 )
               ],

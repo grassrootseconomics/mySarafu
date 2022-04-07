@@ -1,6 +1,7 @@
 import 'dart:convert'; // for the utf8.encode method
 
 import 'package:crypto/crypto.dart';
+import 'package:my_sarafu/logic/utils/logger.dart';
 
 enum Pointer {
   none,
@@ -93,28 +94,25 @@ class MetadataPointer {
 }
 
 String generateMetadataPointer(String identifier, Pointer cicType) {
-  var identifierBytes = utf8.encode(identifier); // data being hashed
-  var type = MetadataPointer.get(cicType);
-  print(type);
-  var cicTypeBytes = type == null ? utf8.encode('') : utf8.encode(type);
-  print(identifierBytes);
-  print(cicTypeBytes);
+  final identifierBytes = utf8.encode(identifier); // data being hashed
+  final type = MetadataPointer.get(cicType);
+  final cicTypeBytes = type == null ? utf8.encode('') : utf8.encode(type);
+  logNoStack
+    ..d(type)
+    ..d(identifierBytes)
+    ..d(cicTypeBytes);
   return sha256.convert(identifierBytes + cicTypeBytes).toString();
   // var digest = sha256.convert(data: bytes);
 }
 
 void main() {
-  var test = generateMetadataPointer('254723522717', Pointer.phone);
-  print(test);
-  var test4 = generateMetadataPointer('+254723522717', Pointer.custom);
-  print(test4);
-  var test2 = generateMetadataPointer('SRF', Pointer.tokenDefault);
-  print(test2);
-  var test3 = generateMetadataPointer('SRF', Pointer.tokenProofSymbol);
-  print(test3);
+  final test = generateMetadataPointer('254723522717', Pointer.phone);
+  final test4 = generateMetadataPointer('+254723522717', Pointer.custom);
+  final test2 = generateMetadataPointer('SRF', Pointer.tokenDefault);
+  final test3 = generateMetadataPointer('SRF', Pointer.tokenProofSymbol);
+  logNoStack
+  ..d(test)
+  ..d(test4)
+  ..d(test2)
+  ..d(test3);
 }
-
-// hash_object = hashlib.new("sha256")
-// hash_object.update(identifier)
-// hash_object.update(cic_type.value.encode(encoding="utf-8"))
-// return hash_object.digest().hex()

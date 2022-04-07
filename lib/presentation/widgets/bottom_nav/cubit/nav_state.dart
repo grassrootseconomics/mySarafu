@@ -11,5 +11,5 @@ class NavState {
 }
 
 class NavInitial extends NavState {
-  const NavInitial() : super(route: '/', bottomNavIndex: 0);
+  const NavInitial() : super(route: '/home', bottomNavIndex: 0);
 }

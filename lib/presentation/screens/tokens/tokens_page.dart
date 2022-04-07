@@ -1,11 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/logic/cubit/accounts/account_cubit.dart';
+import 'package:my_sarafu/logic/cubit/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/logic/cubit/tokens/tokens_cubit.dart';
 import 'package:my_sarafu/logic/data/model/token.dart';
-import 'package:my_sarafu/logic/utils/logger.dart';
-import 'package:my_sarafu/logic/wallet/wallet.dart';
 import 'package:my_sarafu/presentation/widgets/bottom_nav/view/bottom_nav.dart';
 import 'package:my_sarafu/presentation/widgets/token.dart';
 
@@ -21,7 +19,6 @@ class TokensView extends StatelessWidget {
           children: [
             BlocConsumer<TokensCubit, TokensState>(
               listener: (context, state) {
-                log.d('TokensCubit changed: $state');
                 if (state is TokensError) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -50,12 +47,16 @@ class TokensView extends StatelessWidget {
 }
 
 Widget buildInitialInput(BuildContext context) {
-  final account = context.select((AccountCubit cubit) => cubit.state);
-  final wallet = unlockWallet(account.wallet, account.password);
+  final account = context.read<AccountsCubit>().activeAccount;
+  if (account == null) {
+    return const Center(
+      child: Text('No account selected'),
+    );
+  }
   return Center(
     child: TextButton(
       onPressed: () =>
-          context.read<TokensCubit>().fetchAllTokens(wallet.privateKey.address),
+          context.read<TokensCubit>().fetchAllTokens(account.address),
       child: const Text(
         'Fetch All Tokens',
         style: TextStyle(color: Colors.black),
@@ -64,18 +65,21 @@ Widget buildInitialInput(BuildContext context) {
   );
 }
 
-Widget buildTokenList(BuildContext context, List<TokenItem> tokens) {
+Widget buildTokenList(BuildContext context, List<Token> tokens) {
   final tokenCubit = context.read<TokensCubit>();
-  final account = context.select((AccountCubit cubit) => cubit.state);
-  final wallet = unlockWallet(account.wallet, account.password);
+  final account = context.read<AccountsCubit>().activeAccount;
+  if (account == null) {
+    return const Center(
+      child: Text('No account selected'),
+    );
+  }
 
   return Expanded(
     child: Column(
       children: [
         Expanded(
           child: RefreshIndicator(
-            onRefresh: () =>
-                tokenCubit.fetchAllTokens(wallet.privateKey.address),
+            onRefresh: () => tokenCubit.fetchAllTokens(account.address),
             child: ScrollConfiguration(
               behavior: ScrollConfiguration.of(context).copyWith(
                 dragDevices: {

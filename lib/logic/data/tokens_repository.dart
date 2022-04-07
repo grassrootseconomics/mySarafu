@@ -7,17 +7,18 @@ import 'package:web3dart/contracts/erc20.dart';
 import 'package:web3dart/web3dart.dart';
 
 class TokenRepository {
-  TokenRepository(
-      {required this.settings,
-      required this.registeryRepo,
-      required this.client});
+  TokenRepository({
+    required this.settings,
+    required this.registeryRepo,
+    required this.client,
+  });
 
   final SettingsState settings;
   final RegistryRepository registeryRepo;
   final Web3Client client;
   TokenUniqueSymbolIndex? tokenUniqueSymbolIndexContract;
 
-  List<TokenItem> tokens = [];
+  List<Token> tokens = [];
   Future<void> getContract() async {
     if (tokenUniqueSymbolIndexContract == null) {
       if (settings.tokenRegistryAddress == null ||
@@ -40,11 +41,13 @@ class TokenRepository {
     }
   }
 
-  Future<List<TokenItem>> getAllTokens(EthereumAddress address) async {
+  Future<List<Token>> getAllTokens(EthereumAddress address) async {
+    print(address);
     await getContract();
+
     final count = await tokenUniqueSymbolIndexContract!.entryCount();
     final range = List.generate(count.toInt(), (index) => index);
-    final tokens = <TokenItem>[];
+    final tokens = <Token>[];
     await Future.forEach(range, (int idx) async {
       final tokenContractAddress =
           await tokenUniqueSymbolIndexContract!.entry(BigInt.from(idx));
@@ -52,7 +55,7 @@ class TokenRepository {
       final symbol = await erc20.symbol();
       final decimals = await erc20.decimals();
       final balance = await erc20.balanceOf(address);
-      final token = TokenItem(
+      final token = Token(
         idx: idx,
         address: tokenContractAddress,
         symbol: symbol,
@@ -65,9 +68,11 @@ class TokenRepository {
     return tokens;
   }
 
-  Future<List<TokenItem>> updateBalances(
-      EthereumAddress address, List<TokenItem> tokens) async {
-    final updated = <TokenItem>[];
+  Future<List<Token>> updateBalances(
+    EthereumAddress address,
+    List<Token> tokens,
+  ) async {
+    final updated = <Token>[];
     await Future.wait(
       tokens.map((token) async {
         final balance = await getBalance(address, token);
@@ -79,7 +84,7 @@ class TokenRepository {
     return updated;
   }
 
-  Future<BigInt> getBalance(EthereumAddress address, TokenItem token) async {
+  Future<BigInt> getBalance(EthereumAddress address, Token token) async {
     final erc20 = Erc20(address: token.address, client: client);
     return erc20.balanceOf(address);
   }

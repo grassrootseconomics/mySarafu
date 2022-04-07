@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/logic/cubit/tokens/tokens_cubit.dart';
-import 'package:my_sarafu/logic/data/model/token.dart';
 
 class BalanceView extends StatelessWidget {
   const BalanceView({Key? key}) : super(key: key);
@@ -27,8 +26,7 @@ class BalanceText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final activeToken =
-        context.select<TokensCubit, TokenItem?>((cubit) => cubit.activeToken);
+    final activeToken = context.read<TokensCubit>().activeToken;
 
     return Text(
       '${activeToken?.userFacingBalance} ${activeToken?.symbol}',

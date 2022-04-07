@@ -1,20 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:http/http.dart'; //You can also import the browser version
 import 'package:my_sarafu/l10n/l10n.dart';
-import 'package:my_sarafu/logic/cubit/accounts/account_cubit.dart';
+import 'package:my_sarafu/logic/cubit/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/logic/cubit/settings/settings_cubit.dart';
-import 'package:my_sarafu/logic/cubit/tokens/tokens_cubit.dart';
-import 'package:my_sarafu/logic/data/registry_repository.dart';
-import 'package:my_sarafu/logic/data/tokens_repository.dart';
-import 'package:my_sarafu/logic/wallet/wallet.dart';
-import 'package:my_sarafu/presentation/screens/home/home.dart';
-import 'package:my_sarafu/presentation/screens/landing/landing_page.dart';
-import 'package:my_sarafu/presentation/screens/settings/settings_page.dart';
-import 'package:my_sarafu/presentation/screens/tokens/tokens_page.dart';
+import 'package:my_sarafu/presentation/routes.dart';
 import 'package:my_sarafu/presentation/widgets/bottom_nav/cubit/nav_cubit.dart';
-import 'package:web3dart/web3dart.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -30,7 +22,7 @@ class App extends StatelessWidget {
           create: (_) => SettingsCubit(),
         ),
         BlocProvider(
-          create: (_) => AccountCubit(),
+          create: (_) => AccountsCubit(),
         ),
       ],
       child: const AppView(),
@@ -43,69 +35,47 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final darkMode =
-        context.select((SettingsCubit cubit) => cubit.state.darkMode);
-    final settings = context.select((SettingsCubit cubit) => cubit.state);
-    final httpClient = Client();
-    final ethClient = Web3Client(settings.rpcProvider, httpClient);
-    final account = context.select((AccountCubit cubit) => cubit.state);
-    final wallet = unlockWallet(account.wallet, account.password);
-    return BlocProvider(
-      create: (context) => TokensCubit(
-        TokenRepository(
-          settings: settings,
-          registeryRepo: RegistryRepository(
-            contractRegistery: settings.contractRegisteryAddress,
-            client: ethClient,
-          ),
-          client: ethClient,
+    return MaterialApp(
+      themeMode: context
+          .select<SettingsCubit, ThemeMode>((cubit) => cubit.state.themeMode),
+      onGenerateRoute: (routeSettings) =>
+          onGenerateRoute(context, routeSettings),
+      theme: ThemeData(
+        colorScheme: const ColorScheme(
+          primary: Colors.green,
+          secondary: Colors.green,
+          background: Colors.green,
+          surface: Colors.green,
+          onBackground: Colors.white,
+          error: Colors.redAccent,
+          onError: Color.fromARGB(255, 70, 70, 70),
+          onPrimary: Color.fromARGB(255, 0, 0, 0),
+          onSecondary: Color.fromARGB(255, 0, 0, 0),
+          onSurface: Color.fromARGB(255, 0, 0, 0),
+          brightness: Brightness.light,
         ),
-      )..updateBalances(wallet.privateKey.address),
-      child: MaterialApp(
-        themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
-        theme: ThemeData(
-          colorScheme: const ColorScheme(
-            primary: Colors.green,
-            secondary: Colors.green,
-            background: Colors.green,
-            surface: Colors.green,
-            onBackground: Colors.white,
-            error: Colors.redAccent,
-            onError: Color.fromARGB(255, 70, 70, 70),
-            onPrimary: Color.fromARGB(255, 0, 0, 0),
-            onSecondary: Color.fromARGB(255, 0, 0, 0),
-            onSurface: Color.fromARGB(255, 0, 0, 0),
-            brightness: Brightness.light,
-          ),
-        ),
-        darkTheme: ThemeData(
-          colorScheme: const ColorScheme(
-            primary: Colors.green,
-            secondary: Colors.green,
-            background: Colors.green,
-            surface: Colors.green,
-            onBackground: Colors.white,
-            error: Colors.redAccent,
-            onError: Colors.white,
-            onPrimary: Colors.white,
-            onSecondary: Colors.white,
-            onSurface: Colors.white,
-            brightness: Brightness.dark,
-          ),
-        ),
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        initialRoute: '/settings',
-        routes: {
-          '/': (context) => const HomeView(),
-          '/tokens': (context) => const TokensView(),
-          '/settings': (context) => const SettingsView(),
-          '/landing': (context) => const LandingView(),
-        },
       ),
+      darkTheme: ThemeData(
+        colorScheme: const ColorScheme(
+          primary: Colors.green,
+          secondary: Colors.green,
+          background: Colors.green,
+          surface: Colors.green,
+          onBackground: Colors.white,
+          error: Colors.redAccent,
+          onError: Colors.white,
+          onPrimary: Colors.white,
+          onSecondary: Colors.white,
+          onSurface: Colors.white,
+          brightness: Brightness.dark,
+        ),
+      ),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
+      initialRoute: '/home',
     );
   }
 }

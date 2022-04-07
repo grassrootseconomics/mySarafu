@@ -3,8 +3,8 @@ import 'package:my_sarafu/logic/utils/Converter.dart';
 import 'package:my_sarafu/logic/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';
 
-class TokenItem extends Equatable {
-  const TokenItem({
+class Token extends Equatable {
+  const Token({
     required this.idx,
     required this.address,
     required this.name,
@@ -13,7 +13,7 @@ class TokenItem extends Equatable {
     required this.decimals,
   });
 
-  factory TokenItem.fromJson(dynamic json) {
+  factory Token.fromJson(dynamic json) {
     log.d("Loading Json for TokenItem ${json}");
     final idx = int.parse(json['idx'] as String);
     final address = json['address'] as String;
@@ -21,7 +21,7 @@ class TokenItem extends Equatable {
     final symbol = json['symbol'] as String;
     final balance = BigInt.tryParse(json['balance'] as String);
     final decimals = int.parse(json['decimals'] as String);
-    return TokenItem(
+    return Token(
       idx: idx,
       address: EthereumAddress.fromHex(address),
       name: name,
@@ -42,7 +42,7 @@ class TokenItem extends Equatable {
     return converter.getUserFacingValue(balance);
   }
 
-  TokenItem copyWith({
+  Token copyWith({
     int? idx,
     EthereumAddress? address,
     String? name,
@@ -50,7 +50,7 @@ class TokenItem extends Equatable {
     BigInt? balance,
     int? decimals,
   }) {
-    return TokenItem(
+    return Token(
       idx: idx ?? this.idx,
       address: address ?? this.address,
       name: name ?? this.name,
@@ -83,7 +83,7 @@ class TokenList {
     try {
       final tokensList = TokenList(
         tokens: List<Map<String, dynamic>>.from(json['tokens'] as List)
-            .map<TokenItem>(TokenItem.fromJson)
+            .map<Token>(Token.fromJson)
             .toList(),
       );
       tokensList.tokens.sort((a, b) => b.balance.compareTo(a.balance));
@@ -93,7 +93,7 @@ class TokenList {
       rethrow;
     }
   }
-  final List<TokenItem> tokens;
+  final List<Token> tokens;
 
   Map<String, Object> toJson() => <String, Object>{
         'tokens': tokens.map((e) => e.toJson()).toList(),

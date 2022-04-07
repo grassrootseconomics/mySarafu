@@ -8,7 +8,7 @@ class NavCubit extends Cubit<NavState> {
 
   Future<void> changeRoute(int index) async {
     if (index == 0) {
-      emit(NavState(bottomNavIndex: index, route: '/'));
+      emit(NavState(bottomNavIndex: index, route: '/home'));
     } else if (index == 1) {
       emit(NavState(bottomNavIndex: index, route: '/tokens'));
     } else if (index == 2) {

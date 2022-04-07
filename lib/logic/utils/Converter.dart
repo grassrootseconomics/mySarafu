@@ -1,10 +1,8 @@
 /// Utility class to easily convert amounts of Ether into different units of
 /// quantities.
 class WeiConverter {
+  WeiConverter(this.decimals);
   int decimals = 6;
-  WeiConverter(int decimals) {
-    this.decimals = decimals;
-  }
 
   /// Gets the value of this amount in the specified unit as a whole number.
   /// **WARNING**: For all units except for [EtherUnit.wei], this method will

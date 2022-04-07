@@ -11,7 +11,7 @@ class TransactionsRepository {
   final EthereumAddress address;
   final String cacheUrl;
 
-  List<TokenItem> tokens = [];
+  List<Token> tokens = [];
 
   Future<TransactionList> getAllTransactions() async {
     const limit = 1000;

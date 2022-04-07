@@ -21,6 +21,12 @@ Future<Directory> getConfigDir() async {
 
 class AppBlocObserver extends BlocObserver {
   @override
+  void onCreate(BlocBase bloc) {
+    super.onCreate(bloc);
+    log.w('Bloc created: ${bloc.runtimeType}');
+  }
+
+  @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
     log.d('onChange(${bloc.runtimeType}, $change)');
@@ -35,7 +41,7 @@ class AppBlocObserver extends BlocObserver {
 
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   FlutterError.onError = (details) {
-    log.e(details.exceptionAsString(), details.stack);
+    log.e(details);
   };
   await runZonedGuarded(
     () async {
@@ -46,10 +52,10 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
       );
       await HydratedBlocOverrides.runZoned(
         () async => runApp(await builder()),
-        storage: storage,
+        createStorage: () =>storage,
         blocObserver: AppBlocObserver(),
       );
     },
-    (error, stackTrace) => log.e(error.toString(), stackTrace),
+    (error, stackTrace) => log.e(error),
   );
 }

@@ -22,7 +22,7 @@ class Settings {
   final String rpcProvider;
   final String contractRegisteryAddress;
   final String? tokenRegistryAddress;
-  final TokenItem? activeToken;
+  final Token? activeToken;
   final String? encryptedWallet;
   final String? walletAddress;
   final String? walletPassword;

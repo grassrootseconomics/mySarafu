@@ -24,10 +24,9 @@ class TokensCubit extends HydratedCubit<TokensState> {
     );
   }
 
-  TokenItem? get activeToken {
+  Token? get activeToken {
     if (state.activeTokenIdx is int &&
-        state.tokens.length > state.activeTokenIdx! &&
-        state.tokens[state.activeTokenIdx!] != null) {
+        state.tokens.length > state.activeTokenIdx!) {
       return state.tokens[state.activeTokenIdx!];
     }
     return null;
@@ -44,12 +43,11 @@ class TokensCubit extends HydratedCubit<TokensState> {
   @override
   TokensState fromJson(Map<String, dynamic> json) {
     try {
-      final tokens = <TokenItem>[];
+      final tokens = <Token>[];
       for (final dToken in json['tokens']) {
-        final token = TokenItem.fromJson(dToken);
+        final token = Token.fromJson(dToken);
         tokens.add(token);
       }
-      log.d(json['activeTokenIdx'].runtimeType);
       final activeTokenIdx =
           json['activeTokenIdx'] != null ? json['activeTokenIdx'] as int : 0;
       return TokensLoaded(tokens: tokens, activeTokenIdx: activeTokenIdx);

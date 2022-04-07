@@ -1,11 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:my_sarafu/logic/data/network_presets.dart';
 
 part 'settings_state.dart';
 
 class SettingsCubit extends HydratedCubit<SettingsState> {
-  SettingsCubit() : super(const InitialSettings());
+  SettingsCubit() : super(InitialSettings());
 
   @override
   SettingsState fromJson(Map<String, dynamic> json) =>
@@ -16,8 +17,8 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
     return state.toJson();
   }
 
-  void setDarkMode({required bool value}) {
-    emit(state.copyWith(darkMode: value));
+  void setThemeMode({required ThemeMode value}) {
+    emit(state.copyWith(themeMode: value));
   }
 
   void changeNetworkPreset(NetworkPresets preset) {
@@ -25,25 +26,27 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
       case NetworkPresets.mainnet:
         emit(
           state.copyWith(
-              networkPreset: preset,
-              cacheUrl: mainnet.cacheUrl,
-              chainSpec: mainnet.chainSpec,
-              contractRegisteryAddress: mainnet.contractRegisteryAddress,
-              rpcProvider: mainnet.rpcProvider,
-              metaUrl: mainnet.metaUrl,
-              tokenRegistryAddress: ''),
+            networkPreset: preset,
+            cacheUrl: mainnet.cacheUrl,
+            chainSpec: mainnet.chainSpec,
+            contractRegisteryAddress: mainnet.contractRegisteryAddress,
+            rpcProvider: mainnet.rpcProvider,
+            metaUrl: mainnet.metaUrl,
+            tokenRegistryAddress: '',
+          ),
         );
         break;
       case NetworkPresets.testnet:
         emit(
           state.copyWith(
-              networkPreset: preset,
-              cacheUrl: testnet.cacheUrl,
-              chainSpec: testnet.chainSpec,
-              contractRegisteryAddress: testnet.contractRegisteryAddress,
-              rpcProvider: testnet.rpcProvider,
-              metaUrl: testnet.metaUrl,
-              tokenRegistryAddress: ''),
+            networkPreset: preset,
+            cacheUrl: testnet.cacheUrl,
+            chainSpec: testnet.chainSpec,
+            contractRegisteryAddress: testnet.contractRegisteryAddress,
+            rpcProvider: testnet.rpcProvider,
+            metaUrl: testnet.metaUrl,
+            tokenRegistryAddress: '',
+          ),
         );
         break;
       case NetworkPresets.custom:

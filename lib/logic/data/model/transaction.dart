@@ -20,7 +20,9 @@ class Transaction {
       final transaction = Transaction(
         blockNumber: json['block_number'] as int,
         txHash: json['tx_hash'] as String,
-        dateBlock: json['date_block'] as double,
+        dateBlock: DateTime.fromMillisecondsSinceEpoch(
+          (json['date_block'] as double).toInt() * 1000,
+        ),
         sender: json['sender'] as String,
         recipient: json['recipient'] as String,
         fromValue: json['from_value'] as int,
@@ -38,7 +40,7 @@ class Transaction {
   }
   final int blockNumber;
   final String txHash;
-  final double dateBlock;
+  final DateTime dateBlock;
   final String sender;
   final String recipient;
   final int fromValue;
@@ -52,7 +54,7 @@ class Transaction {
     return {
       'block_number': blockNumber,
       'tx_hash': txHash,
-      'date_block': dateBlock,
+      'date_block': dateBlock.millisecondsSinceEpoch / 1000,
       'sender': sender,
       'recipient': recipient,
       'from_value': fromValue,

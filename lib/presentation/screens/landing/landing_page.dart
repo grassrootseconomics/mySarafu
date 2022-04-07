@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/presentation/widgets/bottom_nav/view/bottom_nav.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:my_sarafu/presentation/forms/create_account.dart';
 
 class LandingView extends StatelessWidget {
   const LandingView({Key? key}) : super(key: key);
@@ -7,25 +10,71 @@ class LandingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // To work with lists that may contain a large number of items, it’s best
-      // to use the ListView.builder constructor.
-      //
-      // In contrast to the default ListView constructor, which requires
-      // building all Widgets up front, the ListView.builder constructor lazily
-      // builds Widgets as they’re scrolled into view.
-      bottomNavigationBar: const BottomNavBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: SafeArea(
         child: Center(
           child: Column(
             children: <Widget>[
-              Text('Karibu Sarafu',
-                  style: Theme.of(context).textTheme.headlineLarge),
+              Text(
+                'Karibu Sarafu',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
               TextButton(
-                onPressed: () => print('Pressed'),
+                onPressed: () {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Form(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                InternationalPhoneNumberInput(
+                                  onInputChanged: (value) => print(value),
+                                  validator: (value) {
+                                    if (value!.length == 9) {
+                                      return 'Please enter correct phone number';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  autoValidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  hintText: 'Enter phone number',
+                                  autoFocusSearch: true,
+                                  selectorConfig: const SelectorConfig(
+                                    useEmoji: true,
+                                    selectorType:
+                                        PhoneInputSelectorType.BOTTOM_SHEET,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
                 child: const Text('Connect Sarafu Account'),
               ),
               TextButton(
-                onPressed: () => print('Pressed'),
+                onPressed: () {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CreateAccountFormView();
+                    },
+                  );
+                },
                 child: const Text('Create Account'),
               )
             ],

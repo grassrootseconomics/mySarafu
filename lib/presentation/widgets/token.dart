@@ -9,7 +9,7 @@ class TokenWidget extends StatelessWidget {
     required this.token,
   }) : super(key: key);
 
-  final TokenItem token;
+  final Token token;
 
   @override
   Widget build(BuildContext context) {

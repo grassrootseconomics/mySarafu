@@ -5,7 +5,7 @@ enum NetworkPresets {
 }
 
 class NetworkPreset {
-  NetworkPreset({
+  const NetworkPreset({
     required this.chainSpec,
     required this.contractRegisteryAddress,
     required this.metaUrl,
@@ -19,15 +19,15 @@ class NetworkPreset {
   final String rpcProvider;
 }
 
-NetworkPreset mainnet = NetworkPreset(
+const NetworkPreset mainnet = NetworkPreset(
   chainSpec: 'evm:kitabu:5050:sarafu ',
-  contractRegisteryAddress: '0xB3f586562641a0153b516E93Ddf582bA0c476397',
+  contractRegisteryAddress: '0x6c5dfccd22c1a1188224bbe46a0770a48c23f97f',
   metaUrl: 'https://meta.grassecon.org',
   cacheUrl: 'https://cache.grassecon.org',
   rpcProvider: 'https://rpc.kitabu.grassecon.org',
 );
 
-NetworkPreset testnet = NetworkPreset(
+const NetworkPreset testnet = NetworkPreset(
   chainSpec: 'evm:kitabu:5050:sarafu ',
   contractRegisteryAddress: '0xcf60ebc445b636a5ab787f9e8bc465a2a3ef8299',
   metaUrl: 'https://meta.grassecon.net',
