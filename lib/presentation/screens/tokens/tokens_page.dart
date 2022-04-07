@@ -13,7 +13,7 @@ class TokensView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const BottomNavBar(),
+      bottomNavigationBar: const BottomNavBar(key: Key('bottomNavBar')),
       body: SafeArea(
         child: Column(
           children: [

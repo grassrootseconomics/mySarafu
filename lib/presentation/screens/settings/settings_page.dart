@@ -17,13 +17,7 @@ class SettingsView extends StatelessWidget {
     final settings = context.select((SettingsCubit cubit) => cubit.state);
     final account = context.select((AccountsCubit cubit) => cubit.state);
     return Scaffold(
-      // To work with lists that may contain a large number of items, it’s best
-      // to use the ListView.builder constructor.
-      //
-      // In contrast to the default ListView constructor, which requires
-      // building all Widgets up front, the ListView.builder constructor lazily
-      // builds Widgets as they’re scrolled into view.
-      bottomNavigationBar: const BottomNavBar(),
+      bottomNavigationBar: const BottomNavBar(key: Key('bottomNavBar')),
       body: SafeArea(
         child: SettingsList(
           sections: [
@@ -39,14 +33,16 @@ class SettingsView extends StatelessWidget {
                       builder: (BuildContext _) {
                         return Form(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8),
                             child: Center(
                               child: Column(
                                 children: [
                                   ElevatedButton(
                                     onPressed: () => Navigator.pushNamed(
-                                        context, '/landing'),
-                                    child: Text('Create New Account'),
+                                      context,
+                                      '/landing',
+                                    ),
+                                    child: const Text('Create New Account'),
                                   ),
                                   Expanded(
                                     child: ListView.builder(

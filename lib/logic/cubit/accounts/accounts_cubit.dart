@@ -42,6 +42,20 @@ class AccountsCubit extends HydratedCubit<AccountsState> {
     );
   }
 
+  void deleteAccount(int accountIdx, {required String password}) {
+    final account = state.accounts[accountIdx];
+    final isOwner = account.verifyPassword(password);
+    if (isOwner) {
+      final accounts = [...state.accounts..removeAt(accountIdx)];
+      emit(
+        AccountsLoaded(
+          accounts: accounts,
+          activeAccountIdx: accountIdx,
+        ),
+      );
+    }
+  }
+
   void addAccount(Account account) {
     final newAccounts = <Account>[...state.accounts, account];
     emit(
@@ -51,7 +65,7 @@ class AccountsCubit extends HydratedCubit<AccountsState> {
       ),
     );
   }
-  
+
   Account? get activeAccount => state.activeAccountIdx is int &&
           state.accounts.asMap().containsKey(state.activeAccountIdx)
       ? state.accounts[state.activeAccountIdx!]

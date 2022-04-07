@@ -1,3 +1,4 @@
+import 'package:my_sarafu/logic/utils/logger.dart';
 import 'package:web3dart/credentials.dart';
 
 class Account {
@@ -17,6 +18,16 @@ class Account {
   final String name;
   final String encryptedWallet;
   final EthereumAddress address;
+
+  bool verifyPassword(String password) {
+    try {
+      final credentials = Wallet.fromJson(encryptedWallet, password);
+    } catch (e) {
+      log.e(e);
+      return false;
+    }
+    return true;
+  }
 
   Map<String, String> toJson() {
     return {

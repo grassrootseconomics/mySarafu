@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:my_sarafu/presentation/forms/create_account.dart';
+import 'package:my_sarafu/presentation/forms/create_account/create_account.dart';
 
 class LandingView extends StatelessWidget {
   const LandingView({Key? key}) : super(key: key);

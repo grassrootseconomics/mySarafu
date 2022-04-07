@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_sarafu/logic/cubit/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/logic/data/model/account.dart';
 import 'package:my_sarafu/presentation/widgets/icon.dart';
 
-/// Displays a list of SampleItems.
 class AccountListItem extends StatelessWidget {
   const AccountListItem({
     Key? key,
@@ -21,9 +22,13 @@ class AccountListItem extends StatelessWidget {
       leading: const IconWidget(),
       title: Text(account.name),
       onTap: () => onPressed(accountIdx),
-      trailing: Text(
-        '${account.address}',
-        textAlign: TextAlign.end,
+      subtitle: Text('${account.address}'),
+      trailing: IconButton(
+        icon: const Icon(Icons.delete_forever),
+        onPressed: () => context.read<AccountsCubit>().deleteAccount(
+              accountIdx,
+              password: "test",
+            ),
       ),
     );
   }

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/logic/cubit/accounts/accounts_cubit.dart';
-import 'package:my_sarafu/presentation/forms/create_account_cubit.dart';
+import 'package:my_sarafu/presentation/forms/create_account/create_account_cubit.dart';
 import 'package:my_sarafu/presentation/widgets/loading.dart';
 
 class CreateAccountFormView extends StatefulWidget {

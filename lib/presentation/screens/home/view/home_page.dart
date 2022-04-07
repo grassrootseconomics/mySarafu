@@ -12,7 +12,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Scaffold(
-        bottomNavigationBar: const BottomNavBar(),
+        bottomNavigationBar: const BottomNavBar(key: Key('bottomNavBar')),
         body: SafeArea(
           child: Column(
             children: const <Widget>[

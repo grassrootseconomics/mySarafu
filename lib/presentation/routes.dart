@@ -41,9 +41,7 @@ MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
                 httpClient,
               ),
             ),
-          )..updateBalances(
-              context.read<AccountsCubit>().activeAccount!.address,
-            ),
+          ),
           child: const HomeView(),
         ),
       );
@@ -95,9 +93,7 @@ MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
                 httpClient,
               ),
             ),
-          )..updateBalances(
-              context.read<AccountsCubit>().activeAccount!.address,
-            ),
+          ),
           child: const SettingsView(),
         ),
       );
