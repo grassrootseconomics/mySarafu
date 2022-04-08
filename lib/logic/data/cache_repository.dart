@@ -1,21 +1,20 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:my_sarafu/logic/data/model/token.dart';
 import 'package:my_sarafu/logic/data/model/transaction.dart';
 import 'package:my_sarafu/logic/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';
 
-class TransactionsRepository {
-  TransactionsRepository({required this.cacheUrl, required this.address});
+class CacheRepository {
+  CacheRepository({required this.cacheUrl, required this.address});
+
   final EthereumAddress address;
   final String cacheUrl;
 
-  List<Token> tokens = [];
-
   Future<TransactionList> getAllTransactions() async {
-    const limit = 1000;
-    final urlStr = '$cacheUrl/txa/$limit/${address.hex}';
+    const limit = 16000;
+    const offset = 0;
+    final urlStr = '$cacheUrl/txa/user/${address.hexEip55}/$limit/$offset';
     final url = Uri.parse(urlStr);
     final response = await http.get(url);
     if (response.statusCode == 200) {

@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:my_sarafu/logic/data/model/transaction.dart';
-import 'package:my_sarafu/logic/data/transactions_repository.dart';
+import 'package:my_sarafu/logic/data/cache_repository.dart';
 import 'package:my_sarafu/logic/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -15,7 +15,7 @@ class TransactionsCubit extends HydratedCubit<TransactionsState> {
             transactions: TransactionList(data: [], low: 0, high: 0),
           ),
         );
-  final TransactionsRepository _transactionsRepository;
+  final CacheRepository _transactionsRepository;
 
   Future<void> fetchAllTransactions(EthereumAddress address) async {
     try {

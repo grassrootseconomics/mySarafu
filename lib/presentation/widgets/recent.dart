@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 const recent = [
   RecentItem('Will'),
-  RecentItem('Sam'),
+  RecentItem('Phil'),
+  RecentItem('Louis'),
+  RecentItem('Sohail'),
 ];
 
 class RecentItem {
@@ -11,9 +13,6 @@ class RecentItem {
   final String name;
 }
 
-const address = 'e451221d403ad317f2fa77d01ac1ec1ba82ce22f';
-
-/// Displays a list of SampleItems.
 class RecentWidget extends StatelessWidget {
   const RecentWidget({
     Key? key,
@@ -46,7 +45,7 @@ class RecentWidget extends StatelessWidget {
               Container(
                 height: 100,
                 child: ListView.builder(
-                  // Providing a restorationId allows the ListView to restore 
+                  // Providing a restorationId allows the ListView to restore
                   // the scroll position when a user leaves and returns to the
                   // app after it has been killed while running in the background.
                   restorationId: 'recentItemWidget',

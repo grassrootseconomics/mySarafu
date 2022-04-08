@@ -5,7 +5,7 @@ import 'package:my_sarafu/logic/cubit/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/logic/cubit/settings/settings_cubit.dart';
 import 'package:my_sarafu/logic/cubit/transactions/transactions_cubit.dart';
 import 'package:my_sarafu/logic/data/model/transaction.dart';
-import 'package:my_sarafu/logic/data/transactions_repository.dart';
+import 'package:my_sarafu/logic/data/cache_repository.dart';
 import 'package:my_sarafu/presentation/widgets/transactions/transaction.dart';
 import 'package:sticky_grouped_list/sticky_grouped_list.dart';
 
@@ -25,11 +25,11 @@ class TransactionsView extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => TransactionsCubit(
-            TransactionsRepository(
+            CacheRepository(
               address: account.address,
               cacheUrl: settings.cacheUrl,
             ),
-          ),
+          )..fetchAllTransactions(account.address),
         ),
       ],
       child: const TransactionsWidget(),
@@ -37,7 +37,6 @@ class TransactionsView extends StatelessWidget {
   }
 }
 
-/// Displays a list of SampleItems.
 class TransactionsWidget extends StatelessWidget {
   const TransactionsWidget({Key? key}) : super(key: key);
 
@@ -63,17 +62,19 @@ class TransactionsWidget extends StatelessWidget {
                 onRefresh: () => context
                     .read<TransactionsCubit>()
                     .fetchAllTransactions(account.address),
-                child: StickyGroupedListView<Transaction, String>(
+                child: StickyGroupedListView<Transaction, DateTime>(
+                  stickyHeaderBackgroundColor: Colors.grey.shade800,
                   elements: state.transactions.data,
-                  groupBy: (tx) =>
-                      DateFormat('dd MM yyyy').format(tx.dateBlock),
-                  groupSeparatorBuilder: (tx) =>
-                      Text(DateFormat('dd MM yyyy').format(tx.dateBlock)),
+                  groupBy: (tx) => tx.dateBlock,
+                  groupSeparatorBuilder: (tx) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(DateFormat('d/M/yy').format(tx.dateBlock)),
+                  ),
                   itemBuilder: (context, tx) =>
                       TransactionWidget(transaction: tx),
                   itemScrollController:
                       GroupedItemScrollController(), // optional
-                  order: StickyGroupedListOrder.ASC, // optional
+                  order: StickyGroupedListOrder.DESC, // optional
                 ),
               ),
             ),

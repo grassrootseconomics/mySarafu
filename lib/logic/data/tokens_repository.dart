@@ -42,7 +42,6 @@ class TokenRepository {
   }
 
   Future<List<Token>> getAllTokens(EthereumAddress address) async {
-    print(address);
     await getContract();
 
     final count = await tokenUniqueSymbolIndexContract!.entryCount();

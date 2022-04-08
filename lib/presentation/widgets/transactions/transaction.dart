@@ -1,13 +1,14 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_sarafu/logic/cubit/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/logic/cubit/tokens/tokens_cubit.dart';
+import 'package:my_sarafu/logic/data/model/account.dart';
 import 'package:my_sarafu/logic/data/model/transaction.dart';
 import 'package:my_sarafu/logic/utils/Converter.dart';
 import 'package:my_sarafu/presentation/widgets/icon.dart';
 import 'package:web3dart/credentials.dart';
 
-/// Displays a list of SampleItems.
 class TransactionWidget extends StatelessWidget {
   const TransactionWidget({
     Key? key,
@@ -23,6 +24,8 @@ class TransactionWidget extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (context, state) {
+        final account = context
+            .select<AccountsCubit, Account?>((cubit) => cubit.activeAccount);
         return Padding(
           padding: const EdgeInsets.all(8),
           child: Row(
@@ -33,7 +36,7 @@ class TransactionWidget extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  '${truncateAddress(transaction.sender)} -> ${truncateAddress(transaction.recipient)}',
+                  '${truncateAddress(transaction.sender.hex)} -> ${truncateAddress(transaction.recipient.hex)}',
                 ),
               ),
               Expanded(
@@ -43,7 +46,7 @@ class TransactionWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        '${getBalance(state, transaction.sourceToken, transaction.toValue)} ${getSymbol(state, transaction.sourceToken)}',
+                        '${getBalance(state, transaction)} ${getSymbol(state, transaction.destinationToken.hex)}',
                         textAlign: TextAlign.end,
                       ),
                     ),
@@ -72,10 +75,19 @@ String getSymbol(TokensState tokensState, String address) {
   return token?.symbol ?? 'Unknown';
 }
 
-String getBalance(TokensState tokensState, String address, int balance) {
-  final token = tokensState.tokens.firstWhereOrNull(
-    (token) => token.address == EthereumAddress.fromHex(address),
+String getBalance(TokensState tokensState, Transaction tx) {
+  final fromToken = tokensState.tokens.firstWhereOrNull(
+    (token) => token.address == tx.sourceToken,
   );
-  var converter = WeiConverter(token?.decimals ?? 6);
-  return converter.getUserFacingValue(BigInt.from(balance));
+  final toToken = tokensState.tokens.firstWhereOrNull(
+    (token) => token.address == tx.destinationToken,
+  );
+  final fromConverter = WeiConverter(fromToken?.decimals ?? 6);
+  if (fromToken?.address == toToken?.address) {
+    return fromConverter.getUserFacingValue(BigInt.from(tx.toValue));
+  } else {
+    throw Exception('Unsupported transaction');
+  }
+  // final toConverter = WeiConverter(toToken?.decimals ?? 6);
+  // return converter.getUserFacingValue(BigInt.from(balance));
 }

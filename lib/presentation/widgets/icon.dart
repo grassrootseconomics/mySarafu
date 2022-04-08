@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Displays a list of SampleItems.
 class IconWidget extends StatelessWidget {
   const IconWidget({
     Key? key,
@@ -11,7 +10,6 @@ class IconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,

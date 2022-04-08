@@ -5,7 +5,7 @@ import 'package:my_sarafu/logic/cubit/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/logic/cubit/tokens/tokens_cubit.dart';
 import 'package:my_sarafu/logic/data/model/token.dart';
 import 'package:my_sarafu/presentation/widgets/bottom_nav/view/bottom_nav.dart';
-import 'package:my_sarafu/presentation/widgets/token.dart';
+import 'package:my_sarafu/presentation/widgets/token/token_list_item.dart';
 
 class TokensView extends StatelessWidget {
   const TokensView({Key? key}) : super(key: key);
@@ -95,7 +95,7 @@ Widget buildTokenList(BuildContext context, List<Token> tokens) {
                 itemCount: tokens.length,
                 itemBuilder: (BuildContext context, int index) {
                   final token = tokens[index];
-                  return TokenWidget(token: token);
+                  return TokenListItemWidget(token: token);
                 },
               ),
             ),

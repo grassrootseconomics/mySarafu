@@ -28,7 +28,7 @@ class Account {
     }
     return true;
   }
-
+  
   Map<String, String> toJson() {
     return {
       'name': name,

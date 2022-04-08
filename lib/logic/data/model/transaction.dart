@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:my_sarafu/logic/utils/logger.dart';
+import 'package:web3dart/credentials.dart';
 
-class Transaction {
+class Transaction extends Equatable {
   const Transaction({
     required this.blockNumber,
     required this.txHash,
@@ -23,12 +25,13 @@ class Transaction {
         dateBlock: DateTime.fromMillisecondsSinceEpoch(
           (json['date_block'] as double).toInt() * 1000,
         ),
-        sender: json['sender'] as String,
-        recipient: json['recipient'] as String,
+        sender: EthereumAddress.fromHex(json['sender'] as String),
+        recipient: EthereumAddress.fromHex(json['recipient'] as String),
         fromValue: json['from_value'] as int,
         toValue: json['to_value'] as int,
-        sourceToken: json['source_token'] as String,
-        destinationToken: json['destination_token'] as String,
+        sourceToken: EthereumAddress.fromHex(json['source_token'] as String),
+        destinationToken:
+            EthereumAddress.fromHex(json['destination_token'] as String),
         success: json['success'] as bool,
         txType: json['tx_type'] as String,
       );
@@ -41,12 +44,12 @@ class Transaction {
   final int blockNumber;
   final String txHash;
   final DateTime dateBlock;
-  final String sender;
-  final String recipient;
+  final EthereumAddress sender;
+  final EthereumAddress recipient;
   final int fromValue;
   final int toValue;
-  final String sourceToken;
-  final String destinationToken;
+  final EthereumAddress sourceToken;
+  final EthereumAddress destinationToken;
   final bool success;
   final String txType;
 
@@ -55,16 +58,31 @@ class Transaction {
       'block_number': blockNumber,
       'tx_hash': txHash,
       'date_block': dateBlock.millisecondsSinceEpoch / 1000,
-      'sender': sender,
-      'recipient': recipient,
+      'sender': sender.hex,
+      'recipient': recipient.hex,
       'from_value': fromValue,
       'to_value': toValue,
-      'source_token': sourceToken,
-      'destination_token': destinationToken,
+      'source_token': sourceToken.hex,
+      'destination_token': destinationToken.hex,
       'success': success,
       'tx_type': txType,
     };
   }
+
+  @override
+  List<Object?> get props => [
+        blockNumber,
+        txHash,
+        dateBlock,
+        sender,
+        recipient,
+        fromValue,
+        toValue,
+        sourceToken,
+        destinationToken,
+        success,
+        txType,
+      ];
 }
 
 class TransactionList {
@@ -80,10 +98,11 @@ class TransactionList {
         data: List<Map<String, dynamic>>.from(json['data'] as List)
             .map<Transaction>(Transaction.fromJson)
             .toList(),
-        low: 0,
-        high: 0,
+        low: json['low'] as int,
+        high: json['high'] as int,
       );
       transactionList.data.sort((a, b) => b.dateBlock.compareTo(a.dateBlock));
+
       return transactionList;
     } catch (e) {
       log.e(e);
