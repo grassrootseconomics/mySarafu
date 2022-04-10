@@ -14,7 +14,7 @@ class RegistryRepository {
   final Web3Client client;
   final RegisteryContract contract;
 
-  Future<EthereumAddress> getTokenRegistery() async {
+  Future<EthereumAddress> getVoucherRegistery() async {
     return contract.addressOf(fromText('TokenRegistry'));
   }
 
@@ -38,8 +38,8 @@ class RegistryRepository {
     return contract.addressOf(fromText('ContractRegistry'));
   }
 
-  Future<EthereumAddress> getDefaultToken() async {
-    return contract.addressOf(fromText('DefaultToken'));
+  Future<EthereumAddress> getDefaultVoucher() async {
+    return contract.addressOf(fromText('DefaultVoucher'));
   }
 }
 

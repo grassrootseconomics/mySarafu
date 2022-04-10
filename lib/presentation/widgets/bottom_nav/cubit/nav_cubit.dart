@@ -10,7 +10,7 @@ class NavCubit extends Cubit<NavState> {
     if (index == 0) {
       emit(NavState(bottomNavIndex: index, route: '/home'));
     } else if (index == 1) {
-      emit(NavState(bottomNavIndex: index, route: '/tokens'));
+      emit(NavState(bottomNavIndex: index, route: '/vouchers'));
     } else if (index == 2) {
       emit(NavState(bottomNavIndex: index, route: '/settings'));
     }

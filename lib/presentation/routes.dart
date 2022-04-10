@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart'; //You can also import the browser version
 import 'package:my_sarafu/logic/cubit/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/logic/cubit/settings/settings_cubit.dart';
-import 'package:my_sarafu/logic/cubit/tokens/tokens_cubit.dart';
+import 'package:my_sarafu/logic/cubit/vouchers/vouchers_cubit.dart';
 import 'package:my_sarafu/logic/data/registry_repository.dart';
-import 'package:my_sarafu/logic/data/tokens_repository.dart';
+import 'package:my_sarafu/logic/data/vouchers_repository.dart';
 import 'package:my_sarafu/presentation/screens/home/view/home_page.dart';
 import 'package:my_sarafu/presentation/screens/landing/landing_page.dart';
 import 'package:my_sarafu/presentation/screens/settings/settings_page.dart';
-import 'package:my_sarafu/presentation/screens/tokens/tokens_page.dart';
+import 'package:my_sarafu/presentation/screens/vouchers/vouchers_page.dart';
 import 'package:web3dart/web3dart.dart';
 
 MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
@@ -23,8 +23,8 @@ MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
     case '/home':
       return MaterialPageRoute<Widget>(
         builder: (context) => BlocProvider(
-          create: (_) => TokensCubit(
-            TokenRepository(
+          create: (_) => VouchersCubit(
+            VoucherRepository(
               settings: context.read<SettingsCubit>().state,
               registeryRepo: RegistryRepository(
                 contractRegistery: context
@@ -45,11 +45,11 @@ MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
           child: const HomeView(),
         ),
       );
-    case '/tokens':
+    case '/vouchers':
       return MaterialPageRoute<Widget>(
         builder: (context) => BlocProvider(
-          create: (context) => TokensCubit(
-            TokenRepository(
+          create: (context) => VouchersCubit(
+            VoucherRepository(
               settings: context.read<SettingsCubit>().state,
               registeryRepo: RegistryRepository(
                 contractRegistery: context
@@ -69,14 +69,14 @@ MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
           )..updateBalances(
               context.read<AccountsCubit>().activeAccount!.address,
             ),
-          child: const TokensView(),
+          child: const VouchersView(),
         ),
       );
     case '/settings':
       return MaterialPageRoute<Widget>(
         builder: (context) => BlocProvider(
-          create: (context) => TokensCubit(
-            TokenRepository(
+          create: (context) => VouchersCubit(
+            VoucherRepository(
               settings: context.read<SettingsCubit>().state,
               registeryRepo: RegistryRepository(
                 contractRegistery: context

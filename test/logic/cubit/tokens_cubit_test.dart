@@ -1,69 +1,69 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_sarafu/logic/cubit/tokens/tokens_cubit.dart';
+import 'package:my_sarafu/logic/cubit/vouchers/vouchers_cubit.dart';
 
 import '../../helpers/hydrated_bloc.dart';
 import '../../mocks.dart';
 
 void main() {
-  group('TokensCubit', () {
+  group('VouchersCubit', () {
     test('equality', () {
       mockHydratedStorage(() {
         expect(
-          TokensCubit(MockTokenRepository()).state,
-          TokensCubit(MockTokenRepository()).state,
+          VouchersCubit(MockVoucherRepository()).state,
+          VouchersCubit(MockVoucherRepository()).state,
         );
       });
     });
     group('toJson/fromJson', () {
       test('work properly', () {
         mockHydratedStorage(() {
-          final tokensCubit = TokensCubit(MockTokenRepository());
+          final vouchersCubit = VouchersCubit(MockVoucherRepository());
           expect(
-            tokensCubit.fromJson(tokensCubit.toJson(tokensCubit.state)),
-            tokensCubit.state,
+            vouchersCubit.fromJson(vouchersCubit.toJson(vouchersCubit.state)),
+            vouchersCubit.state,
           );
         });
       });
     });
     group('operations', () {
-      late TokensCubit tokensCubit;
+      late VouchersCubit vouchersCubit;
 
       setUp(() async {
-        tokensCubit =
-            await mockHydratedStorage(() => TokensCubit(MockTokenRepository()));
+        vouchersCubit = await mockHydratedStorage(
+            () => VouchersCubit(MockVoucherRepository()));
       });
 
-      test('fetchAllTokens', () async {
-        expect(tokensCubit.state, isA<TokensInitial>());
-        await tokensCubit.fetchAllTokens(MockEthereumAddress());
+      test('fetchAllVouchers', () async {
+        expect(vouchersCubit.state, isA<VouchersInitial>());
+        await vouchersCubit.fetchAllVouchers(MockEthereumAddress());
         expect(
-          tokensCubit.state,
-          TokensLoaded(tokens: [mockToken], activeTokenIdx: 0),
+          vouchersCubit.state,
+          VouchersLoaded(vouchers: [mockVoucher], activeVoucherIdx: 0),
         );
       });
 
-      // blocTest<TokensCubit, Color>(
+      // blocTest<VouchersCubit, Color>(
       //   'emits correct color for WeatherCondition.snowy',
       //   build: () => themeCubit,
       //   act: (cubit) => cubit.updateTheme(snowyWeather),
       //   expect: () => <Color>[Colors.lightBlueAccent],
       // );
 
-      // blocTest<TokensCubit, Color>(
+      // blocTest<VouchersCubit, Color>(
       //   'emits correct color for WeatherCondition.cloudy',
       //   build: () => themeCubit,
       //   act: (cubit) => cubit.updateTheme(cloudyWeather),
       //   expect: () => <Color>[Colors.blueGrey],
       // );
 
-      // blocTest<TokensCubit, Color>(
+      // blocTest<VouchersCubit, Color>(
       //   'emits correct color for WeatherCondition.rainy',
       //   build: () => themeCubit,
       //   act: (cubit) => cubit.updateTheme(rainyWeather),
       //   expect: () => <Color>[Colors.indigoAccent],
       // );
 
-      // blocTest<TokensCubit, Color>(
+      // blocTest<VouchersCubit, Color>(
       //   'emits correct color for WeatherCondition.unknown',
       //   build: () => themeCubit,
       //   act: (cubit) => cubit.updateTheme(unknownWeather),

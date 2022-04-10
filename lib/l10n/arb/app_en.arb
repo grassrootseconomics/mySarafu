@@ -12,8 +12,8 @@
   "@settingsPageTitle": {
     "description": "Text shown in the AppBar of the Home Page"
   },
-  "tokensPageTitle": "Tokens",
-  "@tokensPageTitle": {
+  "vouchersPageTitle": "Vouchers",
+  "@vouchersPageTitle": {
     "description": "Text shown in the AppBar of the Home Page"
   }
 }

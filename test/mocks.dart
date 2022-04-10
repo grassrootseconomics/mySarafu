@@ -1,12 +1,12 @@
 import 'package:mocktail/mocktail.dart';
-import 'package:my_sarafu/logic/data/model/token.dart';
-import 'package:my_sarafu/logic/data/tokens_repository.dart';
+import 'package:my_sarafu/logic/data/model/voucher.dart';
+import 'package:my_sarafu/logic/data/vouchers_repository.dart';
 import 'package:web3dart/web3dart.dart';
 
 var mockEthereumAddress =
     EthereumAddress.fromHex('0x0000000000000000000000000000000000000001');
 
-var mockToken = Token(
+var mockVoucher = Voucher(
   idx: 0,
   address: mockEthereumAddress,
   symbol: 'SRF',
@@ -15,30 +15,30 @@ var mockToken = Token(
   decimals: 6,
 );
 
-class MockTokenRepository extends Mock implements TokenRepository {
+class MockVoucherRepository extends Mock implements VoucherRepository {
   @override
-  Future<List<Token>> getAllTokens(EthereumAddress address) async {
-    final tokens = <Token>[];
-    final token = tokens.add(mockToken);
-    return tokens;
+  Future<List<Voucher>> getAllVouchers(EthereumAddress address) async {
+    final vouchers = <Voucher>[];
+    final voucher = vouchers.add(mockVoucher);
+    return vouchers;
   }
 
   @override
-  Future<List<Token>> updateBalances(
+  Future<List<Voucher>> updateBalances(
     EthereumAddress address,
-    List<Token> tokens,
+    List<Voucher> vouchers,
   ) async {
-    final updated = <Token>[];
-    for (final token in tokens) {
-      final updatedToken = Token(
-        idx: token.idx,
-        address: token.address,
-        symbol: token.symbol,
-        name: token.name,
-        balance: token.balance * BigInt.from(2),
+    final updated = <Voucher>[];
+    for (final voucher in vouchers) {
+      final updatedVoucher = Voucher(
+        idx: voucher.idx,
+        address: voucher.address,
+        symbol: voucher.symbol,
+        name: voucher.name,
+        balance: voucher.balance * BigInt.from(2),
         decimals: 6,
       );
-      updated.add(updatedToken);
+      updated.add(updatedVoucher);
     }
     return updated;
   }

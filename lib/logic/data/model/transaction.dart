@@ -11,8 +11,8 @@ class Transaction extends Equatable {
     required this.recipient,
     required this.fromValue,
     required this.toValue,
-    required this.sourceToken,
-    required this.destinationToken,
+    required this.sourceVoucher,
+    required this.destinationVoucher,
     required this.success,
     required this.txType,
   });
@@ -29,8 +29,8 @@ class Transaction extends Equatable {
         recipient: EthereumAddress.fromHex(json['recipient'] as String),
         fromValue: json['from_value'] as int,
         toValue: json['to_value'] as int,
-        sourceToken: EthereumAddress.fromHex(json['source_token'] as String),
-        destinationToken:
+        sourceVoucher: EthereumAddress.fromHex(json['source_token'] as String),
+        destinationVoucher:
             EthereumAddress.fromHex(json['destination_token'] as String),
         success: json['success'] as bool,
         txType: json['tx_type'] as String,
@@ -48,8 +48,8 @@ class Transaction extends Equatable {
   final EthereumAddress recipient;
   final int fromValue;
   final int toValue;
-  final EthereumAddress sourceToken;
-  final EthereumAddress destinationToken;
+  final EthereumAddress sourceVoucher;
+  final EthereumAddress destinationVoucher;
   final bool success;
   final String txType;
 
@@ -62,8 +62,8 @@ class Transaction extends Equatable {
       'recipient': recipient.hex,
       'from_value': fromValue,
       'to_value': toValue,
-      'source_token': sourceToken.hex,
-      'destination_token': destinationToken.hex,
+      'source_token': sourceVoucher.hex,
+      'destination_token': destinationVoucher.hex,
       'success': success,
       'tx_type': txType,
     };
@@ -78,8 +78,8 @@ class Transaction extends Equatable {
         recipient,
         fromValue,
         toValue,
-        sourceToken,
-        destinationToken,
+        sourceVoucher,
+        destinationVoucher,
         success,
         txType,
       ];
@@ -94,10 +94,11 @@ class TransactionList {
 
   factory TransactionList.fromJson(dynamic json) {
     try {
+      var transactions = List<Map<String, dynamic>>.from(json['data'] as List)
+          .map<Transaction>(Transaction.fromJson)
+          .toSet();
       final transactionList = TransactionList(
-        data: List<Map<String, dynamic>>.from(json['data'] as List)
-            .map<Transaction>(Transaction.fromJson)
-            .toList(),
+        data: transactions.toList(),
         low: json['low'] as int,
         high: json['high'] as int,
       );

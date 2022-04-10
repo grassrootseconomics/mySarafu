@@ -33,7 +33,7 @@ class BottomNavBar extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.token_rounded),
-              label: l10n.tokensPageTitle,
+              label: l10n.vouchersPageTitle,
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.settings),

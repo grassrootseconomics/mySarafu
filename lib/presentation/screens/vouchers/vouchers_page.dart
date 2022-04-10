@@ -2,13 +2,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/logic/cubit/accounts/accounts_cubit.dart';
-import 'package:my_sarafu/logic/cubit/tokens/tokens_cubit.dart';
-import 'package:my_sarafu/logic/data/model/token.dart';
+import 'package:my_sarafu/logic/cubit/vouchers/vouchers_cubit.dart';
+import 'package:my_sarafu/logic/data/model/voucher.dart';
 import 'package:my_sarafu/presentation/widgets/bottom_nav/view/bottom_nav.dart';
-import 'package:my_sarafu/presentation/widgets/token/token_list_item.dart';
+import 'package:my_sarafu/presentation/widgets/voucher/voucher_list_item.dart';
 
-class TokensView extends StatelessWidget {
-  const TokensView({Key? key}) : super(key: key);
+class VouchersView extends StatelessWidget {
+  const VouchersView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,9 @@ class TokensView extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            BlocConsumer<TokensCubit, TokensState>(
+            BlocConsumer<VouchersCubit, VouchersState>(
               listener: (context, state) {
-                if (state is TokensError) {
+                if (state is VouchersError) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Colors.redAccent,
@@ -29,10 +29,10 @@ class TokensView extends StatelessWidget {
                 }
               },
               builder: (context, state) {
-                if (state is TokensInitial) {
+                if (state is VouchersInitial) {
                   return buildInitialInput(context);
-                } else if (state is TokensLoaded) {
-                  return buildTokenList(context, state.tokens);
+                } else if (state is VouchersLoaded) {
+                  return buildVoucherList(context, state.vouchers);
                 } else {
                   // (state is WeatherError)
                   return buildInitialInput(context);
@@ -56,17 +56,17 @@ Widget buildInitialInput(BuildContext context) {
   return Center(
     child: TextButton(
       onPressed: () =>
-          context.read<TokensCubit>().fetchAllTokens(account.address),
+          context.read<VouchersCubit>().fetchAllVouchers(account.address),
       child: const Text(
-        'Fetch All Tokens',
+        'Fetch All Vouchers',
         style: TextStyle(color: Colors.black),
       ),
     ),
   );
 }
 
-Widget buildTokenList(BuildContext context, List<Token> tokens) {
-  final tokenCubit = context.read<TokensCubit>();
+Widget buildVoucherList(BuildContext context, List<Voucher> vouchers) {
+  final voucherCubit = context.read<VouchersCubit>();
   final account = context.read<AccountsCubit>().activeAccount;
   if (account == null) {
     return const Center(
@@ -79,7 +79,7 @@ Widget buildTokenList(BuildContext context, List<Token> tokens) {
       children: [
         Expanded(
           child: RefreshIndicator(
-            onRefresh: () => tokenCubit.fetchAllTokens(account.address),
+            onRefresh: () => voucherCubit.fetchAllVouchers(account.address),
             child: ScrollConfiguration(
               behavior: ScrollConfiguration.of(context).copyWith(
                 dragDevices: {
@@ -91,11 +91,11 @@ Widget buildTokenList(BuildContext context, List<Token> tokens) {
                 // Providing a restorationId allows the ListView to restore the
                 // scroll position when a user leaves and returns to the app after it
                 // has been killed while running in the background.
-                restorationId: 'tokensListView',
-                itemCount: tokens.length,
+                restorationId: 'vouchersListView',
+                itemCount: vouchers.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final token = tokens[index];
-                  return TokenListItemWidget(token: token);
+                  final voucher = vouchers[index];
+                  return VoucherListItemWidget(voucher: voucher);
                 },
               ),
             ),

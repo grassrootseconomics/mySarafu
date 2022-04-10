@@ -36,7 +36,7 @@ class MetaRepository {
   MetaRepository({required this.metaUrl});
   final String metaUrl;
   Null get none => null;
-  void tokenDefault() => fetch(
+  void voucherDefault() => fetch(
         metaUrl,
         sha256.convert(utf8.encode(':cic.token.default')).toString(),
       );
@@ -44,36 +44,38 @@ class MetaRepository {
       fetch(metaUrl, sha256.convert(utf8.encode(':cic.balances')).toString());
   // void get balancesAdjusted =>
   //     fetch(metaUrl, utf8.encode('cic:balances.adjusted'));
-  // void get custom => fetch(metaUrl, utf8.encode(':cic.custom'));
+  Future<dynamic> custom(String address) async {
+    return fetch(metaUrl, hash(identifier: address, salt: ':cic.custom'));
+  }
   // void get person => fetch(metaUrl, utf8.encode(':cic.person'));
 
   // void phone(String phoneNumber) => fetch(metaUrl, utf8.encode(':cic.phone'));
   // void preferences() => fetch(metaUrl, utf8.encode(':cic.preferences'));
 
   // void statement() => fetch(metaUrl, utf8.encode(':cic.statement'));
-  // void tokenActive() => fetch(metaUrl, utf8.encode(':cic.token.active'));
-  // void tokenDataList() => fetch(metaUrl, utf8.encode(':cic.token.data.list'));
-  // void tokenData() => fetch(metaUrl, utf8.encode(':cic.token.data'));
-  // void tokenLastReceived() =>
+  // void voucherActive() => fetch(metaUrl, utf8.encode(':cic.token.active'));
+  // void voucherDataList() => fetch(metaUrl, utf8.encode(':cic.voucher.data.list'));
+  // void voucherData() => fetch(metaUrl, utf8.encode(':cic.token.data'));
+  // void voucherLastReceived() =>
   //     fetch(metaUrl, utf8.encode(':cic.token.last.received'));
-  // void tokenLastSent() => fetch(metaUrl, utf8.encode(':cic.token.last.sent'));
-  // void tokenMeta() => fetch(metaUrl, utf8.encode(':cic.token.meta'));
+  // void voucherLastSent() => fetch(metaUrl, utf8.encode(':cic.voucher.last.sent'));
+  // void voucherMeta() => fetch(metaUrl, utf8.encode(':cic.token.meta'));
 
   // {contact: {email: info@grassecon.org, phone: +254757628885}, country_code: KE, location: Kilifi, name: Grassroots Economics}
-  Future<VoucherIssuer> tokenMetaSymbol(String symbol) async {
+  Future<VoucherIssuer> voucherMetaSymbol(String symbol) async {
     final dynamic data = await fetch(
         metaUrl, hash(identifier: symbol, salt: ':cic.token.meta.symbol'));
     return VoucherIssuer.fromMap(data);
   }
 
-  // Future<TokenProof> tokenProof() async {
+  // Future<VoucherProof> voucherProof() async {
   //   dynamic data =
-  //       await fetch(metaUrl, hash(identifier: "", salt: ':cic.token.proof'));
-  //   return TokenProof.fromMap(data);
+  //       await fetch(metaUrl, hash(identifier: "", salt: ':cic.voucher.proof'));
+  //   return VoucherProof.fromMap(data);
   // }
 
   // {description: Sarafu-Network Services, issuer: Grassroots Economics, namespace: ge, proofs: [bc3330d86a6e64ce819528090e2c329aed0a7d57110bc00eb48ab6d2572e59c3], version: 1}
-  Future<VoucherProof> tokenProofSymbol(String symbol) async {
+  Future<VoucherProof> voucherProofSymbol(String symbol) async {
     final dynamic data = await fetch(
       metaUrl,
       hash(identifier: symbol, salt: ':cic.token.proof.symbol'),

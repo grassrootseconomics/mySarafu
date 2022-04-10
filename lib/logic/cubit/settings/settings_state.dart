@@ -7,7 +7,7 @@ class SettingsState extends Equatable {
     required this.metaUrl,
     required this.cacheUrl,
     required this.rpcProvider,
-    this.tokenRegistryAddress,
+    this.voucherRegistryAddress,
     this.networkPreset = NetworkPresets.mainnet,
     this.themeMode = ThemeMode.system,
   });
@@ -15,7 +15,7 @@ class SettingsState extends Equatable {
     return SettingsState(
       chainSpec: json['chainSpec'] as String,
       contractRegisteryAddress: json['registeryAddress'] as String,
-      tokenRegistryAddress: json['tokenRegistryAddress'] as String? ?? '',
+      voucherRegistryAddress: json['voucherRegistryAddress'] as String? ?? '',
       metaUrl: json['metaUrl'] as String,
       cacheUrl: json['cacheUrl'] as String,
       rpcProvider: json['rpcProvider'] as String,
@@ -37,7 +37,7 @@ class SettingsState extends Equatable {
   final String metaUrl;
   final String cacheUrl;
   final String rpcProvider;
-  final String? tokenRegistryAddress;
+  final String? voucherRegistryAddress;
   final ThemeMode themeMode;
 
   SettingsState copyWith({
@@ -46,7 +46,7 @@ class SettingsState extends Equatable {
     String? metaUrl,
     String? cacheUrl,
     String? rpcProvider,
-    String? tokenRegistryAddress,
+    String? voucherRegistryAddress,
     NetworkPresets? networkPreset,
     ThemeMode? themeMode,
   }) {
@@ -57,7 +57,8 @@ class SettingsState extends Equatable {
       metaUrl: metaUrl ?? this.metaUrl,
       cacheUrl: cacheUrl ?? this.cacheUrl,
       rpcProvider: rpcProvider ?? this.rpcProvider,
-      tokenRegistryAddress: tokenRegistryAddress ?? this.tokenRegistryAddress,
+      voucherRegistryAddress:
+          voucherRegistryAddress ?? this.voucherRegistryAddress,
       themeMode: themeMode ?? this.themeMode,
       networkPreset: networkPreset ?? this.networkPreset,
     );
@@ -67,7 +68,7 @@ class SettingsState extends Equatable {
   Map<String, dynamic> toJson() => <String, dynamic>{
         'chainSpec': chainSpec,
         'registeryAddress': contractRegisteryAddress,
-        'tokenRegistryAddress': tokenRegistryAddress,
+        'voucherRegistryAddress': voucherRegistryAddress,
         'metaUrl': metaUrl,
         'cacheUrl': cacheUrl,
         'rpcProvider': rpcProvider,
@@ -82,7 +83,7 @@ class SettingsState extends Equatable {
         metaUrl,
         cacheUrl,
         rpcProvider,
-        tokenRegistryAddress,
+        voucherRegistryAddress,
         networkPreset,
         themeMode,
       ];
@@ -106,7 +107,7 @@ class SettingsLoaded extends SettingsState {
     required String metaUrl,
     required String cacheUrl,
     required String rpcProvider,
-    required String tokenRegistryAddress,
+    required String voucherRegistryAddress,
     ThemeMode themeMode = ThemeMode.system,
   }) : super(
           chainSpec: chainSpec,
@@ -114,7 +115,7 @@ class SettingsLoaded extends SettingsState {
           metaUrl: metaUrl,
           cacheUrl: cacheUrl,
           rpcProvider: rpcProvider,
-          tokenRegistryAddress: tokenRegistryAddress,
+          voucherRegistryAddress: voucherRegistryAddress,
           themeMode: themeMode,
         );
 }

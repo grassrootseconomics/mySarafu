@@ -3,8 +3,8 @@ import 'package:my_sarafu/logic/utils/Converter.dart';
 import 'package:my_sarafu/logic/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';
 
-class Token extends Equatable {
-  const Token({
+class Voucher extends Equatable {
+  const Voucher({
     required this.idx,
     required this.address,
     required this.name,
@@ -13,15 +13,15 @@ class Token extends Equatable {
     required this.decimals,
   });
 
-  factory Token.fromJson(dynamic json) {
-    log.d("Loading Json for TokenItem ${json}");
+  factory Voucher.fromJson(dynamic json) {
+    log.d("Loading Json for VoucherItem ${json}");
     final idx = int.parse(json['idx'] as String);
     final address = json['address'] as String;
     final name = json['name'] as String;
     final symbol = json['symbol'] as String;
     final balance = BigInt.tryParse(json['balance'] as String);
     final decimals = int.parse(json['decimals'] as String);
-    return Token(
+    return Voucher(
       idx: idx,
       address: EthereumAddress.fromHex(address),
       name: name,
@@ -42,7 +42,7 @@ class Token extends Equatable {
     return converter.getUserFacingValue(balance);
   }
 
-  Token copyWith({
+  Voucher copyWith({
     int? idx,
     EthereumAddress? address,
     String? name,
@@ -50,7 +50,7 @@ class Token extends Equatable {
     BigInt? balance,
     int? decimals,
   }) {
-    return Token(
+    return Voucher(
       idx: idx ?? this.idx,
       address: address ?? this.address,
       name: name ?? this.name,
@@ -74,28 +74,28 @@ class Token extends Equatable {
   get props => [idx, address, name, symbol, balance, decimals];
 }
 
-class TokenList {
-  const TokenList({
-    required this.tokens,
+class VoucherList {
+  const VoucherList({
+    required this.vouchers,
   });
 
-  factory TokenList.fromJson(dynamic json) {
+  factory VoucherList.fromJson(dynamic json) {
     try {
-      final tokensList = TokenList(
-        tokens: List<Map<String, dynamic>>.from(json['tokens'] as List)
-            .map<Token>(Token.fromJson)
+      final vouchersList = VoucherList(
+        vouchers: List<Map<String, dynamic>>.from(json['vouchers'] as List)
+            .map<Voucher>(Voucher.fromJson)
             .toList(),
       );
-      tokensList.tokens.sort((a, b) => b.balance.compareTo(a.balance));
-      return tokensList;
+      vouchersList.vouchers.sort((a, b) => b.balance.compareTo(a.balance));
+      return vouchersList;
     } catch (e) {
       log.e(e);
       rethrow;
     }
   }
-  final List<Token> tokens;
+  final List<Voucher> vouchers;
 
   Map<String, Object> toJson() => <String, Object>{
-        'tokens': tokens.map((e) => e.toJson()).toList(),
+        'vouchers': vouchers.map((e) => e.toJson()).toList(),
       };
 }

@@ -32,7 +32,7 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
             contractRegisteryAddress: mainnet.contractRegisteryAddress,
             rpcProvider: mainnet.rpcProvider,
             metaUrl: mainnet.metaUrl,
-            tokenRegistryAddress: '',
+            voucherRegistryAddress: '',
           ),
         );
         break;
@@ -45,7 +45,7 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
             contractRegisteryAddress: testnet.contractRegisteryAddress,
             rpcProvider: testnet.rpcProvider,
             metaUrl: testnet.metaUrl,
-            tokenRegistryAddress: '',
+            voucherRegistryAddress: '',
           ),
         );
         break;

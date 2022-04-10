@@ -4,7 +4,7 @@ import 'dart:typed_data';
 
 import 'package:http/http.dart'; //You can also import the browser version
 import 'package:my_sarafu/logic/contracts/contract-registery/contract.g.dart';
-import 'package:my_sarafu/logic/contracts/token-registery/TokenUniqueSymbolIndex.g.dart';
+import 'package:my_sarafu/logic/contracts/voucher-registery/TokenUniqueSymbolIndex.g.dart';
 import 'package:my_sarafu/logic/utils/Converter.dart';
 import 'package:web3dart/contracts/erc20.dart';
 import 'package:web3dart/web3dart.dart';
@@ -33,7 +33,7 @@ Future<EtherAmount> connectRPC(Wallet wallet, String rpcProvider) async {
       address:
           EthereumAddress.fromHex("0xcf60ebc445b636a5ab787f9e8bc465a2a3ef8299"),
       client: ethClient);
-  final tokenregistry = await contract.addressOf(fromText('TokenRegistry'));
+  final voucherregistry = await contract.addressOf(fromText('VoucherRegistry'));
   final accountregistry = await contract.addressOf(fromText('AccountRegistry'));
   final faucet = await contract.addressOf(fromText('Faucet'));
   final addressdeclarator =
@@ -42,28 +42,28 @@ Future<EtherAmount> connectRPC(Wallet wallet, String rpcProvider) async {
       await contract.addressOf(fromText('TransferAuthorization'));
   final contractregistry =
       await contract.addressOf(fromText('ContractRegistry'));
-  final defaulttoken = await contract.addressOf(fromText('DefaultToken'));
-  print("TokenRegistery: ${tokenregistry}");
+  final defaultvoucher = await contract.addressOf(fromText('DefaultVoucher'));
+  print("VoucherRegistery: ${voucherregistry}");
   print("AccountRegistry: ${accountregistry}");
   print("Faucet: ${faucet}");
   print("AddressDeclarator: ${addressdeclarator}");
   print("TransferAuthorization: ${transferauthorization}");
   print("ContractRegistry: ${contractregistry}");
-  print("DefaultToken: ${defaulttoken}");
+  print("DefaultVoucher: ${defaultvoucher}");
   // You can now call rpc methods. This one will query the amount of Ether you own
   final balance = await ethClient.getBalance(wallet.privateKey.address);
   print(balance.getValueInUnit(EtherUnit.ether));
 
-  final tokenUniqueSymbolIndexContract =
-      TokenUniqueSymbolIndex(address: tokenregistry, client: ethClient);
-  final count = await tokenUniqueSymbolIndexContract.entryCount();
-  print("TokenUniqueSymbolIndex: ${count}");
+  final voucherUniqueSymbolIndexContract =
+      VoucherUniqueSymbolIndex(address: voucherregistry, client: ethClient);
+  final count = await voucherUniqueSymbolIndexContract.entryCount();
+  print("VoucherUniqueSymbolIndex: ${count}");
 
   final range = List.generate(count.toInt(), (index) => index);
   print("My Address: ${wallet.privateKey.address}");
   await Future.forEach(range, (int element) async {
     final address =
-        await tokenUniqueSymbolIndexContract.entry(new BigInt.from(element));
+        await voucherUniqueSymbolIndexContract.entry(new BigInt.from(element));
     final erc20 = Erc20(address: address, client: ethClient);
     final symbol = await erc20.symbol();
     final balance = await erc20.balanceOf(wallet.privateKey.address);
