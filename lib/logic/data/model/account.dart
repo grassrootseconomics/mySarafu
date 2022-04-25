@@ -21,14 +21,14 @@ class Account {
 
   bool verifyPassword(String password) {
     try {
-      final credentials = Wallet.fromJson(encryptedWallet, password);
+      Wallet.fromJson(encryptedWallet, password);
     } catch (e) {
       log.e(e);
       return false;
     }
     return true;
   }
-  
+
   Map<String, String> toJson() {
     return {
       'name': name,

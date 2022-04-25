@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:my_sarafu/logic/utils/Converter.dart';
+import 'package:my_sarafu/logic/utils/converter.dart';
 import 'package:my_sarafu/logic/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -14,7 +14,7 @@ class Voucher extends Equatable {
   });
 
   factory Voucher.fromJson(dynamic json) {
-    log.d("Loading Json for VoucherItem ${json}");
+    log.d("Loading Json for VoucherItem $json");
     final idx = int.parse(json['idx'] as String);
     final address = json['address'] as String;
     final name = json['name'] as String;
@@ -38,7 +38,7 @@ class Voucher extends Equatable {
   final int decimals;
 
   String get userFacingBalance {
-    final converter = WeiConverter(decimals);
+    final converter = WeiConverter(decimals: decimals);
     return converter.getUserFacingValue(balance);
   }
 
@@ -71,7 +71,8 @@ class Voucher extends Equatable {
     };
   }
 
-  get props => [idx, address, name, symbol, balance, decimals];
+  @override
+  List<Object?> get props => [idx, address, name, symbol, balance, decimals];
 }
 
 class VoucherList {

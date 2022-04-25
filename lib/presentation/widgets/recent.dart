@@ -1,4 +1,6 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:my_sarafu/presentation/widgets/send.dart';
 
 const recent = [
   RecentItem('Will'),
@@ -45,9 +47,6 @@ class RecentWidget extends StatelessWidget {
               Container(
                 height: 100,
                 child: ListView.builder(
-                  // Providing a restorationId allows the ListView to restore
-                  // the scroll position when a user leaves and returns to the
-                  // app after it has been killed while running in the background.
                   restorationId: 'recentItemWidget',
                   itemCount: items.length,
                   scrollDirection: Axis.horizontal,
@@ -56,26 +55,36 @@ class RecentWidget extends StatelessWidget {
 
                     return Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Column(
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Image.asset(
-                                'assets/images/sarafu_logo.png',
-                                height: 35,
+                      child: InkWell(
+                        onTap: () {
+                          showModal<void>(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SendWidget();
+                            },
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Image.asset(
+                                  'assets/images/sarafu_logo.png',
+                                  height: 35,
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Text(item.name),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Text(item.name),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },

@@ -95,8 +95,10 @@ class VoucherDetailedWidget extends StatelessWidget {
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () => Navigator.pop(context),
                 ),
-                Text(voucher.name,
-                    style: Theme.of(context).textTheme.headlineLarge),
+                Text(
+                  voucher.name,
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
                 const SizedBox(
                   width: 35,
                 ),
@@ -145,7 +147,7 @@ class VoucherDetailedWidget extends StatelessWidget {
                   ),
                   ListTile(
                     title: const Text('Phone'),
-                    trailing: Text(meta?.contact?.phone ?? ''),
+                    trailing: Text(meta?.contact.phone ?? ''),
                   ),
                   ListTile(
                     title: const Text('Email'),

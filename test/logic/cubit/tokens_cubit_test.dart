@@ -30,7 +30,8 @@ void main() {
 
       setUp(() async {
         vouchersCubit = await mockHydratedStorage(
-            () => VouchersCubit(MockVoucherRepository()));
+          () => VouchersCubit(MockVoucherRepository()),
+        );
       });
 
       test('fetchAllVouchers', () async {

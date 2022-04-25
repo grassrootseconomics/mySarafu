@@ -12,7 +12,7 @@ class AccountsEmpty extends AccountsState {
   const AccountsEmpty() : super(accounts: const [], activeAccountIdx: 0);
 
   @override
-  get props {
+  List<Object?> get props {
     return [];
   }
 }
@@ -43,5 +43,5 @@ class AccountsError extends AccountsState {
   final String message;
 
   @override
-  get props => [...accounts, message, activeAccountIdx];
+  List<Object?> get props => [...accounts, message, activeAccountIdx];
 }

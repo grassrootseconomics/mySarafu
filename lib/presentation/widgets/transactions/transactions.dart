@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:my_sarafu/logic/cubit/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/logic/cubit/settings/settings_cubit.dart';
 import 'package:my_sarafu/logic/cubit/transactions/transactions_cubit.dart';
-import 'package:my_sarafu/logic/data/model/transaction.dart';
 import 'package:my_sarafu/logic/data/cache_repository.dart';
+import 'package:my_sarafu/logic/data/model/transaction.dart';
 import 'package:my_sarafu/presentation/widgets/transactions/transaction.dart';
 import 'package:sticky_grouped_list/sticky_grouped_list.dart';
 
@@ -67,7 +67,7 @@ class TransactionsWidget extends StatelessWidget {
                   elements: state.transactions.data,
                   groupBy: (tx) => tx.dateBlock,
                   groupSeparatorBuilder: (tx) => Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: Text(DateFormat('d/M/yy').format(tx.dateBlock)),
                   ),
                   itemBuilder: (context, tx) =>

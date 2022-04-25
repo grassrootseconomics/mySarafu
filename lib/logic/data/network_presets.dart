@@ -20,11 +20,11 @@ class NetworkPreset {
 }
 
 const NetworkPreset mainnet = NetworkPreset(
-  chainSpec: 'evm:kitabu:5050:sarafu ',
-  contractRegisteryAddress: '0x6c5dfccd22c1a1188224bbe46a0770a48c23f97f',
-  metaUrl: 'https://meta.grassecon.org',
-  cacheUrl: 'https://cache.grassecon.org',
-  rpcProvider: 'https://rpc.kitabu.grassecon.org',
+  chainSpec: 'evm:kitabu:6060:sarafu ',
+  contractRegisteryAddress: '0xe3e3431bf25b06166513019ed7b21598d27d05dc',
+  metaUrl: 'https://meta.sarafu.network',
+  cacheUrl: 'https://cache.sarafu.network',
+  rpcProvider: 'http://142.93.38.53:8545',
 );
 
 const NetworkPreset testnet = NetworkPreset(

@@ -8,7 +8,7 @@ abstract class CreateAccountFormState extends Equatable {
 class EmptyAccountFormState extends CreateAccountFormState {
   const EmptyAccountFormState() : super();
   @override
-  get props {
+  List<Object?> get props {
     return [];
   }
 }
@@ -24,7 +24,7 @@ class CreatingAccountFormState extends CreateAccountFormState {
   final String passwordConfirmation;
 
   @override
-  get props {
+  List<Object?> get props {
     return [name, password, passwordConfirmation];
   }
 }
@@ -40,7 +40,7 @@ class DirtyAccountFormState extends CreateAccountFormState {
   final String? passwordConfirmation;
 
   @override
-  get props {
+  List<Object?> get props {
     return [name, password, passwordConfirmation];
   }
 }
@@ -52,7 +52,7 @@ class CreatedAccountState extends CreateAccountFormState {
   final Account account;
 
   @override
-  get props {
+  List<Object?> get props {
     return [account];
   }
 }
@@ -70,5 +70,5 @@ class ErrorAccountFormState extends CreateAccountFormState {
   final String? passwordConfirmation;
 
   @override
-  get props => [name, password, passwordConfirmation, message];
+  List<Object?> get props => [name, password, passwordConfirmation, message];
 }

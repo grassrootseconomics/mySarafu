@@ -9,7 +9,8 @@ abstract class TransactionsState extends Equatable {
 class TransactionsInitial extends TransactionsState {
   const TransactionsInitial({required TransactionList transactions})
       : super(transactions: transactions);
-  get props {
+  @override
+  List<Object?> get props {
     return [...transactions.data];
   }
 }
@@ -17,7 +18,8 @@ class TransactionsInitial extends TransactionsState {
 class TransactionsLoading extends TransactionsState {
   const TransactionsLoading({required TransactionList transactions})
       : super(transactions: transactions);
-  get props {
+  @override
+  List<Object?> get props {
     return [...transactions.data];
   }
 }
@@ -26,7 +28,8 @@ class TransactionsLoaded extends TransactionsState {
   const TransactionsLoaded({required TransactionList transactions})
       : super(transactions: transactions);
 
-  get props {
+  @override
+  List<Object?> get props {
     return [...transactions.data];
   }
 }
@@ -37,5 +40,6 @@ class TransactionsError extends TransactionsState {
       : super(transactions: transactions);
   final String message;
 
-  get props => [...transactions.data, message];
+  @override
+  List<Object?> get props => [...transactions.data, message];
 }

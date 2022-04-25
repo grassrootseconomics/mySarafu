@@ -19,9 +19,10 @@ class VoucherCubit extends Cubit<VoucherState> {
     if (state is VoucherLoaded) {
       emit(
         VoucherLoading(
-            voucher: voucher,
-            meta: (state as VoucherLoaded).meta,
-            proof: (state as VoucherLoaded).proof),
+          voucher: voucher,
+          meta: (state as VoucherLoaded).meta,
+          proof: (state as VoucherLoaded).proof,
+        ),
       );
     }
     if (state is VoucherLoading) {

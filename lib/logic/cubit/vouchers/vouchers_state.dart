@@ -13,7 +13,7 @@ class VouchersInitial extends VouchersState {
       : super(vouchers: vouchers, activeVoucherIdx: activeVoucherIdx);
 
   @override
-  get props {
+  List<Object?> get props {
     return [...vouchers];
   }
 }
@@ -45,5 +45,5 @@ class VouchersError extends VouchersState {
   final String message;
 
   @override
-  get props => [...vouchers, message, activeVoucherIdx];
+  List<Object?> get props => [...vouchers, message, activeVoucherIdx];
 }

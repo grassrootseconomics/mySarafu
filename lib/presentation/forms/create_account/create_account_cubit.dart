@@ -77,7 +77,7 @@ class CreateAccountFormCubit extends Cubit<CreateAccountFormState> {
       name: name,
       address: address,
     );
-    log.d('Created account ${account}');
+    log.d('Created account $account');
 
     emit(CreatedAccountState(account: account));
   }

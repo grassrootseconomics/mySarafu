@@ -29,7 +29,7 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    // log.d('onChange(${bloc.runtimeType}, $change)');
+    log.d('onChange(${bloc.runtimeType})');
   }
 
   @override
@@ -52,7 +52,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
       );
       await HydratedBlocOverrides.runZoned(
         () async => runApp(await builder()),
-        createStorage: () =>storage,
+        createStorage: () => storage,
         blocObserver: AppBlocObserver(),
       );
     },

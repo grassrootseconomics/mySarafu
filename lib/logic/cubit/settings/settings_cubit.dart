@@ -54,8 +54,6 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
           state.copyWith(networkPreset: preset),
         );
         break;
-      default:
-        throw Exception('Unknown network preset');
     }
   }
 }

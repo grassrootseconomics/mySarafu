@@ -1,8 +1,12 @@
+import 'package:flutter/material.dart';
+
 /// Utility class to easily convert amounts of Ether into different units of
 /// quantities.
+
+@immutable
 class WeiConverter {
-  WeiConverter(this.decimals);
-  int decimals = 6;
+  const WeiConverter({required this.decimals});
+  final int decimals;
 
   /// Gets the value of this amount in the specified unit as a whole number.
   /// **WARNING**: For all units except for [EtherUnit.wei], this method will

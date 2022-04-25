@@ -94,7 +94,7 @@ class TransactionList {
 
   factory TransactionList.fromJson(dynamic json) {
     try {
-      var transactions = List<Map<String, dynamic>>.from(json['data'] as List)
+      final transactions = List<Map<String, dynamic>>.from(json['data'] as List)
           .map<Transaction>(Transaction.fromJson)
           .toSet();
       final transactionList = TransactionList(

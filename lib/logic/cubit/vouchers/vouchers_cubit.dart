@@ -35,12 +35,17 @@ class VouchersCubit extends HydratedCubit<VouchersState> {
 
   Future<void> updateBalances(EthereumAddress address) async {
     log.d(
-        'Updating balances for $address for ${state.vouchers.length} Vouchers');
+      'Updating balances for $address for ${state.vouchers.length} Vouchers',
+    );
     final updated =
         await _voucherRepository.updateBalances(address, state.vouchers);
     log.d('Updated Balances for ${updated.length} Vouchers');
-    emit(VouchersLoaded(
-        vouchers: updated, activeVoucherIdx: state.activeVoucherIdx));
+    emit(
+      VouchersLoaded(
+        vouchers: updated,
+        activeVoucherIdx: state.activeVoucherIdx,
+      ),
+    );
   }
 
   @override
@@ -55,7 +60,9 @@ class VouchersCubit extends HydratedCubit<VouchersState> {
           ? json['activeVoucherIdx'] as int
           : 0;
       return VouchersLoaded(
-          vouchers: vouchers, activeVoucherIdx: activeVoucherIdx);
+        vouchers: vouchers,
+        activeVoucherIdx: activeVoucherIdx,
+      );
     } catch (e) {
       log.e(e);
     }

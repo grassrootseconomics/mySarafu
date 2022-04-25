@@ -5,7 +5,7 @@ import 'package:my_sarafu/logic/cubit/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/logic/cubit/vouchers/vouchers_cubit.dart';
 import 'package:my_sarafu/logic/data/model/account.dart';
 import 'package:my_sarafu/logic/data/model/transaction.dart';
-import 'package:my_sarafu/logic/utils/Converter.dart';
+import 'package:my_sarafu/logic/utils/converter.dart';
 import 'package:my_sarafu/presentation/widgets/icon.dart';
 import 'package:web3dart/credentials.dart';
 
@@ -21,7 +21,7 @@ class TransactionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<VouchersCubit, VouchersState>(
       listener: (context, state) {
-        // TODO: implement listener
+        // TODO(x): implement listener
       },
       builder: (context, state) {
         final account = context
@@ -50,8 +50,10 @@ class TransactionWidget extends StatelessWidget {
                         textAlign: TextAlign.end,
                       ),
                     ),
-                    Icon(transaction.success ? Icons.check : Icons.close,
-                        color: transaction.success ? Colors.green : Colors.red),
+                    Icon(
+                      transaction.success ? Icons.check : Icons.close,
+                      color: transaction.success ? Colors.green : Colors.red,
+                    ),
                   ],
                 ),
               ),
@@ -82,7 +84,7 @@ String getBalance(VouchersState vouchersState, Transaction tx) {
   final toVoucher = vouchersState.vouchers.firstWhereOrNull(
     (voucher) => voucher.address == tx.destinationVoucher,
   );
-  final fromConverter = WeiConverter(fromVoucher?.decimals ?? 6);
+  final fromConverter = WeiConverter(decimals: fromVoucher?.decimals ?? 6);
   if (fromVoucher?.address == toVoucher?.address) {
     return fromConverter.getUserFacingValue(BigInt.from(tx.toValue));
   } else {

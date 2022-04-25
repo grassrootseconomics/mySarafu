@@ -3,10 +3,10 @@ import 'package:my_sarafu/logic/data/model/voucher.dart';
 import 'package:my_sarafu/logic/data/vouchers_repository.dart';
 import 'package:web3dart/web3dart.dart';
 
-var mockEthereumAddress =
+EthereumAddress mockEthereumAddress =
     EthereumAddress.fromHex('0x0000000000000000000000000000000000000001');
 
-var mockVoucher = Voucher(
+Voucher mockVoucher = Voucher(
   idx: 0,
   address: mockEthereumAddress,
   symbol: 'SRF',
@@ -18,8 +18,7 @@ var mockVoucher = Voucher(
 class MockVoucherRepository extends Mock implements VoucherRepository {
   @override
   Future<List<Voucher>> getAllVouchers(EthereumAddress address) async {
-    final vouchers = <Voucher>[];
-    final voucher = vouchers.add(mockVoucher);
+    final vouchers = <Voucher>[mockVoucher];
     return vouchers;
   }
 

@@ -42,7 +42,6 @@ class CreateAccountFormViewState extends State<CreateAccountFormView> {
         },
         child: BlocBuilder<CreateAccountFormCubit, CreateAccountFormState>(
           builder: (context, state) {
-            print(state.runtimeType);
             if (state is EmptyAccountFormState) {
               return _buildForm(context, state);
             }
@@ -145,7 +144,6 @@ class CreateAccountFormViewState extends State<CreateAccountFormView> {
                   if (_formKey.currentState!.validate()) {
                     // If the form is valid, display a snackbar. In the real world,
                     // you'd often call a server or save the information in a database.
-                    print("Here");
                     context.read<CreateAccountFormCubit>().createAccount(
                           name: _namePassController.text,
                           password: _passController.text,

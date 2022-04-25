@@ -7,20 +7,23 @@ abstract class TransactionState extends Equatable {
 
 class TransactionInitial extends TransactionState {
   const TransactionInitial() : super();
-  get props {
+  @override
+  List<Object?> get props {
     return [];
   }
 }
 class TransactionReady extends TransactionState {
   const TransactionReady() : super();
 
-  get props {
+  @override
+  List<Object?> get props {
     return [];
   }
 }
 class TransactionSending extends TransactionReady {
   const TransactionSending() : super();
-  get props {
+  @override
+  List<Object?> get props {
     return [];
   }
 }
@@ -28,14 +31,16 @@ class TransactionSending extends TransactionReady {
 class TransactionSent extends TransactionSending {
   const TransactionSent() : super();
 
-  get props {
+  @override
+  List<Object?> get props {
     return [];
   }
 }
 
 class TransactionError extends TransactionState {
-  TransactionError(this.message) : super();
+  const TransactionError(this.message) : super();
   final String message;
 
-  get props => [message];
+  @override
+  List<Object?> get props => [message];
 }

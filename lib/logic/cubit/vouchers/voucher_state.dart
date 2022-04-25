@@ -10,7 +10,7 @@ class VoucherInitial extends VoucherState {
   const VoucherInitial({required Voucher voucher}) : super(voucher: voucher);
 
   @override
-  get props {
+  List<Object?> get props {
     return [voucher];
   }
 }
@@ -26,7 +26,7 @@ class VoucherLoading extends VoucherState {
   final VoucherProof? proof;
 
   @override
-  get props {
+  List<Object?> get props {
     return [meta, proof, voucher];
   }
 }
@@ -63,5 +63,5 @@ class VoucherError extends VoucherState {
   final String message;
 
   @override
-  get props => [voucher, message];
+  List<Object?> get props => [voucher, message];
 }

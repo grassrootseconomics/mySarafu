@@ -6,10 +6,10 @@ import 'package:my_sarafu/logic/cubit/settings/settings_cubit.dart';
 import 'package:my_sarafu/logic/cubit/vouchers/vouchers_cubit.dart';
 import 'package:my_sarafu/logic/data/registry_repository.dart';
 import 'package:my_sarafu/logic/data/vouchers_repository.dart';
-import 'package:my_sarafu/presentation/screens/home/view/home_page.dart';
-import 'package:my_sarafu/presentation/screens/landing/landing_page.dart';
-import 'package:my_sarafu/presentation/screens/settings/settings_page.dart';
-import 'package:my_sarafu/presentation/screens/vouchers/vouchers_page.dart';
+import 'package:my_sarafu/presentation/screens/home_screen.dart';
+import 'package:my_sarafu/presentation/screens/landing_screen.dart';
+import 'package:my_sarafu/presentation/screens/settings_screen.dart';
+import 'package:my_sarafu/presentation/screens/vouchers_screen.dart';
 import 'package:web3dart/web3dart.dart';
 
 MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {

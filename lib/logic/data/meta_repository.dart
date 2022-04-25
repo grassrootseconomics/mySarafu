@@ -61,10 +61,21 @@ class MetaRepository {
   // void voucherLastSent() => fetch(metaUrl, utf8.encode(':cic.voucher.last.sent'));
   // void voucherMeta() => fetch(metaUrl, utf8.encode(':cic.token.meta'));
 
-  // {contact: {email: info@grassecon.org, phone: +254757628885}, country_code: KE, location: Kilifi, name: Grassroots Economics}
+  // {
+  //  contact: {
+  //    email: info@grassecon.org,
+  //    phone: +254757628885
+  //  },
+  //  country_code: KE,
+  //  location: Kilifi,
+  //  name: Grassroots Economics
+  // }
+
   Future<VoucherIssuer> voucherMetaSymbol(String symbol) async {
     final dynamic data = await fetch(
-        metaUrl, hash(identifier: symbol, salt: ':cic.token.meta.symbol'));
+      metaUrl,
+      hash(identifier: symbol, salt: ':cic.token.meta.symbol'),
+    );
     return VoucherIssuer.fromMap(data);
   }
 
@@ -85,9 +96,9 @@ class MetaRepository {
 }
 
 class Contact {
+  Contact({this.email, this.phone});
   factory Contact.fromJson(String source) =>
       Contact.fromMap(json.decode(source) as Map<String, dynamic>);
-  Contact({this.email, this.phone});
 
   factory Contact.fromMap(dynamic map) {
     return Contact(
@@ -115,6 +126,12 @@ class Contact {
 }
 
 class VoucherIssuer {
+  VoucherIssuer({
+    required this.countryCode,
+    required this.location,
+    required this.name,
+    required this.contact,
+  });
   factory VoucherIssuer.fromJson(String source) =>
       VoucherIssuer.fromMap(json.decode(source) as Map<String, dynamic>);
 
@@ -126,26 +143,18 @@ class VoucherIssuer {
       name: map['name'] as String? ?? '',
     );
   }
-  VoucherIssuer({
-    required this.countryCode,
-    required this.location,
-    required this.name,
-    required this.contact,
-  });
   final Contact contact;
   final String countryCode;
   final String location;
   final String name;
 
   Map<String, dynamic> toMap() {
-    final result = <String, dynamic>{};
-
-    result.addAll(<String, dynamic>{
+    final result = <String, dynamic>{
       'contact': contact.toMap(),
       'country_code': countryCode,
       'location': location,
       'name': name
-    });
+    };
 
     return result;
   }
@@ -154,7 +163,6 @@ class VoucherIssuer {
 }
 
 class VoucherProof {
-  // {description: Sarafu-Network Services, issuer: Grassroots Economics, namespace: ge, proofs: [bc3330d86a6e64ce819528090e2c329aed0a7d57110bc00eb48ab6d2572e59c3], version: 1}
   VoucherProof({
     required this.description,
     required this.issuer,
@@ -162,6 +170,19 @@ class VoucherProof {
     required this.proofs,
     required this.version,
   });
+
+  factory VoucherProof.fromMap(dynamic map) {
+    return VoucherProof(
+      description: map['description'] as String? ?? '',
+      issuer: map['issuer'] as String? ?? '',
+      namespace: map['namespace'] as String? ?? '',
+      proofs: List<String>.from(map['proofs'] as List<dynamic>),
+      version: map['version'] as int,
+    );
+  }
+
+  factory VoucherProof.fromJson(String source) =>
+      VoucherProof.fromMap(json.decode(source));
   final String description;
   final String issuer;
   final String namespace;
@@ -176,18 +197,5 @@ class VoucherProof {
         'version': version,
       };
 
-  factory VoucherProof.fromMap(dynamic map) {
-    return VoucherProof(
-      description: map['description'] as String? ?? '',
-      issuer: map['issuer'] as String? ?? '',
-      namespace: map['namespace'] as String? ?? '',
-      proofs: List<String>.from(map['proofs'] as List<dynamic>),
-      version: map['version'] as int,
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory VoucherProof.fromJson(String source) =>
-      VoucherProof.fromMap(json.decode(source));
 }

@@ -27,7 +27,7 @@ class AccountListItem extends StatelessWidget {
         icon: const Icon(Icons.delete_forever),
         onPressed: () => context.read<AccountsCubit>().deleteAccount(
               accountIdx,
-              password: "test",
+              password: 'test',
             ),
       ),
     );
