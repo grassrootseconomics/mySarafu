@@ -19,16 +19,19 @@ class SendForm extends StatelessWidget {
             );
         }
       },
-      child: Align(
-        alignment: const Alignment(0, -1 / 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _RecipientInput(),
-            _AmountInput(),
-            _SendButton(),
-          ],
-        ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              'Send',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ),
+          _RecipientInput(),
+          _AmountInput(),
+          _SendButton(),
+        ],
       ),
     );
   }
@@ -48,7 +51,7 @@ class _RecipientInput extends StatelessWidget {
           decoration: InputDecoration(
             labelText: 'Recipent',
             helperText: '',
-            errorText: state.recipient.invalid ? 'invalid email' : null,
+            errorText: state.recipient.invalid ? 'Invalid Recipent' : null,
           ),
         );
       },

@@ -34,6 +34,7 @@ class SendFormCubit extends Cubit<SendFormState> {
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
+      
       await Future.delayed(const Duration(seconds: 1), () {
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
       });

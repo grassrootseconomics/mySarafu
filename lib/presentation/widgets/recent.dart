@@ -1,6 +1,5 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/presentation/widgets/send.dart';
+import 'package:my_sarafu/send/view/view.dart';
 
 const recent = [
   RecentItem('Will'),
@@ -44,7 +43,7 @@ class RecentWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 100,
                 child: ListView.builder(
                   restorationId: 'recentItemWidget',
@@ -57,10 +56,11 @@ class RecentWidget extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       child: InkWell(
                         onTap: () {
-                          showModal<void>(
+                          showModalBottomSheet<void>(
+                            backgroundColor: Colors.transparent,
                             context: context,
                             builder: (BuildContext context) {
-                              return SendWidget();
+                              return const SendCardView();
                             },
                           );
                         },
