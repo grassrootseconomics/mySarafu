@@ -3,7 +3,7 @@ part of 'settings_cubit.dart';
 class SettingsState extends Equatable {
   const SettingsState({
     required this.chainSpec,
-    required this.contractRegisteryAddress,
+    required this.contractRegistryAddress,
     required this.metaUrl,
     required this.cacheUrl,
     required this.rpcProvider,
@@ -14,7 +14,7 @@ class SettingsState extends Equatable {
   factory SettingsState.fromJson(dynamic json) {
     return SettingsState(
       chainSpec: json['chainSpec'] as String,
-      contractRegisteryAddress: json['registeryAddress'] as String,
+      contractRegistryAddress: json['registryAddress'] as String,
       voucherRegistryAddress: json['voucherRegistryAddress'] as String? ?? '',
       metaUrl: json['metaUrl'] as String,
       cacheUrl: json['cacheUrl'] as String,
@@ -33,7 +33,7 @@ class SettingsState extends Equatable {
   }
   final NetworkPresets networkPreset;
   final String chainSpec;
-  final String contractRegisteryAddress;
+  final String contractRegistryAddress;
   final String metaUrl;
   final String cacheUrl;
   final String rpcProvider;
@@ -42,7 +42,7 @@ class SettingsState extends Equatable {
 
   SettingsState copyWith({
     String? chainSpec,
-    String? contractRegisteryAddress,
+    String? contractRegistryAddress,
     String? metaUrl,
     String? cacheUrl,
     String? rpcProvider,
@@ -52,8 +52,8 @@ class SettingsState extends Equatable {
   }) {
     final settings = SettingsState(
       chainSpec: chainSpec ?? this.chainSpec,
-      contractRegisteryAddress:
-          contractRegisteryAddress ?? this.contractRegisteryAddress,
+      contractRegistryAddress:
+          contractRegistryAddress ?? this.contractRegistryAddress,
       metaUrl: metaUrl ?? this.metaUrl,
       cacheUrl: cacheUrl ?? this.cacheUrl,
       rpcProvider: rpcProvider ?? this.rpcProvider,
@@ -67,7 +67,7 @@ class SettingsState extends Equatable {
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'chainSpec': chainSpec,
-        'registeryAddress': contractRegisteryAddress,
+        'registryAddress': contractRegistryAddress,
         'voucherRegistryAddress': voucherRegistryAddress,
         'metaUrl': metaUrl,
         'cacheUrl': cacheUrl,
@@ -79,7 +79,7 @@ class SettingsState extends Equatable {
   @override
   List<Object?> get props => [
         chainSpec,
-        contractRegisteryAddress,
+        contractRegistryAddress,
         metaUrl,
         cacheUrl,
         rpcProvider,
@@ -93,7 +93,7 @@ class InitialSettings extends SettingsState {
   InitialSettings()
       : super(
           chainSpec: mainnet.chainSpec,
-          contractRegisteryAddress: mainnet.contractRegisteryAddress,
+          contractRegistryAddress: mainnet.contractRegistryAddress,
           metaUrl: mainnet.metaUrl,
           cacheUrl: mainnet.cacheUrl,
           rpcProvider: mainnet.rpcProvider,
@@ -103,7 +103,7 @@ class InitialSettings extends SettingsState {
 class SettingsLoaded extends SettingsState {
   const SettingsLoaded({
     required String chainSpec,
-    required String contractRegisteryAddress,
+    required String contractRegistryAddress,
     required String metaUrl,
     required String cacheUrl,
     required String rpcProvider,
@@ -111,7 +111,7 @@ class SettingsLoaded extends SettingsState {
     ThemeMode themeMode = ThemeMode.system,
   }) : super(
           chainSpec: chainSpec,
-          contractRegisteryAddress: contractRegisteryAddress,
+          contractRegistryAddress: contractRegistryAddress,
           metaUrl: metaUrl,
           cacheUrl: cacheUrl,
           rpcProvider: rpcProvider,

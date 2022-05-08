@@ -19,7 +19,7 @@ class VoucherDetailedView extends StatelessWidget {
       body: BlocProvider(
         create: (context) => VoucherCubit(
           voucher: voucher,
-          metaRespository: MetaRepository(
+          metaRepository: MetaRepository(
             metaUrl: context.read<SettingsCubit>().state.metaUrl,
           ),
         )..fetchMeta(),

@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
+import 'package:my_sarafu/logic/utils/logger.dart';
 import 'package:path/path.dart' as p;
 
 Future<dynamic> fetch(String host, String pointer) async {
   final url = p.join(host, pointer);
-  print("$url");
+  log.d("$url");
   final uri = Uri.parse(url);
   final response = await http.get(uri);
   if (response.statusCode == 200) {

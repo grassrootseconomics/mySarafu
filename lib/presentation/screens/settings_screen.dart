@@ -23,6 +23,7 @@ class SettingsView extends StatelessWidget {
           sections: [
             SettingsSection(
               title: const Text('Accounts'),
+              // TODO(x): Remove settings_ui dependency.
               tiles: <SettingsTile>[
                 SettingsTile.navigation(
                   leading: const Icon(Icons.account_circle_rounded),
@@ -167,7 +168,7 @@ class SettingsView extends StatelessWidget {
                 SettingsTile.navigation(
                   leading: const Icon(Icons.document_scanner_rounded),
                   title: const Text('Contract Registry Address'),
-                  value: Text(settings.contractRegisteryAddress),
+                  value: Text(settings.contractRegistryAddress),
                 ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.link_rounded),

@@ -1,4 +1,4 @@
-import 'package:my_sarafu/logic/contracts/voucher-registery/TokenUniqueSymbolIndex.g.dart';
+import 'package:my_sarafu/logic/contracts/voucher-registry/TokenUniqueSymbolIndex.g.dart';
 import 'package:my_sarafu/logic/cubit/settings/settings_cubit.dart';
 import 'package:my_sarafu/logic/data/model/voucher.dart';
 import 'package:my_sarafu/logic/data/registry_repository.dart';
@@ -9,12 +9,12 @@ import 'package:web3dart/web3dart.dart';
 class VoucherRepository {
   VoucherRepository({
     required this.settings,
-    required this.registeryRepo,
+    required this.registryRepo,
     required this.client,
   });
 
   final SettingsState settings;
-  final RegistryRepository registeryRepo;
+  final RegistryRepository registryRepo;
   final Web3Client client;
   VoucherUniqueSymbolIndex? voucherUniqueSymbolIndexContract;
 
@@ -23,8 +23,7 @@ class VoucherRepository {
     if (voucherUniqueSymbolIndexContract == null) {
       if (settings.voucherRegistryAddress == null ||
           settings.voucherRegistryAddress!.isEmpty) {
-        final voucherRegistryAddress =
-            await registeryRepo.getVoucherRegistery();
+        final voucherRegistryAddress = await registryRepo.getVoucherRegistry();
         voucherUniqueSymbolIndexContract = VoucherUniqueSymbolIndex(
           address: voucherRegistryAddress,
           client: client,
@@ -65,6 +64,7 @@ class VoucherRepository {
       );
       vouchers.add(voucher);
     });
+    vouchers.sort((a, b) => a.name.compareTo(b.name));
     return vouchers;
   }
 

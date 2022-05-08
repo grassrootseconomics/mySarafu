@@ -8,9 +8,10 @@ abstract class VouchersState extends Equatable {
 }
 
 class VouchersInitial extends VouchersState {
-  const VouchersInitial(
-      {required List<Voucher> vouchers, int? activeVoucherIdx})
-      : super(vouchers: vouchers, activeVoucherIdx: activeVoucherIdx);
+  const VouchersInitial({
+    required List<Voucher> vouchers,
+    int? activeVoucherIdx,
+  }) : super(vouchers: vouchers, activeVoucherIdx: activeVoucherIdx);
 
   @override
   List<Object?> get props {
@@ -40,8 +41,10 @@ class VouchersLoaded extends VouchersState {
 
 class VouchersError extends VouchersState {
   const VouchersError(
-      List<Voucher> vouchers, int? activeVoucherIdx, this.message)
-      : super(vouchers: vouchers, activeVoucherIdx: activeVoucherIdx);
+    List<Voucher> vouchers,
+    int? activeVoucherIdx,
+    this.message,
+  ) : super(vouchers: vouchers, activeVoucherIdx: activeVoucherIdx);
   final String message;
 
   @override

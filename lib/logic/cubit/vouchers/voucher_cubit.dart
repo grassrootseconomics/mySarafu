@@ -8,9 +8,9 @@ import 'package:my_sarafu/logic/utils/logger.dart';
 part 'voucher_state.dart';
 
 class VoucherCubit extends Cubit<VoucherState> {
-  VoucherCubit({required this.metaRespository, required this.voucher})
+  VoucherCubit({required this.metaRepository, required this.voucher})
       : super(VoucherInitial(voucher: voucher));
-  final MetaRepository metaRespository;
+  final MetaRepository metaRepository;
   final Voucher voucher;
 
   Future<void> fetchMeta() async {
@@ -32,12 +32,11 @@ class VoucherCubit extends Cubit<VoucherState> {
       emit(VoucherLoading(voucher: voucher));
     }
 
-    final vouncherInfo =
-        await metaRespository.voucherMetaSymbol(voucher.symbol);
+    final voucherInfo = await metaRepository.voucherMetaSymbol(voucher.symbol);
 
-    final proofs = await metaRespository.voucherProofSymbol(voucher.symbol);
+    final proofs = await metaRepository.voucherProofSymbol(voucher.symbol);
     emit(
-      VoucherLoaded(voucher: voucher, meta: vouncherInfo, proof: proofs),
+      VoucherLoaded(voucher: voucher, meta: voucherInfo, proof: proofs),
     );
   }
 }

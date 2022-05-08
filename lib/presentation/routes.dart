@@ -26,11 +26,9 @@ MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
           create: (_) => VouchersCubit(
             VoucherRepository(
               settings: context.read<SettingsCubit>().state,
-              registeryRepo: RegistryRepository(
-                contractRegistery: context
-                    .read<SettingsCubit>()
-                    .state
-                    .contractRegisteryAddress,
+              registryRepo: RegistryRepository(
+                contractRegistry:
+                    context.read<SettingsCubit>().state.contractRegistryAddress,
                 client: Web3Client(
                   context.read<SettingsCubit>().state.rpcProvider,
                   httpClient,
@@ -51,11 +49,9 @@ MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
           create: (context) => VouchersCubit(
             VoucherRepository(
               settings: context.read<SettingsCubit>().state,
-              registeryRepo: RegistryRepository(
-                contractRegistery: context
-                    .read<SettingsCubit>()
-                    .state
-                    .contractRegisteryAddress,
+              registryRepo: RegistryRepository(
+                contractRegistry:
+                    context.read<SettingsCubit>().state.contractRegistryAddress,
                 client: Web3Client(
                   context.read<SettingsCubit>().state.rpcProvider,
                   httpClient,
@@ -78,11 +74,9 @@ MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
           create: (context) => VouchersCubit(
             VoucherRepository(
               settings: context.read<SettingsCubit>().state,
-              registeryRepo: RegistryRepository(
-                contractRegistery: context
-                    .read<SettingsCubit>()
-                    .state
-                    .contractRegisteryAddress,
+              registryRepo: RegistryRepository(
+                contractRegistry:
+                    context.read<SettingsCubit>().state.contractRegistryAddress,
                 client: Web3Client(
                   context.read<SettingsCubit>().state.rpcProvider,
                   httpClient,

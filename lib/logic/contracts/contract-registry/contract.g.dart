@@ -7,8 +7,8 @@ final _contractAbi = _i1.ContractAbi.fromJson(
     '[{"inputs":[{"internalType":"bytes32[]","name":"_identifiers","type":"bytes32[]"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"bytes32","name":"_identifier","type":"bytes32"}],"name":"addressOf","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_identifier","type":"bytes32"},{"internalType":"bytes32","name":"_reference","type":"bytes32"}],"name":"bind","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"identifiers","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_identifier","type":"bytes32"},{"internalType":"address","name":"_address","type":"address"}],"name":"set","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes4","name":"_sum","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]',
     'Contract');
 
-class RegisteryContract extends _i1.GeneratedContract {
-  RegisteryContract(
+class RegistryContract extends _i1.GeneratedContract {
+  RegistryContract(
       {required _i1.EthereumAddress address,
       required _i1.Web3Client client,
       int? chainId})

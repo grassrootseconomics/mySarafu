@@ -3,8 +3,8 @@ import 'dart:math'; //used for the random number generator
 import 'dart:typed_data';
 
 import 'package:http/http.dart'; //You can also import the browser version
-import 'package:my_sarafu/logic/contracts/contract-registery/contract.g.dart';
-import 'package:my_sarafu/logic/contracts/voucher-registery/TokenUniqueSymbolIndex.g.dart';
+import 'package:my_sarafu/logic/contracts/contract-registry/contract.g.dart';
+import 'package:my_sarafu/logic/contracts/voucher-registry/TokenUniqueSymbolIndex.g.dart';
 import 'package:my_sarafu/logic/utils/converter.dart';
 import 'package:my_sarafu/logic/utils/logger.dart';
 import 'package:web3dart/contracts/erc20.dart';
@@ -28,34 +28,34 @@ Wallet decryptWallet(String walletJson, String password) {
 Future<EtherAmount> connectRPC(Wallet wallet, String rpcProvider) async {
   final httpClient = Client();
   final ethClient = Web3Client(rpcProvider, httpClient);
-  final contract = RegisteryContract(
+  final contract = RegistryContract(
       address:
           EthereumAddress.fromHex('0xcf60ebc445b636a5ab787f9e8bc465a2a3ef8299'),
       client: ethClient);
-  final voucherregistry = await contract.addressOf(fromText('VoucherRegistry'));
-  final accountregistry = await contract.addressOf(fromText('AccountRegistry'));
+  final voucherRegistry = await contract.addressOf(fromText('VoucherRegistry'));
+  final accountRegistry = await contract.addressOf(fromText('AccountRegistry'));
   final faucet = await contract.addressOf(fromText('Faucet'));
-  final addressdeclarator =
+  final addressDeclarator =
       await contract.addressOf(fromText('AddressDeclarator'));
-  final transferauthorization =
+  final transferAuthorization =
       await contract.addressOf(fromText('TransferAuthorization'));
-  final contractregistry =
+  final contractRegistry =
       await contract.addressOf(fromText('ContractRegistry'));
-  final defaultvoucher = await contract.addressOf(fromText('DefaultVoucher'));
+  final defaultVoucher = await contract.addressOf(fromText('DefaultVoucher'));
   log
-    ..d('VoucherRegistery: $voucherregistry')
-    ..d('AccountRegistry: $accountregistry')
+    ..d('VoucherRegistry: $voucherRegistry')
+    ..d('AccountRegistry: $accountRegistry')
     ..d('Faucet: $faucet')
-    ..d('AddressDeclarator: $addressdeclarator')
-    ..d('TransferAuthorization: $transferauthorization')
-    ..d('ContractRegistry: $contractregistry')
-    ..d('DefaultVoucher: $defaultvoucher');
+    ..d('AddressDeclarator: $addressDeclarator')
+    ..d('TransferAuthorization: $transferAuthorization')
+    ..d('ContractRegistry: $contractRegistry')
+    ..d('DefaultVoucher: $defaultVoucher');
   // You can now call rpc methods. This one will query the amount of Ether you own
   final balance = await ethClient.getBalance(wallet.privateKey.address);
   log.d(balance.getValueInUnit(EtherUnit.ether));
 
   final voucherUniqueSymbolIndexContract =
-      VoucherUniqueSymbolIndex(address: voucherregistry, client: ethClient);
+      VoucherUniqueSymbolIndex(address: voucherRegistry, client: ethClient);
   final count = await voucherUniqueSymbolIndexContract.entryCount();
   log.d('VoucherUniqueSymbolIndex: $count');
 

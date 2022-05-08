@@ -1,24 +1,24 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:my_sarafu/logic/contracts/contract-registery/contract.g.dart';
+import 'package:my_sarafu/logic/contracts/contract-registry/contract.g.dart';
 import 'package:web3dart/web3dart.dart';
 
 class RegistryRepository {
-  RegistryRepository({required this.contractRegistery, required this.client})
-      : contract = RegisteryContract(
-          address: EthereumAddress.fromHex(contractRegistery),
+  RegistryRepository({required this.contractRegistry, required this.client})
+      : contract = RegistryContract(
+          address: EthereumAddress.fromHex(contractRegistry),
           client: client,
         );
-  final String contractRegistery;
+  final String contractRegistry;
   final Web3Client client;
-  final RegisteryContract contract;
+  final RegistryContract contract;
 
-  Future<EthereumAddress> getVoucherRegistery() async {
+  Future<EthereumAddress> getVoucherRegistry() async {
     return contract.addressOf(fromText('TokenRegistry'));
   }
 
-  Future<EthereumAddress> getAccountRegistery() async {
+  Future<EthereumAddress> getAccountRegistry() async {
     return contract.addressOf(fromText('AccountRegistry'));
   }
 
@@ -34,7 +34,7 @@ class RegistryRepository {
     return contract.addressOf(fromText('TransferAuthorization'));
   }
 
-  Future<EthereumAddress> getContractRegistery() async {
+  Future<EthereumAddress> getContractRegistry() async {
     return contract.addressOf(fromText('ContractRegistry'));
   }
 

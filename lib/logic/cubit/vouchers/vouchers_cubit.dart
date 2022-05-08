@@ -56,6 +56,7 @@ class VouchersCubit extends HydratedCubit<VouchersState> {
         final voucher = Voucher.fromJson(dVoucher);
         vouchers.add(voucher);
       }
+      vouchers.sort((a, b) => a.name.compareTo(b.name));
       final activeVoucherIdx = json['activeVoucherIdx'] != null
           ? json['activeVoucherIdx'] as int
           : 0;
