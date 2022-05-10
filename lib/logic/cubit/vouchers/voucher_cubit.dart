@@ -32,9 +32,11 @@ class VoucherCubit extends Cubit<VoucherState> {
       emit(VoucherLoading(voucher: voucher));
     }
 
-    final voucherInfo = await metaRepository.voucherMetaSymbol(voucher.symbol);
+    final voucherInfo =
+        await metaRepository.getVoucherMetaFromSymbol(voucher.symbol);
 
-    final proofs = await metaRepository.voucherProofSymbol(voucher.symbol);
+    final proofs =
+        await metaRepository.getVoucherProofFromSymbol(voucher.symbol);
     emit(
       VoucherLoaded(voucher: voucher, meta: voucherInfo, proof: proofs),
     );

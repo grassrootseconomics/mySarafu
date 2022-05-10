@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
+import 'package:my_sarafu/logic/data/model/contact.dart';
 import 'package:my_sarafu/logic/utils/converter.dart';
 import 'package:my_sarafu/logic/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';
@@ -99,4 +102,79 @@ class VoucherList {
   Map<String, Object> toJson() => <String, Object>{
         'vouchers': vouchers.map((e) => e.toJson()).toList(),
       };
+}
+
+class VoucherIssuer {
+  VoucherIssuer({
+    required this.countryCode,
+    required this.location,
+    required this.name,
+    required this.contact,
+  });
+  factory VoucherIssuer.fromJson(String source) =>
+      VoucherIssuer.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  factory VoucherIssuer.fromMap(dynamic map) {
+    return VoucherIssuer(
+      contact: Contact.fromMap(map['contact']),
+      countryCode: map['country_code'] as String? ?? '',
+      location: map['location'] as String? ?? '',
+      name: map['name'] as String? ?? '',
+    );
+  }
+  final Contact contact;
+  final String countryCode;
+  final String location;
+  final String name;
+
+  Map<String, dynamic> toMap() {
+    final result = <String, dynamic>{
+      'contact': contact.toMap(),
+      'country_code': countryCode,
+      'location': location,
+      'name': name
+    };
+
+    return result;
+  }
+
+  String toJson() => json.encode(toMap());
+}
+
+class VoucherProof {
+  VoucherProof({
+    required this.description,
+    required this.issuer,
+    required this.namespace,
+    required this.proofs,
+    required this.version,
+  });
+
+  factory VoucherProof.fromMap(dynamic map) {
+    return VoucherProof(
+      description: map['description'] as String? ?? '',
+      issuer: map['issuer'] as String? ?? '',
+      namespace: map['namespace'] as String? ?? '',
+      proofs: List<String>.from(map['proofs'] as List<dynamic>),
+      version: map['version'] as int,
+    );
+  }
+
+  factory VoucherProof.fromJson(String source) =>
+      VoucherProof.fromMap(json.decode(source));
+  final String description;
+  final String issuer;
+  final String namespace;
+  final List<String> proofs;
+  final int version;
+
+  Map<String, dynamic> toMap() => <String, dynamic>{
+        'description': description,
+        'issuer': issuer,
+        'namespace': namespace,
+        'proofs': proofs,
+        'version': version,
+      };
+
+  String toJson() => json.encode(toMap());
 }

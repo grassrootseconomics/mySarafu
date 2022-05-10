@@ -29,9 +29,10 @@ Future<EtherAmount> connectRPC(Wallet wallet, String rpcProvider) async {
   final httpClient = Client();
   final ethClient = Web3Client(rpcProvider, httpClient);
   final contract = RegistryContract(
-      address:
-          EthereumAddress.fromHex('0xcf60ebc445b636a5ab787f9e8bc465a2a3ef8299'),
-      client: ethClient);
+    address:
+        EthereumAddress.fromHex('0xcf60ebc445b636a5ab787f9e8bc465a2a3ef8299'),
+    client: ethClient,
+  );
   final voucherRegistry = await contract.addressOf(fromText('VoucherRegistry'));
   final accountRegistry = await contract.addressOf(fromText('AccountRegistry'));
   final faucet = await contract.addressOf(fromText('Faucet'));
@@ -69,7 +70,8 @@ Future<EtherAmount> connectRPC(Wallet wallet, String rpcProvider) async {
     final balance = await erc20.balanceOf(wallet.privateKey.address);
     const converter = WeiConverter(decimals: 6);
     log.d(
-        '$symbol: $address: Balance: ${converter.getUserFacingValue(balance)}');
+      '$symbol: $address: Balance: ${converter.getUserFacingValue(balance)}',
+    );
   });
   return balance;
 }
