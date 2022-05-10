@@ -4,13 +4,11 @@ import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_sarafu/logic/data/model/person.dart';
 import 'package:my_sarafu/logic/data/model/voucher.dart';
-import 'package:my_sarafu/logic/utils/logger.dart';
 import 'package:path/path.dart' as p;
 import 'package:web3dart/credentials.dart';
 
 Future<dynamic> fetch(String host, String pointer) async {
   final url = p.join(host, pointer);
-  log.d("$url");
   final uri = Uri.parse(url);
   final response = await http.get(uri);
   if (response.statusCode == 200) {
@@ -101,7 +99,6 @@ class MetaRepository {
   //   return VoucherProof.fromMap(data);
   // }
 
-  // {description: Sarafu-Network Services, issuer: Grassroots Economics, namespace: ge, proofs: [bc3330d86a6e64ce819528090e2c329aed0a7d57110bc00eb48ab6d2572e59c3], version: 1}
   Future<VoucherProof> getVoucherProofFromSymbol(String symbol) async {
     final dynamic data = await fetch(
       metaUrl,

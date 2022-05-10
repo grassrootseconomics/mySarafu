@@ -7,6 +7,8 @@ environment:
   sdk: ">=2.16.0 <3.0.0"
 
 dependencies:
+  permission_handler: ^9.2.0
+  contacts_service: ^0.6.3
   bloc: ^8.0.3
   equatable: ^2.0.3
   flutter:
