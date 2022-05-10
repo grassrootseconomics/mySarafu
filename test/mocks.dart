@@ -43,4 +43,5 @@ class MockVoucherRepository extends Mock implements VoucherRepository {
   }
 }
 
+
 class MockEthereumAddress extends Mock implements EthereumAddress {}
