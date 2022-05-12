@@ -35,8 +35,7 @@ class TransactionsLoaded extends TransactionsState {
 }
 
 class TransactionsError extends TransactionsState {
-
-  TransactionsError(TransactionList transactions, this.message)
+  const TransactionsError(TransactionList transactions, this.message)
       : super(transactions: transactions);
   final String message;
 

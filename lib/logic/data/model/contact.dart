@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-class Contact {
+import 'package:contacts_service/contacts_service.dart' as contacts_service;
+
+class Contact extends contacts_service.Contact {
   Contact({this.email, this.phone});
   factory Contact.fromJson(String source) =>
       Contact.fromMap(json.decode(source) as Map<String, dynamic>);

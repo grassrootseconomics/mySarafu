@@ -65,7 +65,19 @@ class AccountsCubit extends HydratedCubit<AccountsState> {
       ),
     );
   }
-
+  void setActiveVoucher(EthereumAddress voucherAddress) {
+    if (state.activeAccountIdx == null) {
+      return;
+    }
+    var account = state.accounts[state.activeAccountIdx!];
+    account.activeVoucher = voucherAddress
+    emit(
+      AccountsLoaded(
+        accounts: newAccounts,
+        activeAccountIdx: newAccounts.length - 1,
+      ),
+    );
+  }
   Account? get activeAccount => state.activeAccountIdx is int &&
           state.accounts.asMap().containsKey(state.activeAccountIdx)
       ? state.accounts[state.activeAccountIdx!]

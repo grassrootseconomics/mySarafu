@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:my_sarafu/presentation/widgets/inputs/phoneNumber.dart';
 import 'package:my_sarafu/send/cubit/send_form_cubit.dart';
 
 class SendForm extends StatelessWidget {
@@ -28,6 +29,7 @@ class SendForm extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
+          PhoneNumberInput(),
           _RecipientInput(),
           _AmountInput(),
           _SendButton(),

@@ -50,7 +50,7 @@ class TransactionsWidget extends StatelessWidget {
     }
     return BlocConsumer<TransactionsCubit, TransactionsState>(
       listener: (context, state) {
-        // TODO: implement listener
+        // TODO(x): implement listener
       },
       builder: (context, state) {
         return Expanded(
