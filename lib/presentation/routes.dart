@@ -16,7 +16,7 @@ MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
   final httpClient = Client();
   if (context.read<AccountsCubit>().activeAccount == null) {
     return MaterialPageRoute<Widget>(
-      builder: (_) => LandingView(),
+      builder: (_) => const LandingView(),
     );
   }
   switch (route.name) {

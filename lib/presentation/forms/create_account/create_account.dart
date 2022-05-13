@@ -66,7 +66,9 @@ class CreateAccountFormViewState extends State<CreateAccountFormView> {
   }
 
   Widget _buildCreatingAccount(
-      BuildContext context, CreateAccountFormState state) {
+    BuildContext context,
+    CreateAccountFormState state,
+  ) {
     return const Loading();
   }
 
