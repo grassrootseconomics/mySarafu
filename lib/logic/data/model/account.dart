@@ -1,3 +1,6 @@
+// TODO(williamluke4): Remove this
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:equatable/equatable.dart';
 import 'package:my_sarafu/logic/data/network_presets.dart';
 import 'package:my_sarafu/logic/utils/logger.dart';

@@ -10,12 +10,11 @@ void main() {
     final bytes = Uint8List.fromList(idenifier);
     var encoded = hex.encode(bytes);
     const forcePadLength = 32;
-  
+
     final padding = forcePadLength - encoded.length;
     encoded = encoded + ('0' * padding);
     // Verify that our counter starts at 0.
     final test = utf8.encode(encoded);
     expect(test.length, 32);
-
   });
 }

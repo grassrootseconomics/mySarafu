@@ -37,7 +37,6 @@ class MetaRepository {
   // prevents instantiation and extension.
   MetaRepository({required this.metaUrl});
   final String metaUrl;
-  Null get none => null;
   void voucherDefault() => fetch(
         metaUrl,
         sha256.convert(utf8.encode(':cic.token.default')).toString(),

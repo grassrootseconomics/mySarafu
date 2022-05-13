@@ -84,9 +84,8 @@ class AccountsCubit extends HydratedCubit<AccountsState> {
 
   @override
   AccountsState fromJson(Map<String, dynamic> json) {
-    final accounts = (json['accounts'] as List<dynamic>)
-        .map(Account.fromJson)
-        .toList();
+    final accounts =
+        (json['accounts'] as List<dynamic>).map(Account.fromJson).toList();
     return AccountsLoaded(
       accounts: accounts,
       activeAccountIdx: json['activeAccountIdx'] as int?,

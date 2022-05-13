@@ -23,6 +23,48 @@ class LandingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget _buildConnectAccountButton() {
+      return TextButton(
+        onPressed: () {
+          showModalBottomSheet<void>(
+            context: context,
+            builder: (BuildContext context) {
+              return Form(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        InternationalPhoneNumberInput(
+                          onInputChanged: print,
+                          validator: (value) {
+                            if (value!.length == 9) {
+                              return 'Please enter a valid phone number';
+                            } else {
+                              return null;
+                            }
+                          },
+                          autoValidateMode: AutovalidateMode.onUserInteraction,
+                          hintText: 'Enter phone number',
+                          countries: const ['KE'],
+                          autoFocusSearch: true,
+                          selectorConfig: const SelectorConfig(
+                            useEmoji: true,
+                            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+        child: const Text('Connect Account'),
+      );
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -51,47 +93,7 @@ class LandingView extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      showModalBottomSheet<void>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Form(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Center(
-                                child: Column(
-                                  children: [
-                                    InternationalPhoneNumberInput(
-                                      onInputChanged: print,
-                                      validator: (value) {
-                                        if (value!.length == 9) {
-                                          return 'Please enter a valid phone number';
-                                        } else {
-                                          return null;
-                                        }
-                                      },
-                                      autoValidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      hintText: 'Enter phone number',
-                                      countries: const ['KE'],
-                                      autoFocusSearch: true,
-                                      selectorConfig: const SelectorConfig(
-                                        useEmoji: true,
-                                        selectorType:
-                                            PhoneInputSelectorType.BOTTOM_SHEET,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    child: const Text('Connect Account'),
-                  ),
+                  _buildConnectAccountButton(),
                   TextButton(
                     onPressed: null,
                     child: const Text('Import Account'),

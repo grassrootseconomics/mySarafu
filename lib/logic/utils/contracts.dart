@@ -51,7 +51,6 @@ Future<EtherAmount> connectRPC(Wallet wallet, String rpcProvider) async {
     ..d('TransferAuthorization: $transferAuthorization')
     ..d('ContractRegistry: $contractRegistry')
     ..d('DefaultVoucher: $defaultVoucher');
-  // You can now call rpc methods. This one will query the amount of Ether you own
   final balance = await ethClient.getBalance(wallet.privateKey.address);
   log.d(balance.getValueInUnit(EtherUnit.ether));
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/l10n/l10n.dart';
 import 'package:my_sarafu/logic/cubit/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/logic/cubit/settings/settings_cubit.dart';
 import 'package:my_sarafu/logic/data/network_presets.dart';
@@ -13,7 +12,6 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
     final settings = context.select((SettingsCubit cubit) => cubit.state);
     final account = context.select((AccountsCubit cubit) => cubit.state);
     return Scaffold(

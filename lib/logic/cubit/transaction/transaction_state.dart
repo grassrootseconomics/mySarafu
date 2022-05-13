@@ -12,6 +12,7 @@ class TransactionInitial extends TransactionState {
     return [];
   }
 }
+
 class TransactionReady extends TransactionState {
   const TransactionReady() : super();
 
@@ -20,6 +21,7 @@ class TransactionReady extends TransactionState {
     return [];
   }
 }
+
 class TransactionSending extends TransactionReady {
   const TransactionSending() : super();
   @override

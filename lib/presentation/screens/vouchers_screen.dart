@@ -89,8 +89,8 @@ Widget buildVoucherList(BuildContext context, List<Voucher> vouchers) {
               ),
               child: ListView.builder(
                 // Providing a restorationId allows the ListView to restore the
-                // scroll position when a user leaves and returns to the app after it
-                // has been killed while running in the background.
+                // scroll position when a user leaves and returns to the app
+                // after it has been killed while running in the background.
                 restorationId: 'vouchersListView',
                 itemCount: vouchers.length,
                 itemBuilder: (BuildContext context, int index) {

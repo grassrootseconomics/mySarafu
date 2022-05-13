@@ -48,10 +48,7 @@ class TransactionsWidget extends StatelessWidget {
         child: Text('No account selected'),
       );
     }
-    return BlocConsumer<TransactionsCubit, TransactionsState>(
-      listener: (context, state) {
-        // TODO(x): implement listener
-      },
+    return BlocBuilder<TransactionsCubit, TransactionsState>(
       builder: (context, state) {
         return Expanded(
           child: Padding(

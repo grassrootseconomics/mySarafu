@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,16 +23,18 @@ class TransactionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<VouchersCubit, VouchersState>(
-      listener: (context, state) {
-        // TODO(x): implement listener
-      },
+    return BlocBuilder<VouchersCubit, VouchersState>(
       builder: (context, state) {
         final account = context
             .select<AccountsCubit, Account?>((cubit) => cubit.activeAccount);
         final direction = transaction.recipient == account?.address
             ? Direction.incoming
             : Direction.outgoing;
+        final other = direction == Direction.incoming
+            ? transaction.sender.hex
+            : transaction.recipient.hex;
+        final balanceString =
+            '${getBalance(state, transaction)} ${getSymbol(state, transaction)}';
         return Padding(
           padding: const EdgeInsets.all(8),
           child: Row(
@@ -41,7 +45,7 @@ class TransactionWidget extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  '${truncateAddress(direction == Direction.incoming ? transaction.sender.hex : transaction.recipient.hex)}}',
+                  '${truncateAddress(other)}}',
                 ),
               ),
               Expanded(
@@ -51,7 +55,7 @@ class TransactionWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        '${getBalance(state, transaction)} ${getSymbol(state, transaction.destinationVoucher.hex)}',
+                        balanceString,
                         textAlign: TextAlign.end,
                       ),
                     ),
@@ -73,10 +77,11 @@ class TransactionWidget extends StatelessWidget {
 String truncateAddress(String address) =>
     address.replaceRange(4, address.length - 4, '...');
 
-String getSymbol(VouchersState vouchersState, String address) {
+String getSymbol(VouchersState vouchersState, Transaction transaction) {
   final voucher = vouchersState.vouchers.firstWhereOrNull(
     (voucher) {
-      return voucher.address == EthereumAddress.fromHex(address);
+      return voucher.address ==
+          EthereumAddress.fromHex(transaction.destinationVoucher.hex);
     },
   );
   return voucher?.symbol ?? 'Unknown';

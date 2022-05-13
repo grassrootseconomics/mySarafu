@@ -22,6 +22,7 @@ final testPersonMap = <String, dynamic>{
   'location': {'area_name': 'Kilifi town'},
   'products': ['programmer'],
   'vcard':
+      // ignore: lines_longer_than_80_chars
       'QkVHSU46VkNBUkQNClZFUlNJT046My4wDQpGTjpXaWxsaWFtXCwgTHVrZQ0KTjpMdWtlO1dpbGxpYW07OzsNClRFTDtUWVA9Q0VMTDorMjU0NzIzNTIyNzE3DQpFTkQ6VkNBUkQNCg=='
 };
 final testPerson = Person.fromJson(testPersonMap);
