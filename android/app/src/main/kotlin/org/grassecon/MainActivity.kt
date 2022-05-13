@@ -1,4 +1,4 @@
-package com.grassecon.org.my_sarafu
+package org.grassecon.mysarafu
 
 import io.flutter.embedding.android.FlutterActivity
 

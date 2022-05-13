@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
 set(BINARY_NAME "my_sarafu")
-set(APPLICATION_ID "com.grassecon.org.my_sarafu")
+set(APPLICATION_ID "org.grassecon.mysarafu")
 
 cmake_policy(SET CMP0063 NEW)
 
