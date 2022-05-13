@@ -7,9 +7,9 @@ environment:
   sdk: ">=2.16.0 <3.0.0"
 
 dependencies:
-  permission_handler: ^9.2.0
-  contacts_service: ^0.6.3
+  animations: ^2.0.2
   bloc: ^8.0.3
+  contacts_service: ^0.6.3
   equatable: ^2.0.3
   flutter:
     sdk: flutter
@@ -17,18 +17,18 @@ dependencies:
   flutter_launcher_icons: ^0.9.2
   flutter_localizations:
     sdk: flutter
+  flutter_secure_storage: ^5.0.2
+  formz: ^0.4.1
   hydrated_bloc: 9.0.0-dev.2
   intl: ^0.17.0
+  intl_phone_number_input: ^0.7.0
   logger: ^1.1.0
   path_provider: ^2.0.9
-  settings_ui: ^2.0.2
-  web3dart: ^2.3.5
-  intl_phone_number_input: ^0.7.0
-  sticky_grouped_list: ^2.1.0
-  animations: ^2.0.2
-  formz: ^0.4.1
-  flutter_secure_storage: ^5.0.2
+  permission_handler: ^9.2.0
   phone_numbers_parser: ^5.0.3
+  settings_ui: ^2.0.2
+  sticky_grouped_list: ^2.1.0
+  web3dart: ^2.3.5
 
 flutter_icons:
   image_path: "assets/images/sarafu_logo.png"

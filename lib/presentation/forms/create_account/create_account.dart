@@ -72,7 +72,7 @@ class CreateAccountFormViewState extends State<CreateAccountFormView> {
 
   Widget _buildAccountCreated(BuildContext context, CreatedAccountState state) {
     return Text(
-      '${state.account.name} created successfully address: ${state.account.address}',
+      '''${state.account.name} created successfully address: ${state.account.address}''',
     );
   }
 
@@ -140,10 +140,7 @@ class CreateAccountFormViewState extends State<CreateAccountFormView> {
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: ElevatedButton(
                 onPressed: () {
-                  // Validate returns true if the form is valid, or false otherwise.
                   if (_formKey.currentState!.validate()) {
-                    // If the form is valid, display a snackbar. In the real world,
-                    // you'd often call a server or save the information in a database.
                     context.read<CreateAccountFormCubit>().createAccount(
                           name: _namePassController.text,
                           password: _passController.text,

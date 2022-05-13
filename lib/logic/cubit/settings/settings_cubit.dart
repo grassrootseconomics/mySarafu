@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:my_sarafu/logic/data/network_presets.dart';
+import 'package:web3dart/credentials.dart';
 
 part 'settings_state.dart';
 
@@ -32,7 +33,6 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
             contractRegistryAddress: mainnet.contractRegistryAddress,
             rpcProvider: mainnet.rpcProvider,
             metaUrl: mainnet.metaUrl,
-            voucherRegistryAddress: '',
           ),
         );
         break;
@@ -45,7 +45,6 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
             contractRegistryAddress: testnet.contractRegistryAddress,
             rpcProvider: testnet.rpcProvider,
             metaUrl: testnet.metaUrl,
-            voucherRegistryAddress: '',
           ),
         );
         break;

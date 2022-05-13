@@ -168,7 +168,7 @@ class SettingsView extends StatelessWidget {
                 SettingsTile.navigation(
                   leading: const Icon(Icons.document_scanner_rounded),
                   title: const Text('Contract Registry Address'),
-                  value: Text(settings.contractRegistryAddress),
+                  value: Text(settings.contractRegistryAddress.hexEip55),
                 ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.link_rounded),

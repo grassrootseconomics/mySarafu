@@ -20,7 +20,7 @@ Future<dynamic> fetch(String host, String pointer) async {
     // If the server did not return a 200 OK response,
     // then throw an exception.
     throw Exception(
-      'Request to $url failed with status: ${response.statusCode}.\n Reason: ${response.reasonPhrase}',
+      '''Request to $url failed with status: ${response.statusCode}.\n Reason: ${response.reasonPhrase}''',
     );
   }
 }
@@ -63,18 +63,6 @@ class MetaRepository {
     final data = await fetch(metaUrl, h) as Map<String, dynamic>;
     return Person.fromJson(data);
   }
-  // void phone(String phoneNumber) => fetch(metaUrl, utf8.encode(':cic.phone'));
-  // void preferences() => fetch(metaUrl, utf8.encode(':cic.preferences'));
-
-  // void statement() => fetch(metaUrl, utf8.encode(':cic.statement'));
-  // void voucherActive() => fetch(metaUrl, utf8.encode(':cic.token.active'));
-  // void voucherDataList() => fetch(metaUrl, utf8.encode(':cic.voucher.data.list'));
-  // void voucherData() => fetch(metaUrl, utf8.encode(':cic.token.data'));
-  // void voucherLastReceived() =>
-  //     fetch(metaUrl, utf8.encode(':cic.token.last.received'));
-  // void voucherLastSent() => fetch(metaUrl, utf8.encode(':cic.voucher.last.sent'));
-  // void voucherMeta() => fetch(metaUrl, utf8.encode(':cic.token.meta'));
-
   // {
   //  contact: {
   //    email: info@grassecon.org,
@@ -90,20 +78,14 @@ class MetaRepository {
       metaUrl,
       hash(identifier: symbol, salt: ':cic.token.meta.symbol'),
     );
-    return VoucherIssuer.fromMap(data);
+    return VoucherIssuer.fromMap(data as Map<String, dynamic>);
   }
-
-  // Future<VoucherProof> voucherProof() async {
-  //   dynamic data =
-  //       await fetch(metaUrl, hash(identifier: "", salt: ':cic.voucher.proof'));
-  //   return VoucherProof.fromMap(data);
-  // }
 
   Future<VoucherProof> getVoucherProofFromSymbol(String symbol) async {
     final dynamic data = await fetch(
       metaUrl,
       hash(identifier: symbol, salt: ':cic.token.proof.symbol'),
     );
-    return VoucherProof.fromMap(data);
+    return VoucherProof.fromMap(data as Map<String, dynamic>);
   }
 }

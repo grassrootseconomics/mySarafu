@@ -37,14 +37,14 @@ class ChainSpec extends Equatable {
     );
   }
 
+  /// Create a new ChainSpec object from a dictionary
+  /// The chain spec is described by the following keys:
+  /// - engine: String
+  /// - fork: String
+  /// - network_id: int
+  /// - common_name: String
+  /// - tag (optional) : List<String>
   factory ChainSpec.fromDict(Map<String, dynamic> o) {
-    /// Create a new ChainSpec object from a dictionary, as output from the asdict method.
-    /// The chain spec is described by the following keys:
-    /// - engine
-    /// - fork
-    /// - network_id
-    /// - common_name
-    /// - tag (optional)
     final arch = o['arch'] as String;
     final fork = o['fork'] as String;
     final networkId = o['network_id'] as int;

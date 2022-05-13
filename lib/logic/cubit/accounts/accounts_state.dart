@@ -1,6 +1,5 @@
 part of 'accounts_cubit.dart';
 
-
 @immutable
 abstract class AccountsState extends Equatable {
   const AccountsState({required this.accounts, this.activeAccountIdx});
@@ -38,8 +37,11 @@ class AccountsLoaded extends AccountsState {
 }
 
 class AccountsError extends AccountsState {
-  const AccountsError(List<Account> accounts, int? activeAccountIdx, this.message)
-      : super(accounts: accounts, activeAccountIdx: activeAccountIdx);
+  const AccountsError(
+    List<Account> accounts,
+    int? activeAccountIdx,
+    this.message,
+  ) : super(accounts: accounts, activeAccountIdx: activeAccountIdx);
   final String message;
 
   @override

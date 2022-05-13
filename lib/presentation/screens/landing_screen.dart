@@ -63,7 +63,7 @@ class LandingView extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     InternationalPhoneNumberInput(
-                                      onInputChanged: (value) => print(value),
+                                      onInputChanged: print,
                                       validator: (value) {
                                         if (value!.length == 9) {
                                           return 'Please enter a valid phone number';

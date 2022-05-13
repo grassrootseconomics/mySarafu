@@ -64,7 +64,7 @@ Future<EtherAmount> connectRPC(Wallet wallet, String rpcProvider) async {
   log.d('My Address: ${wallet.privateKey.address}');
   await Future.forEach(range, (int element) async {
     final address =
-        await voucherUniqueSymbolIndexContract.entry(new BigInt.from(element));
+        await voucherUniqueSymbolIndexContract.entry(BigInt.from(element));
     final erc20 = Erc20(address: address, client: ethClient);
     final symbol = await erc20.symbol();
     final balance = await erc20.balanceOf(wallet.privateKey.address);

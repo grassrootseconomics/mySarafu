@@ -8,14 +8,6 @@ class WeiConverter {
   const WeiConverter({required this.decimals});
   final int decimals;
 
-  /// Gets the value of this amount in the specified unit as a whole number.
-  /// **WARNING**: For all units except for [EtherUnit.wei], this method will
-  /// discard the remainder occurring in the division, making it unsuitable for
-  /// calculations or storage. You should store and process amounts of ether by
-  /// using a BigInt storing the amount in wei.
-  BigInt getValueInUnitBI(BigInt value) =>
-      value ~/ BigInt.from(10).pow(decimals);
-
   /// Gets the value of this amount in the specified unit. **WARNING**: Due to
   /// rounding errors, the return value of this function is not reliable,
   /// especially for larger amounts or smaller units. While it can be used to

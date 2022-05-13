@@ -46,7 +46,7 @@ class Person extends Equatable {
     data['gender'] = gender;
     if (identities != null) {
       // TODO(x): Implement this
-      data['identities'] = "";
+      data['identities'] = '';
     }
     if (location != null) {
       data['location'] = location!.toJson();
@@ -86,7 +86,8 @@ List<Identity> parseIdentitiesJson(Map<String, dynamic> json) {
           ..i(networkIdAndCommonName)
           ..i(forkObject[networkIdAndCommonName]);
         final addressesString = List<String>.from(
-            forkObject[networkIdAndCommonName] as List<dynamic>);
+          forkObject[networkIdAndCommonName] as List<dynamic>,
+        );
         final addresses = addressesString.map(EthereumAddress.fromHex).toList();
 
         identities.add(
@@ -107,7 +108,7 @@ List<Identity> parseIdentitiesJson(Map<String, dynamic> json) {
 }
 
 class Location extends Equatable {
-  Location({this.areaName});
+  const Location({this.areaName});
 
   factory Location.fromJson(Map<String, dynamic> json) {
     final areaName = json['area_name'] as String;

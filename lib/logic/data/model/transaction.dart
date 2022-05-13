@@ -92,7 +92,7 @@ class TransactionList {
     required this.high,
   });
 
-  factory TransactionList.fromJson(dynamic json) {
+  factory TransactionList.fromJson(Map<String, dynamic> json) {
     try {
       final transactions = List<Map<String, dynamic>>.from(json['data'] as List)
           .map<Transaction>(Transaction.fromJson)

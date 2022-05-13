@@ -9,6 +9,8 @@ import 'package:my_sarafu/logic/utils/converter.dart';
 import 'package:my_sarafu/presentation/widgets/icon.dart';
 import 'package:web3dart/credentials.dart';
 
+enum Direction { incoming, outgoing }
+
 class TransactionWidget extends StatelessWidget {
   const TransactionWidget({
     Key? key,
@@ -26,6 +28,9 @@ class TransactionWidget extends StatelessWidget {
       builder: (context, state) {
         final account = context
             .select<AccountsCubit, Account?>((cubit) => cubit.activeAccount);
+        final direction = transaction.recipient == account?.address
+            ? Direction.incoming
+            : Direction.outgoing;
         return Padding(
           padding: const EdgeInsets.all(8),
           child: Row(
@@ -36,7 +41,7 @@ class TransactionWidget extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  'B${transaction.blockNumber} ${truncateAddress(transaction.sender.hex)} -> ${truncateAddress(transaction.recipient.hex)}',
+                  '${truncateAddress(direction == Direction.incoming ? transaction.sender.hex : transaction.recipient.hex)}}',
                 ),
               ),
               Expanded(

@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:my_sarafu/logic/data/model/account.dart';
+import 'package:my_sarafu/logic/data/network_presets.dart';
 import 'package:my_sarafu/logic/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -76,6 +77,7 @@ class CreateAccountFormCubit extends Cubit<CreateAccountFormState> {
       encryptedWallet: encryptedWallet,
       name: name,
       address: address,
+      activeVoucher: mainnet.defaultVoucherAddress,
     );
     log.d('Created account $account');
 

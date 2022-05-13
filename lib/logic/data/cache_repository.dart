@@ -21,7 +21,7 @@ class CacheRepository {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       final dynamic json = jsonDecode(response.body);
-      return TransactionList.fromJson(json);
+      return TransactionList.fromJson(json as Map<String, dynamic>);
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.

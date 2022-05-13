@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:my_sarafu/logic/data/network_presets.dart';
 import 'package:my_sarafu/logic/utils/logger.dart';
 import 'package:web3dart/credentials.dart';
 
@@ -10,12 +11,14 @@ class Account extends Equatable {
     required this.activeVoucher,
   });
 
-  factory Account.fromJson(Map<String, dynamic> json) {
+  factory Account.fromJson(dynamic json) {
     return Account(
       name: json['name'] as String,
       address: EthereumAddress.fromHex(json['address'] as String),
       encryptedWallet: json['encryptedWallet'] as String,
-      activeVoucher: EthereumAddress.fromHex(json['activeVoucher'] as String),
+      activeVoucher: json['activeVoucher'] is String
+          ? EthereumAddress.fromHex(json['activeVoucher'] as String)
+          : mainnet.defaultVoucherAddress,
     );
   }
   final String name;
@@ -44,4 +47,18 @@ class Account extends Equatable {
 
   @override
   List<Object?> get props => [name, address, encryptedWallet, activeVoucher];
+
+  Account copyWith({
+    String? name,
+    String? encryptedWallet,
+    EthereumAddress? address,
+    EthereumAddress? activeVoucher,
+  }) {
+    return Account(
+      name: name ?? this.name,
+      encryptedWallet: encryptedWallet ?? this.encryptedWallet,
+      address: address ?? this.address,
+      activeVoucher: activeVoucher ?? this.activeVoucher,
+    );
+  }
 }

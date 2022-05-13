@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:my_sarafu/logic/data/model/account.dart';
+import 'package:my_sarafu/logic/data/network_presets.dart';
 import 'package:web3dart/web3dart.dart';
 
 part 'accounts_state.dart';
@@ -23,6 +24,7 @@ class AccountsCubit extends HydratedCubit<AccountsState> {
         encryptedWallet: encryptedWallet,
         name: name,
         address: address,
+        activeVoucher: mainnet.defaultVoucherAddress,
       )
     ];
     emit(
@@ -65,28 +67,26 @@ class AccountsCubit extends HydratedCubit<AccountsState> {
       ),
     );
   }
+
   void setActiveVoucher(EthereumAddress voucherAddress) {
-    if (state.activeAccountIdx == null) {
-      return;
+    if (state is AccountsLoaded && activeAccount is Account) {
+      final updatedAccounts = [...state.accounts];
+      updatedAccounts[state.activeAccountIdx!] =
+          activeAccount!.copyWith(activeVoucher: voucherAddress);
+      emit((state as AccountsLoaded).copyWith(accounts: updatedAccounts));
     }
-    var account = state.accounts[state.activeAccountIdx!];
-    account.activeVoucher = voucherAddress
-    emit(
-      AccountsLoaded(
-        accounts: newAccounts,
-        activeAccountIdx: newAccounts.length - 1,
-      ),
-    );
   }
+
   Account? get activeAccount => state.activeAccountIdx is int &&
           state.accounts.asMap().containsKey(state.activeAccountIdx)
       ? state.accounts[state.activeAccountIdx!]
       : null;
 
   @override
-  AccountsState fromJson(dynamic json) {
-    final accounts =
-        (json['accounts'] as List<dynamic>).map(Account.fromJson).toList();
+  AccountsState fromJson(Map<String, dynamic> json) {
+    final accounts = (json['accounts'] as List<dynamic>)
+        .map(Account.fromJson)
+        .toList();
     return AccountsLoaded(
       accounts: accounts,
       activeAccountIdx: json['activeAccountIdx'] as int?,

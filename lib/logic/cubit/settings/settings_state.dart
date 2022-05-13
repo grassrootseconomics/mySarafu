@@ -8,14 +8,18 @@ class SettingsState extends Equatable {
     required this.cacheUrl,
     required this.rpcProvider,
     this.voucherRegistryAddress,
+    this.defaultVoucherAddress,
     this.networkPreset = NetworkPresets.mainnet,
     this.themeMode = ThemeMode.system,
   });
-  factory SettingsState.fromJson(dynamic json) {
+  factory SettingsState.fromJson(Map<String, dynamic> json) {
     return SettingsState(
       chainSpec: json['chainSpec'] as String,
-      contractRegistryAddress: json['registryAddress'] as String,
-      voucherRegistryAddress: json['voucherRegistryAddress'] as String? ?? '',
+      contractRegistryAddress:
+          EthereumAddress.fromHex(json['registryAddress'] as String),
+      voucherRegistryAddress: json['voucherRegistryAddress'] is String
+          ? EthereumAddress.fromHex(json['voucherRegistryAddress'] as String)
+          : null,
       metaUrl: json['metaUrl'] as String,
       cacheUrl: json['cacheUrl'] as String,
       rpcProvider: json['rpcProvider'] as String,
@@ -33,20 +37,23 @@ class SettingsState extends Equatable {
   }
   final NetworkPresets networkPreset;
   final String chainSpec;
-  final String contractRegistryAddress;
   final String metaUrl;
   final String cacheUrl;
   final String rpcProvider;
-  final String? voucherRegistryAddress;
+  final EthereumAddress contractRegistryAddress;
+  final EthereumAddress? voucherRegistryAddress;
+  final EthereumAddress? defaultVoucherAddress;
+
   final ThemeMode themeMode;
 
   SettingsState copyWith({
     String? chainSpec,
-    String? contractRegistryAddress,
     String? metaUrl,
     String? cacheUrl,
     String? rpcProvider,
-    String? voucherRegistryAddress,
+    EthereumAddress? voucherRegistryAddress,
+    EthereumAddress? contractRegistryAddress,
+    EthereumAddress? defaultVoucherAddress,
     NetworkPresets? networkPreset,
     ThemeMode? themeMode,
   }) {
@@ -59,6 +66,8 @@ class SettingsState extends Equatable {
       rpcProvider: rpcProvider ?? this.rpcProvider,
       voucherRegistryAddress:
           voucherRegistryAddress ?? this.voucherRegistryAddress,
+      defaultVoucherAddress:
+          defaultVoucherAddress ?? this.defaultVoucherAddress,
       themeMode: themeMode ?? this.themeMode,
       networkPreset: networkPreset ?? this.networkPreset,
     );
@@ -67,23 +76,25 @@ class SettingsState extends Equatable {
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'chainSpec': chainSpec,
-        'registryAddress': contractRegistryAddress,
-        'voucherRegistryAddress': voucherRegistryAddress,
         'metaUrl': metaUrl,
         'cacheUrl': cacheUrl,
         'rpcProvider': rpcProvider,
         'networkPreset': networkPreset.name,
+        'registryAddress': contractRegistryAddress.hexEip55,
+        'voucherRegistryAddress': voucherRegistryAddress?.hexEip55,
+        'defaultVoucherAddress': defaultVoucherAddress?.hexEip55,
         'themeMode': themeMode.name,
       };
 
   @override
   List<Object?> get props => [
         chainSpec,
-        contractRegistryAddress,
         metaUrl,
         cacheUrl,
         rpcProvider,
+        contractRegistryAddress,
         voucherRegistryAddress,
+        defaultVoucherAddress,
         networkPreset,
         themeMode,
       ];
@@ -97,25 +108,28 @@ class InitialSettings extends SettingsState {
           metaUrl: mainnet.metaUrl,
           cacheUrl: mainnet.cacheUrl,
           rpcProvider: mainnet.rpcProvider,
+          defaultVoucherAddress: mainnet.defaultVoucherAddress,
         );
 }
 
 class SettingsLoaded extends SettingsState {
   const SettingsLoaded({
     required String chainSpec,
-    required String contractRegistryAddress,
     required String metaUrl,
     required String cacheUrl,
     required String rpcProvider,
-    required String voucherRegistryAddress,
+    required EthereumAddress contractRegistryAddress,
+    required EthereumAddress defaultVoucherAddress,
+    required EthereumAddress voucherRegistryAddress,
     ThemeMode themeMode = ThemeMode.system,
   }) : super(
           chainSpec: chainSpec,
-          contractRegistryAddress: contractRegistryAddress,
           metaUrl: metaUrl,
           cacheUrl: cacheUrl,
           rpcProvider: rpcProvider,
+          contractRegistryAddress: contractRegistryAddress,
           voucherRegistryAddress: voucherRegistryAddress,
+          defaultVoucherAddress: defaultVoucherAddress,
           themeMode: themeMode,
         );
 }

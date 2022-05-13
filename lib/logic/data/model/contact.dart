@@ -7,7 +7,7 @@ class Contact extends contacts_service.Contact {
   factory Contact.fromJson(String source) =>
       Contact.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  factory Contact.fromMap(dynamic map) {
+  factory Contact.fromMap(Map<String, dynamic> map) {
     return Contact(
       email: map['email'] as String?,
       phone: map['phone'] as String?,
@@ -16,6 +16,7 @@ class Contact extends contacts_service.Contact {
   final String? email;
   final String? phone;
 
+  @override
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 

@@ -53,7 +53,7 @@ class VouchersCubit extends HydratedCubit<VouchersState> {
     try {
       final vouchers = <Voucher>[];
       for (final dVoucher in json['vouchers']) {
-        final voucher = Voucher.fromJson(dVoucher);
+        final voucher = Voucher.fromJson(dVoucher as Map<String, dynamic>);
         vouchers.add(voucher);
       }
       vouchers.sort((a, b) => a.name.compareTo(b.name));

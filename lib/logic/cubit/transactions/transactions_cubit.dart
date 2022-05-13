@@ -27,7 +27,7 @@ class TransactionsCubit extends HydratedCubit<TransactionsState> {
   }
 
   @override
-  TransactionsState fromJson(dynamic json) {
+  TransactionsState fromJson(Map<String, dynamic> json) {
     try {
       final transactions = TransactionList.fromJson(json);
       return TransactionsLoaded(transactions: transactions);

@@ -16,8 +16,8 @@ class Voucher extends Equatable {
     required this.decimals,
   });
 
-  factory Voucher.fromJson(dynamic json) {
-    log.d("Loading Json for VoucherItem $json");
+  factory Voucher.fromJson(Map<String, dynamic> json) {
+    log.d('Loading Json for VoucherItem $json');
     final idx = int.parse(json['idx'] as String);
     final address = json['address'] as String;
     final name = json['name'] as String;
@@ -83,7 +83,7 @@ class VoucherList {
     required this.vouchers,
   });
 
-  factory VoucherList.fromJson(dynamic json) {
+  factory VoucherList.fromJson(Map<String, dynamic> json) {
     try {
       final vouchersList = VoucherList(
         vouchers: List<Map<String, dynamic>>.from(json['vouchers'] as List)
@@ -114,9 +114,9 @@ class VoucherIssuer {
   factory VoucherIssuer.fromJson(String source) =>
       VoucherIssuer.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  factory VoucherIssuer.fromMap(dynamic map) {
+  factory VoucherIssuer.fromMap(Map<String, dynamic> map) {
     return VoucherIssuer(
-      contact: Contact.fromMap(map['contact']),
+      contact: Contact.fromMap(map['contact'] as Map<String, dynamic>),
       countryCode: map['country_code'] as String? ?? '',
       location: map['location'] as String? ?? '',
       name: map['name'] as String? ?? '',
@@ -150,7 +150,7 @@ class VoucherProof {
     required this.version,
   });
 
-  factory VoucherProof.fromMap(dynamic map) {
+  factory VoucherProof.fromMap(Map<String, dynamic> map) {
     return VoucherProof(
       description: map['description'] as String? ?? '',
       issuer: map['issuer'] as String? ?? '',
@@ -161,7 +161,7 @@ class VoucherProof {
   }
 
   factory VoucherProof.fromJson(String source) =>
-      VoucherProof.fromMap(json.decode(source));
+      VoucherProof.fromMap(json.decode(source) as Map<String, dynamic>);
   final String description;
   final String issuer;
   final String namespace;

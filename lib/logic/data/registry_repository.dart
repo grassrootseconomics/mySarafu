@@ -7,10 +7,10 @@ import 'package:web3dart/web3dart.dart';
 class RegistryRepository {
   RegistryRepository({required this.contractRegistry, required this.client})
       : contract = RegistryContract(
-          address: EthereumAddress.fromHex(contractRegistry),
+          address: contractRegistry,
           client: client,
         );
-  final String contractRegistry;
+  final EthereumAddress contractRegistry;
   final Web3Client client;
   final RegistryContract contract;
 

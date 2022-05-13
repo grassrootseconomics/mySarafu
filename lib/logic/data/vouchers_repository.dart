@@ -22,19 +22,16 @@ class VoucherRepository {
   Future<void> getContract() async {
     if (voucherUniqueSymbolIndexContract == null) {
       if (settings.voucherRegistryAddress == null ||
-          settings.voucherRegistryAddress!.isEmpty) {
+          settings.voucherRegistryAddress is! EthereumAddress) {
         final voucherRegistryAddress = await registryRepo.getVoucherRegistry();
         voucherUniqueSymbolIndexContract = VoucherUniqueSymbolIndex(
           address: voucherRegistryAddress,
           client: client,
         );
       } else {
-        final voucherRegistryAddress =
-            EthereumAddress.fromHex(settings.voucherRegistryAddress!);
         log.d(settings.voucherRegistryAddress);
-
         voucherUniqueSymbolIndexContract = VoucherUniqueSymbolIndex(
-          address: voucherRegistryAddress,
+          address: settings.voucherRegistryAddress!,
           client: client,
         );
       }
