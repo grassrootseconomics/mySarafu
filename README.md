@@ -11,8 +11,10 @@
 > **mySarafu** is currently in **Alpha**. There are alot of features missing and features will break in the future.
 
 ## Info
-mySarafu is a cross-platform application that enables interaction with the **Sarafu Network** build by [Grassroots Economics](https://www.grassrootseconomics.org/) ([Docs](http://docs.grassecon.org/))
+mySarafu is a cross-platform application that enables interaction with the **Sarafu Network** built by *[Grassroots Economics](https://www.grassrootseconomics.org/)* 
+- *[Grassroots Docs](http://docs.grassecon.org/)*
 
+If you would would like to help out with this project, please create an issue describing what areas you are interested in helping out with. 
 ## Installation
 
 - [Go to Releases](https://github.com/grassroots/mySarafu/releases) and download the latest `.apk` under assets.
@@ -40,7 +42,7 @@ $ flutter run --flavor staging --target lib/main_staging.dart
 $ flutter run --flavor production --target lib/main_production.dart
 ```
 
-_\*My Sarafu works on iOS, Android, Web, Windows and Linux._
+_*mySarafu* works on iOS, Android, Web, Windows and Linux.... Maybe_
 
 ---
 
@@ -125,8 +127,6 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 
     ...
 ```
-
-flutter config --enable-linux-desktop
 
 ### Adding Translations
 
