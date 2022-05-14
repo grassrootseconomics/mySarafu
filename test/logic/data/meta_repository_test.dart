@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_sarafu/logic/data/meta_repository.dart';
-import 'package:my_sarafu/logic/data/model/person.dart';
-import 'package:my_sarafu/logic/data/network_presets.dart';
+import 'package:my_sarafu/data/meta_repository.dart';
+import 'package:my_sarafu/data/model/person.dart';
+import 'package:my_sarafu/data/network_presets.dart';
 import 'package:web3dart/web3dart.dart';
 
 final testAddress =
