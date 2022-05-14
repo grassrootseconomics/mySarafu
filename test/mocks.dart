@@ -1,6 +1,6 @@
 import 'package:mocktail/mocktail.dart';
-import 'package:my_sarafu/logic/data/model/voucher.dart';
-import 'package:my_sarafu/logic/data/vouchers_repository.dart';
+import 'package:my_sarafu/data/model/voucher.dart';
+import 'package:my_sarafu/data/vouchers_repository.dart';
 import 'package:web3dart/web3dart.dart';
 
 EthereumAddress mockEthereumAddress =
