@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:my_sarafu/cubits/send/cubit/send_form_cubit.dart';
+import 'package:my_sarafu/cubits/vouchers/views/voucher_selector.dart';
+import 'package:my_sarafu/cubits/vouchers/vouchers_cubit.dart';
 import 'package:my_sarafu/widgets/inputs/phone_number.dart';
 
 class SendForm extends StatelessWidget {
@@ -30,9 +32,12 @@ class SendForm extends StatelessWidget {
             ),
           ),
           const PhoneNumberInput(),
-          _RecipientInput(),
-          _AmountInput(),
-          _SendButton(),
+          VoucherSelector(
+            vouchers: context.read<VouchersCubit>().state.vouchers,
+          ),
+          // _RecipientInput(),
+          // _AmountInput(),
+          // _SendButton(),
         ],
       ),
     );
@@ -46,14 +51,14 @@ class _RecipientInput extends StatelessWidget {
       buildWhen: (previous, current) => previous.recipient != current.recipient,
       builder: (context, state) {
         return TextField(
-          key: const Key('send_form_recipent_textField'),
+          key: const Key('send_form_recipient_textField'),
           onChanged: (recipient) =>
               context.read<SendFormCubit>().recipientChanged(recipient),
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            labelText: 'Recipent',
+            labelText: 'Recipient',
             helperText: '',
-            errorText: state.recipient.invalid ? 'Invalid Recipent' : null,
+            errorText: state.recipient.invalid ? 'Invalid Recipient' : null,
           ),
         );
       },

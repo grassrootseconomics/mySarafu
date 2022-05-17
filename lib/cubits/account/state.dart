@@ -1,20 +1,22 @@
-part of 'create_account_cubit.dart';
+part of 'cubit.dart';
 
 @immutable
-abstract class CreateAccountFormState extends Equatable {
-  const CreateAccountFormState();
+abstract class AccountState extends Equatable {
+  const AccountState({this.account});
+  final Account? account;
 }
 
-class EmptyAccountFormState extends CreateAccountFormState {
-  const EmptyAccountFormState() : super();
+class NoAccountState extends AccountState {
+  const NoAccountState() : super();
+
   @override
   List<Object?> get props {
     return [];
   }
 }
 
-class CreatingAccountFormState extends CreateAccountFormState {
-  const CreatingAccountFormState({
+class CreatingAccountState extends AccountState {
+  const CreatingAccountState({
     required this.name,
     required this.password,
     required this.passwordConfirmation,
@@ -29,8 +31,8 @@ class CreatingAccountFormState extends CreateAccountFormState {
   }
 }
 
-class DirtyAccountFormState extends CreateAccountFormState {
-  const DirtyAccountFormState({
+class InvalidAccountState extends AccountState {
+  const InvalidAccountState({
     this.name,
     this.password,
     this.passwordConfirmation,
@@ -45,20 +47,21 @@ class DirtyAccountFormState extends CreateAccountFormState {
   }
 }
 
-class CreatedAccountState extends CreateAccountFormState {
+class CreatedAccountState extends AccountState {
   const CreatedAccountState({
     required this.account,
   }) : super();
-  final Account account;
 
+  @override
+  final Account account;
   @override
   List<Object?> get props {
     return [account];
   }
 }
 
-class ErrorAccountFormState extends CreateAccountFormState {
-  const ErrorAccountFormState({
+class ErrorAccountState extends AccountState {
+  const ErrorAccountState({
     this.name,
     this.password,
     this.passwordConfirmation,

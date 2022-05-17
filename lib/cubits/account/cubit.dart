@@ -8,39 +8,19 @@ import 'package:my_sarafu/data/network_presets.dart';
 import 'package:my_sarafu/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';
 
-part 'create_account_state.dart';
+part 'state.dart';
 
-class CreateAccountFormCubit extends Cubit<CreateAccountFormState> {
-  CreateAccountFormCubit() : super(const EmptyAccountFormState());
+class AccountCubit extends Cubit<AccountState> {
+  AccountCubit() : super(const NoAccountState());
 
   void createAccount({
     required String name,
     required String password,
     required String passwordConfirmation,
   }) {
-    if (name.isEmpty) {
+    if (name.isEmpty || password.isEmpty || passwordConfirmation.isEmpty) {
       emit(
-        DirtyAccountFormState(
-          name: name,
-          password: password,
-          passwordConfirmation: passwordConfirmation,
-        ),
-      );
-      return;
-    }
-    if (password.isEmpty) {
-      emit(
-        DirtyAccountFormState(
-          name: name,
-          password: password,
-          passwordConfirmation: passwordConfirmation,
-        ),
-      );
-      return;
-    }
-    if (passwordConfirmation.isEmpty) {
-      emit(
-        DirtyAccountFormState(
+        InvalidAccountState(
           name: name,
           password: password,
           passwordConfirmation: passwordConfirmation,
@@ -50,7 +30,7 @@ class CreateAccountFormCubit extends Cubit<CreateAccountFormState> {
     }
     if (password != passwordConfirmation) {
       emit(
-        ErrorAccountFormState(
+        ErrorAccountState(
           name: name,
           password: password,
           passwordConfirmation: passwordConfirmation,
@@ -62,7 +42,7 @@ class CreateAccountFormCubit extends Cubit<CreateAccountFormState> {
     log.d('Creating account');
 
     emit(
-      CreatingAccountFormState(
+      CreatingAccountState(
         name: name,
         password: password,
         passwordConfirmation: passwordConfirmation,

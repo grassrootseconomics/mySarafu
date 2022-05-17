@@ -19,50 +19,36 @@ MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
       builder: (_) => const LandingView(),
     );
   }
+  final voucherCubit = VouchersCubit(
+    VoucherRepository(
+      settings: context.read<SettingsCubit>().state,
+      registryRepo: RegistryRepository(
+        contractRegistry:
+            context.read<SettingsCubit>().state.contractRegistryAddress,
+        client: Web3Client(
+          context.read<SettingsCubit>().state.rpcProvider,
+          httpClient,
+        ),
+      ),
+      client: Web3Client(
+        context.read<SettingsCubit>().state.rpcProvider,
+        httpClient,
+      ),
+    ),
+  );
   switch (route.name) {
     case '/home':
       return MaterialPageRoute<Widget>(
         builder: (context) => BlocProvider(
-          create: (_) => VouchersCubit(
-            VoucherRepository(
-              settings: context.read<SettingsCubit>().state,
-              registryRepo: RegistryRepository(
-                contractRegistry:
-                    context.read<SettingsCubit>().state.contractRegistryAddress,
-                client: Web3Client(
-                  context.read<SettingsCubit>().state.rpcProvider,
-                  httpClient,
-                ),
-              ),
-              client: Web3Client(
-                context.read<SettingsCubit>().state.rpcProvider,
-                httpClient,
-              ),
-            ),
-          ),
+          create: (_) => voucherCubit,
           child: const HomeView(),
         ),
       );
     case '/vouchers':
       return MaterialPageRoute<Widget>(
         builder: (context) => BlocProvider(
-          create: (context) => VouchersCubit(
-            VoucherRepository(
-              settings: context.read<SettingsCubit>().state,
-              registryRepo: RegistryRepository(
-                contractRegistry:
-                    context.read<SettingsCubit>().state.contractRegistryAddress,
-                client: Web3Client(
-                  context.read<SettingsCubit>().state.rpcProvider,
-                  httpClient,
-                ),
-              ),
-              client: Web3Client(
-                context.read<SettingsCubit>().state.rpcProvider,
-                httpClient,
-              ),
-            ),
-          )..updateBalances(
+          create: (context) => voucherCubit
+            ..updateBalances(
               context.read<AccountsCubit>().activeAccount!.address,
             ),
           child: const VouchersView(),
@@ -71,23 +57,7 @@ MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
     case '/settings':
       return MaterialPageRoute<Widget>(
         builder: (context) => BlocProvider(
-          create: (context) => VouchersCubit(
-            VoucherRepository(
-              settings: context.read<SettingsCubit>().state,
-              registryRepo: RegistryRepository(
-                contractRegistry:
-                    context.read<SettingsCubit>().state.contractRegistryAddress,
-                client: Web3Client(
-                  context.read<SettingsCubit>().state.rpcProvider,
-                  httpClient,
-                ),
-              ),
-              client: Web3Client(
-                context.read<SettingsCubit>().state.rpcProvider,
-                httpClient,
-              ),
-            ),
-          ),
+          create: (context) => voucherCubit,
           child: const SettingsView(),
         ),
       );
