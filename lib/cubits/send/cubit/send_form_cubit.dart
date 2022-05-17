@@ -23,7 +23,8 @@ class SendFormCubit extends Cubit<SendFormState> {
   }
 
   Future<void> setAddressFromPhoneNumber(String phoneNumber) async {
-    final address = await meta.getAddressFromPhoneNumber(phoneNumber);
+    final cleanedPhoneNumber = phoneNumber.replaceAll(' ', '');
+    final address = await meta.getAddressFromPhoneNumber(cleanedPhoneNumber);
     final recipient = Address.dirty(address.hexEip55);
     log.d(address.hexEip55);
     emit(

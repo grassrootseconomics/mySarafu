@@ -1,22 +1,22 @@
 // Create a Form widget.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/cubits/account/create_account_cubit.dart';
+import 'package:my_sarafu/cubits/account/cubit.dart';
 import 'package:my_sarafu/cubits/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/widgets/loading.dart';
 
-class CreateAccountFormView extends StatefulWidget {
-  const CreateAccountFormView({Key? key}) : super(key: key);
+class AccountView extends StatefulWidget {
+  const AccountView({Key? key}) : super(key: key);
 
   @override
-  CreateAccountFormViewState createState() {
-    return CreateAccountFormViewState();
+  AccountViewState createState() {
+    return AccountViewState();
   }
 }
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class CreateAccountFormViewState extends State<CreateAccountFormView> {
+class AccountViewState extends State<AccountView> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -32,34 +32,34 @@ class CreateAccountFormViewState extends State<CreateAccountFormView> {
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return BlocProvider(
-      create: (context) => CreateAccountFormCubit(),
-      child: BlocListener<CreateAccountFormCubit, CreateAccountFormState>(
+      create: (context) => AccountCubit(),
+      child: BlocListener<AccountCubit, AccountState>(
         listener: (context, state) {
           if (state is CreatedAccountState) {
             context.read<AccountsCubit>().addAccount(state.account);
             Navigator.pushNamed(context, '/home');
           }
         },
-        child: BlocBuilder<CreateAccountFormCubit, CreateAccountFormState>(
+        child: BlocBuilder<AccountCubit, AccountState>(
           builder: (context, state) {
-            if (state is EmptyAccountFormState) {
+            if (state is NoAccountState) {
               return _buildForm(context, state);
             }
-            if (state is CreatingAccountFormState) {
+            if (state is CreatingAccountState) {
               return _buildCreatingAccount(context, state);
             }
             if (state is CreatedAccountState) {
               return _buildAccountCreated(context, state);
             }
-            if (state is DirtyAccountFormState) {
+            if (state is InvalidAccountState) {
               return _buildForm(context, state);
             }
-            if (state is ErrorAccountFormState) {
+            if (state is ErrorAccountState) {
               return _buildForm(context, state);
             }
             return _buildForm(context, state);
           },
-          bloc: CreateAccountFormCubit(),
+          bloc: AccountCubit(),
         ),
       ),
     );
@@ -67,7 +67,7 @@ class CreateAccountFormViewState extends State<CreateAccountFormView> {
 
   Widget _buildCreatingAccount(
     BuildContext context,
-    CreateAccountFormState state,
+    CreatingAccountState state,
   ) {
     return const Loading();
   }
@@ -78,7 +78,7 @@ class CreateAccountFormViewState extends State<CreateAccountFormView> {
     );
   }
 
-  Widget _buildForm(BuildContext context, CreateAccountFormState state) {
+  Widget _buildForm(BuildContext context, AccountState state) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Form(
@@ -143,7 +143,7 @@ class CreateAccountFormViewState extends State<CreateAccountFormView> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    context.read<CreateAccountFormCubit>().createAccount(
+                    context.read<AccountCubit>().createAccount(
                           name: _namePassController.text,
                           password: _passController.text,
                           passwordConfirmation: _confirmPassController.text,

@@ -8,6 +8,7 @@ import 'package:web3dart/web3dart.dart';
 
 part 'vouchers_state.dart';
 
+// TODO(william): Auto fetch all vouchers on first load
 class VouchersCubit extends HydratedCubit<VouchersState> {
   VouchersCubit(this._voucherRepository)
       : super(const VouchersLoaded(vouchers: []));

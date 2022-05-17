@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:my_sarafu/cubits/account/create_account.dart';
+import 'package:my_sarafu/cubits/account/views/form.dart';
 import 'package:my_sarafu/cubits/accounts/accounts_cubit.dart';
 
 class LandingView extends StatelessWidget {
@@ -103,7 +103,7 @@ class LandingView extends StatelessWidget {
                       showModalBottomSheet<void>(
                         context: context,
                         builder: (BuildContext context) {
-                          return CreateAccountFormView();
+                          return AccountView();
                         },
                       );
                     },
