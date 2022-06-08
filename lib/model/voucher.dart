@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:my_sarafu/data/model/contact.dart';
+import 'package:my_sarafu/model/contact.dart';
 import 'package:my_sarafu/utils/converter.dart';
 import 'package:my_sarafu/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';

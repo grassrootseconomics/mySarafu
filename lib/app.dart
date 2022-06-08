@@ -5,9 +5,9 @@ import 'package:http/http.dart'; //You can also import the browser version
 import 'package:my_sarafu/cubits/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/cubits/settings/settings_cubit.dart';
 import 'package:my_sarafu/cubits/vouchers/vouchers_cubit.dart';
-import 'package:my_sarafu/data/registry_repository.dart';
-import 'package:my_sarafu/data/vouchers_repository.dart';
 import 'package:my_sarafu/l10n/l10n.dart';
+import 'package:my_sarafu/repository/registry_repository.dart';
+import 'package:my_sarafu/repository/vouchers_repository.dart';
 import 'package:my_sarafu/routes.dart';
 import 'package:my_sarafu/widgets/bottom_nav/cubit/nav_cubit.dart';
 import 'package:web3dart/web3dart.dart';

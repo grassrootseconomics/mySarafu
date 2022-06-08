@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:my_sarafu/data/model/chain.dart';
+import 'package:my_sarafu/model/chain.dart';
 import 'package:my_sarafu/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';
 

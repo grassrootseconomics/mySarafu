@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:my_sarafu/data/model/account.dart';
-import 'package:my_sarafu/data/network_presets.dart';
+import 'package:my_sarafu/model/account.dart';
+import 'package:my_sarafu/model/network_presets.dart';
 import 'package:my_sarafu/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';
 

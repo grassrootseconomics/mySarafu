@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/cubits/accounts/accounts_cubit.dart';
-import 'package:my_sarafu/data/model/account.dart';
+import 'package:my_sarafu/model/account.dart';
 import 'package:my_sarafu/widgets/icon.dart';
 
 class AccountListItem extends StatelessWidget {

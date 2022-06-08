@@ -4,7 +4,7 @@ import 'package:formz/formz.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:my_sarafu/cubits/send/models/address.dart';
 import 'package:my_sarafu/cubits/send/models/amount.dart';
-import 'package:my_sarafu/data/meta_repository.dart';
+import 'package:my_sarafu/repository/meta_repository.dart';
 import 'package:my_sarafu/utils/logger.dart';
 
 part 'send_form_state.dart';

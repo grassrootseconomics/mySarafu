@@ -1,7 +1,7 @@
 import 'package:my_sarafu/contracts/voucher-registry/TokenUniqueSymbolIndex.g.dart';
 import 'package:my_sarafu/cubits/settings/settings_cubit.dart';
-import 'package:my_sarafu/data/model/voucher.dart';
-import 'package:my_sarafu/data/registry_repository.dart';
+import 'package:my_sarafu/model/voucher.dart';
+import 'package:my_sarafu/repository/registry_repository.dart';
 import 'package:my_sarafu/utils/logger.dart';
 import 'package:web3dart/contracts/erc20.dart';
 import 'package:web3dart/web3dart.dart';

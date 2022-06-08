@@ -1,17 +1,20 @@
+// ignore_for_file: unused_field
+
 import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:my_sarafu/data/model/account.dart';
-import 'package:my_sarafu/data/network_presets.dart';
+import 'package:my_sarafu/model/account.dart';
+import 'package:my_sarafu/model/network_presets.dart';
+import 'package:my_sarafu/repository/vault_repository.dart';
 import 'package:web3dart/web3dart.dart';
 
 part 'accounts_state.dart';
 
 class AccountsCubit extends HydratedCubit<AccountsState> {
   AccountsCubit() : super(const AccountsEmpty());
-
+  final VaultRepository _vaultRepository = VaultRepository();
   void createAccount({required String name, required String password}) {
     final rng = Random.secure();
     final credentials = EthPrivateKey.createRandom(rng);

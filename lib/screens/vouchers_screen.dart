@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/cubits/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/cubits/vouchers/views/voucher_list_item.dart';
 import 'package:my_sarafu/cubits/vouchers/vouchers_cubit.dart';
-import 'package:my_sarafu/data/model/voucher.dart';
+import 'package:my_sarafu/model/voucher.dart';
 import 'package:my_sarafu/widgets/bottom_nav/view/bottom_nav.dart';
 
 class VouchersView extends StatelessWidget {
