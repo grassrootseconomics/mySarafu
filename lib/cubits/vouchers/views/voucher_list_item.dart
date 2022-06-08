@@ -7,22 +7,25 @@ class VoucherListItemWidget extends StatelessWidget {
   const VoucherListItemWidget({
     Key? key,
     required this.voucher,
+    this.onTap,
   }) : super(key: key);
 
   final Voucher voucher;
-
+  final void Function(Voucher)? onTap;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: InkWell(
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) =>
-                VoucherDetailedView(voucher: voucher),
-          ),
-        ),
+        onTap: onTap != null
+            ? () => onTap!(voucher)
+            : () => Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) =>
+                        VoucherDetailedView(voucher: voucher),
+                  ),
+                ),
         child: Row(
           children: [
             const Padding(

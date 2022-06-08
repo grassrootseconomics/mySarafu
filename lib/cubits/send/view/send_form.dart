@@ -18,7 +18,7 @@ class SendForm extends StatelessWidget {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              const SnackBar(content: Text('Send Failure')),
+              const SnackBar(content: Text('Failed to Send')),
             );
         }
       },
@@ -32,12 +32,24 @@ class SendForm extends StatelessWidget {
             ),
           ),
           const PhoneNumberInput(),
+          _RecipientInput(),
           VoucherSelector(
             vouchers: context.read<VouchersCubit>().state.vouchers,
           ),
-          // _RecipientInput(),
-          // _AmountInput(),
-          // _SendButton(),
+          _AmountInput(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton.icon(
+                icon: const Icon(Icons.qr_code),
+                onPressed: () {},
+                label: const Text(
+                  'Scan',
+                ),
+              ),
+              _SendButton(),
+            ],
+          )
         ],
       ),
     );
@@ -76,7 +88,6 @@ class _AmountInput extends StatelessWidget {
           key: const Key('sendForm_amountInput_textField'),
           onChanged: (amount) =>
               context.read<SendFormCubit>().amountChanged(amount),
-          obscureText: true,
           keyboardType: TextInputType.number,
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly

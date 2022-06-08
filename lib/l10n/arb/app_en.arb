@@ -15,5 +15,41 @@
   "vouchersPageTitle": "Vouchers",
   "@vouchersPageTitle": {
     "description": "Text shown in the AppBar of the Home Page"
+  },
+  "biometricsMethod": "Biometrics",
+  "@biometricsMethod": {
+    "description": "settings_fingerprint_method",
+    "type": "text",
+    "placeholders": {}
+  },
+  "pinMethod": "PIN",
+  "@pinMethod": {
+    "description": "settings_pin_method",
+    "type": "text",
+    "placeholders": {}
+  },
+  "qrInvalidPermissions": "Scanning QR codes requires camera permissions.",
+  "@qrInvalidPermissions": {
+    "description": "qr_invalid_permissions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "qrInvalidSeed": "QR code does not contain a valid seed or private key",
+  "@qrInvalidSeed": {
+    "description": "qr_invalid_seed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "qrInvalidAddress": "QR code does not contain a valid address",
+  "@qrInvalidAddress": {
+    "description": "qr_invalid_address",
+    "type": "text",
+    "placeholders": {}
+  },
+  "qrUnknownError": "Unknown QR error",
+  "@qrUnknownError": {
+    "description": "qr_unknow_error",
+    "type": "text",
+    "placeholders": {}
   }
 }
