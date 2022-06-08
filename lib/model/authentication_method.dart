@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/data/model/setting_item.dart';
 import 'package:my_sarafu/l10n/l10n.dart';
+import 'package:my_sarafu/model/setting_item.dart';
 
 enum AuthMethod { pin, biometrics }
 

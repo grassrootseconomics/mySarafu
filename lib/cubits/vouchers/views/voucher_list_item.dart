@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_sarafu/cubits/vouchers/views/voucher_detailed_view.dart';
-import 'package:my_sarafu/data/model/voucher.dart';
+import 'package:my_sarafu/model/voucher.dart';
 import 'package:my_sarafu/widgets/icon.dart';
 
 class VoucherListItemWidget extends StatelessWidget {

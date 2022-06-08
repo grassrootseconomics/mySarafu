@@ -5,8 +5,8 @@ import 'package:my_sarafu/cubits/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/cubits/settings/settings_cubit.dart';
 import 'package:my_sarafu/cubits/transactions/transactions_cubit.dart';
 import 'package:my_sarafu/cubits/transactions/views/transaction.dart';
-import 'package:my_sarafu/data/cache_repository.dart';
-import 'package:my_sarafu/data/model/transaction.dart';
+import 'package:my_sarafu/model/transaction.dart';
+import 'package:my_sarafu/repository/cache_repository.dart';
 import 'package:sticky_grouped_list/sticky_grouped_list.dart';
 
 class TransactionsView extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:my_sarafu/data/model/transaction.dart';
+import 'package:my_sarafu/model/transaction.dart';
 import 'package:my_sarafu/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';
 

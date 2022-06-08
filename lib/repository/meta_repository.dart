@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
-import 'package:my_sarafu/data/model/person.dart';
-import 'package:my_sarafu/data/model/voucher.dart';
+import 'package:my_sarafu/model/person.dart';
+import 'package:my_sarafu/model/voucher.dart';
 import 'package:path/path.dart' as p;
 import 'package:web3dart/credentials.dart';
 

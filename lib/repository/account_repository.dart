@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:my_sarafu/data/model/account.dart';
-import 'package:my_sarafu/data/network_presets.dart';
+import 'package:my_sarafu/model/account.dart';
+import 'package:my_sarafu/model/network_presets.dart';
 import 'package:web3dart/web3dart.dart';
 
 class AccountRepository {

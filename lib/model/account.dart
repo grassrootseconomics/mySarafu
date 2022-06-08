@@ -2,7 +2,7 @@
 // ignore_for_file: avoid_dynamic_calls
 
 import 'package:equatable/equatable.dart';
-import 'package:my_sarafu/data/network_presets.dart';
+import 'package:my_sarafu/model/network_presets.dart';
 import 'package:my_sarafu/utils/logger.dart';
 import 'package:web3dart/credentials.dart';
 

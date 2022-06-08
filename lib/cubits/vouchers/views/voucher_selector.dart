@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/data/model/voucher.dart';
+import 'package:my_sarafu/model/voucher.dart';
 import 'package:my_sarafu/utils/logger.dart';
 import 'package:my_sarafu/widgets/inputs/autocomplete.dart';
 
