@@ -10,6 +10,7 @@ class VoucherSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutocompleteWidget<Voucher>(
+      displayStringForOption: (p0) => '${p0.name} - ${p0.balance}',
       options: vouchers,
       onSelected: (voucher) => {log.d(voucher)},
       search: (searchString, vouchers) =>

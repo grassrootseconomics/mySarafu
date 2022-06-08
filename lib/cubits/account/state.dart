@@ -53,6 +53,8 @@ class CreatedAccountState extends AccountState {
   }) : super();
 
   @override
+  // TODO(x): Remove this
+  // ignore: overridden_fields
   final Account account;
   @override
   List<Object?> get props {
