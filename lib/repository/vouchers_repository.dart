@@ -1,4 +1,4 @@
-import 'package:my_sarafu/contracts/voucher-registry/TokenUniqueSymbolIndex.g.dart';
+import 'package:my_sarafu/contracts/voucher-registry/voucherRegistry.g.dart';
 import 'package:my_sarafu/cubits/settings/settings_cubit.dart';
 import 'package:my_sarafu/model/voucher.dart';
 import 'package:my_sarafu/repository/registry_repository.dart';
@@ -16,7 +16,7 @@ class VoucherRepository {
   final SettingsState settings;
   final RegistryRepository registryRepo;
   final Web3Client client;
-  VoucherUniqueSymbolIndex? voucherUniqueSymbolIndexContract;
+  VoucherRegistry? voucherUniqueSymbolIndexContract;
 
   List<Voucher> vouchers = [];
   Future<void> getContract() async {
@@ -24,13 +24,13 @@ class VoucherRepository {
       if (settings.voucherRegistryAddress == null ||
           settings.voucherRegistryAddress is! EthereumAddress) {
         final voucherRegistryAddress = await registryRepo.getVoucherRegistry();
-        voucherUniqueSymbolIndexContract = VoucherUniqueSymbolIndex(
+        voucherUniqueSymbolIndexContract = VoucherRegistry(
           address: voucherRegistryAddress,
           client: client,
         );
       } else {
         log.d(settings.voucherRegistryAddress);
-        voucherUniqueSymbolIndexContract = VoucherUniqueSymbolIndex(
+        voucherUniqueSymbolIndexContract = VoucherRegistry(
           address: settings.voucherRegistryAddress!,
           client: client,
         );

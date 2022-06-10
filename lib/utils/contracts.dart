@@ -3,8 +3,7 @@ import 'dart:math'; //used for the random number generator
 import 'dart:typed_data';
 
 import 'package:http/http.dart'; //You can also import the browser version
-import 'package:my_sarafu/contracts/contract-registry/contract.g.dart';
-import 'package:my_sarafu/contracts/voucher-registry/TokenUniqueSymbolIndex.g.dart';
+import 'package:my_sarafu/contracts/voucher-registry/voucherRegistry.g.dart';
 import 'package:my_sarafu/utils/converter.dart';
 import 'package:my_sarafu/utils/logger.dart';
 import 'package:web3dart/contracts/erc20.dart';
@@ -28,7 +27,7 @@ Wallet decryptWallet(String walletJson, String password) {
 Future<EtherAmount> connectRPC(Wallet wallet, String rpcProvider) async {
   final httpClient = Client();
   final ethClient = Web3Client(rpcProvider, httpClient);
-  final contract = RegistryContract(
+  final contract = VoucherRegistry(
     address:
         EthereumAddress.fromHex('0xcf60ebc445b636a5ab787f9e8bc465a2a3ef8299'),
     client: ethClient,
@@ -55,7 +54,7 @@ Future<EtherAmount> connectRPC(Wallet wallet, String rpcProvider) async {
   log.d(balance.getValueInUnit(EtherUnit.ether));
 
   final voucherUniqueSymbolIndexContract =
-      VoucherUniqueSymbolIndex(address: voucherRegistry, client: ethClient);
+      VoucherRegistry(address: voucherRegistry, client: ethClient);
   final count = await voucherUniqueSymbolIndexContract.entryCount();
   log.d('VoucherUniqueSymbolIndex: $count');
 
