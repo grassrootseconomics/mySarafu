@@ -1,18 +1,18 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:my_sarafu/contracts/contract-registry/contract.g.dart';
+import 'package:my_sarafu/contracts/contract-registry/contractRegistry.g.dart';
 import 'package:web3dart/web3dart.dart';
 
 class RegistryRepository {
   RegistryRepository({required this.contractRegistry, required this.client})
-      : contract = RegistryContract(
+      : contract = ContractRegistry(
           address: contractRegistry,
           client: client,
         );
   final EthereumAddress contractRegistry;
   final Web3Client client;
-  final RegistryContract contract;
+  final ContractRegistry contract;
 
   Future<EthereumAddress> getVoucherRegistry() async {
     return contract.addressOf(fromText('TokenRegistry'));
