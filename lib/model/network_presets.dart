@@ -35,12 +35,12 @@ NetworkPreset mainnet = NetworkPreset(
 );
 
 NetworkPreset testnet = NetworkPreset(
-  chainSpec: 'evm:kitabu:5050:sarafu ',
+  chainSpec: 'evm:kitabu:6060:sarafu',
   contractRegistryAddress:
-      EthereumAddress.fromHex('0xcf60ebc445b636a5ab787f9e8bc465a2a3ef8299'),
+      EthereumAddress.fromHex('0x47269C43e4aCcA5CFd09CB4778553B2F69963303'),
   defaultVoucherAddress:
-      EthereumAddress.fromHex('aB89822F31c2092861F713F6F34bd6877a8C1878'),
-  metaUrl: 'https://meta.grassecon.net',
-  cacheUrl: 'https://cache.grassecon.net',
-  rpcProvider: 'http://142.93.38.53:8545',
+      EthereumAddress.fromHex('1d5bf1c253154BDB4aECC3130b3661AAc01d53a4'),
+  metaUrl: 'https://meta.sarafu.network',
+  cacheUrl: 'https://cache.sarafu.network',
+  rpcProvider: 'https://rpc.sarafu.network',
 );

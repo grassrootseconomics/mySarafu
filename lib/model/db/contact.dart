@@ -1,30 +1,23 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: avoid_unused_constructor_parameters
+
 import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
 import 'package:quiver/core.dart';
 
 part 'contact.g.dart';
 
 @JsonSerializable()
 class Contact {
-  Contact(
-      {@required this.name, @required this.address, this.monkeyPath, int id});
+  Contact({required this.name, required this.address, required this.id});
 
   factory Contact.fromJson(Map<String, dynamic> json) =>
       _$ContactFromJson(json);
-  @JsonKey(ignore: true)
+
+  @JsonKey(name: 'id')
   int id;
   @JsonKey(name: 'name')
   String name;
   @JsonKey(name: 'address')
   String address;
-  @JsonKey(ignore: true)
-  String monkeyPath;
-  @JsonKey(ignore: true)
-  Widget monkeyWidget;
-  @JsonKey(ignore: true)
-  Widget monkeyWidgetLarge;
-  Map<String, dynamic> toJson() => _$ContactToJson(this);
 
   bool operator ==(o) => o is Contact && o.name == name && o.address == address;
   int get hashCode => hash2(name.hashCode, address.hashCode);
