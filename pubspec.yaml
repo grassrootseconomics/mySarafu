@@ -7,7 +7,7 @@ environment:
   sdk: ">=2.16.0 <3.1.0"
 
 dependencies:
-  animations: ^2.0.2
+  animations: ^2.0.3
   auto_size_text: ^3.0.0
   barcode_scan2: ^4.2.1
   bloc: ^8.0.3
@@ -28,23 +28,23 @@ dependencies:
   json_serializable: ^6.2.0
   local_auth: ^2.1.0
   logger: ^1.1.0
-  path_provider: ^2.0.9
-  permission_handler: ^9.2.0
-  phone_numbers_parser: ^5.0.3
+  path_provider: ^2.0.11
+  permission_handler: ^10.0.0
+  phone_numbers_parser: ^5.0.5
   settings_ui: ^2.0.2
   shared_preferences: ^2.0.15
   sqflite: ^2.0.2+1
-  sticky_grouped_list: ^2.1.0
+  sticky_grouped_list: ^3.0.0
   validators: ^3.0.0
-  web3dart: ^2.3.5
+  web3dart: ^2.4.0
 
 dev_dependencies:
   bloc_test: ^9.0.3
-  build_runner: ^2.1.8
+  build_runner: ^2.1.11
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
-  very_good_analysis: ^2.4.0
+  very_good_analysis: ^3.0.1
 
 flutter:
   uses-material-design: true
