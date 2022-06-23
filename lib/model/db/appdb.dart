@@ -1,5 +1,7 @@
 // ignore: leading_newlines_in_multiline_strings
 
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'dart:async';
 
 import 'package:my_sarafu/model/db/account.dart';
@@ -12,12 +14,14 @@ import 'package:web3dart/web3dart.dart';
 class DBHelper {
   DBHelper();
   static const int dbVersion = 1;
-  static const String contactsSql = '''CREATE TABLE Contacts( 
+  static const String contactsSql = '''
+CREATE TABLE Contacts( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         name TEXT, 
         address TEXT, 
         monkey_path TEXT)''';
-  static const String accountsSql = '''CREATE TABLE Accounts( 
+  static const String accountsSql = '''
+CREATE TABLE Accounts( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         name TEXT, 
         acct_index INTEGER, 
@@ -25,7 +29,7 @@ class DBHelper {
         last_accessed INTEGER,
         private_key TEXT,
         balance TEXT)''';
-  static const String ACCOUNTS_ADD_ACCOUNT_COLUMN_SQL = '''
+  static const String accountsAddAccountColumnSqlL = '''
     ALTER TABLE Accounts ADD address TEXT
     ''';
   static Database? _db;
@@ -52,16 +56,16 @@ class DBHelper {
     // When creating the db, create the tables
     await db.execute(contactsSql);
     await db.execute(accountsSql);
-    await db.execute(ACCOUNTS_ADD_ACCOUNT_COLUMN_SQL);
+    await db.execute(accountsAddAccountColumnSqlL);
   }
 
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
     if (oldVersion == 1) {
       // Add accounts table
       await db.execute(accountsSql);
-      await db.execute(ACCOUNTS_ADD_ACCOUNT_COLUMN_SQL);
+      await db.execute(accountsAddAccountColumnSqlL);
     } else if (oldVersion == 2) {
-      await db.execute(ACCOUNTS_ADD_ACCOUNT_COLUMN_SQL);
+      await db.execute(accountsAddAccountColumnSqlL);
     }
   }
 

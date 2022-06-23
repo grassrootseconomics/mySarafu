@@ -15,6 +15,19 @@ class Account {
     EthereumAddress? activeVoucher,
     this.selected = false,
   }) : activeVoucher = activeVoucher ?? mainnet.defaultVoucherAddress;
+
+  factory Account.fromJson(Map<String, dynamic> json) => Account(
+        id: json['id'] as int,
+        index: json['index'] as int,
+        name: json['name'] as String,
+        encryptedWallet: json['encryptedWallet'] as String,
+        lastAccess: json['lastAccess'] as int,
+        selected: json['selected'] as bool,
+        address: EthereumAddress.fromHex(json['address'] as String),
+        balance: json['balance'] as String,
+        activeVoucher:
+            EthereumAddress.fromHex(json['activeVoucherId'] as String),
+      );
   final String encryptedWallet;
   final int? id; // Primary Key
   final int? index; // Index on the seed
@@ -24,18 +37,6 @@ class Account {
   final EthereumAddress address;
   final String balance; // Last known balance in RAW
   final EthereumAddress activeVoucher;
-
-  factory Account.fromJson(Map<String, dynamic> json) => Account(
-      id: json['id'] as int,
-      index: json['index'] as int,
-      name: json['name'] as String,
-      encryptedWallet: json['encryptedWallet'] as String,
-      lastAccess: json['lastAccess'] as int,
-      selected: json['selected'] as bool,
-      address: EthereumAddress.fromHex(json['address'] as String),
-      balance: json['balance'] as String,
-      activeVoucher:
-          EthereumAddress.fromHex(json['activeVoucherId'] as String));
   bool commit(DBHelper db) {
     db.changeAccount(this);
 

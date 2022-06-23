@@ -1,9 +1,9 @@
+import 'package:my_sarafu/contracts/erc20/erc20.g.dart';
 import 'package:my_sarafu/contracts/voucher-registry/voucherRegistry.g.dart';
 import 'package:my_sarafu/cubits/settings/settings_cubit.dart';
 import 'package:my_sarafu/model/voucher.dart';
 import 'package:my_sarafu/repository/registry_repository.dart';
 import 'package:my_sarafu/utils/logger.dart';
-import 'package:web3dart/contracts/erc20.dart';
 import 'package:web3dart/web3dart.dart';
 
 class VoucherRepository {

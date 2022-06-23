@@ -141,5 +141,41 @@
     "description": "Invalid pin entered",
     "type": "text",
     "placeholders": {}
+  },
+  "unlockPin": "Enter PIN to Unlock",
+  "@unlockPin": {
+    "description": "Enter PIN to Unlock",
+    "type": "text",
+    "placeholders": {}
+  },
+  "unlockBiometrics": "Authenticate to Unlock Sarafu",
+  "@unlockBiometrics": {
+    "description": "",
+    "type": "text",
+    "placeholders": {}
+  },
+  "lockAppSetting": "Authenticate on Launch",
+  "@lockAppSetting": {
+    "description": "Authenticate on Launch",
+    "type": "text",
+    "placeholders": {}
+  },
+  "locked": "Locked",
+  "@locked": {
+    "description": "Locked",
+    "type": "text",
+    "placeholders": {}
+  },
+  "unlock": "Unlock",
+  "@unlock": {
+    "description": "Unlock",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tooManyFailedAttempts": "Too many failed unlock attempts.",
+  "@tooManyFailedAttempts": {
+    "description": "",
+    "type": "text",
+    "placeholders": {}
   }
 }

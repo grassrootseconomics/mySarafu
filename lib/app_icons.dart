@@ -62,8 +62,8 @@ class AppIcons {
   static const IconData currency = IconData(0xe824, fontFamily: _kFontFam);
   static const IconData addcontact = IconData(0xe825, fontFamily: _kFontFam);
   static const IconData fingerprint = IconData(0xe826, fontFamily: _kFontFam);
-  static const IconData export_icon = IconData(0xe827, fontFamily: _kFontFam);
-  static const IconData import_icon = IconData(0xe828, fontFamily: _kFontFam);
+  static const IconData exportIcon = IconData(0xe827, fontFamily: _kFontFam);
+  static const IconData importIcon = IconData(0xe828, fontFamily: _kFontFam);
   static const IconData lock = IconData(0xe829, fontFamily: _kFontFam);
   static const IconData transferfunds = IconData(0xe82a, fontFamily: _kFontFam);
   static const IconData nanohorizontal =
