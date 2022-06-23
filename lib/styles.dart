@@ -5,117 +5,130 @@ class AppStyles {
   // Text style for paragraph text.
   static TextStyle textStyleParagraph(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes.medium,
-        fontWeight: FontWeight.w200,
-        color: SarafuTheme().text);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes.medium,
+      fontWeight: FontWeight.w200,
+      color: SarafuTheme().text,
+    );
   }
 
   // Text style for paragraph text with primary color.
   static TextStyle textStyleParagraphPrimary(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes.medium,
-        fontWeight: FontWeight.w700,
-        color: SarafuTheme().primary);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes.medium,
+      fontWeight: FontWeight.w700,
+      color: SarafuTheme().primary,
+    );
   }
 
   // Text style for thin paragraph text with primary color.
   static TextStyle textStyleParagraphThinPrimary(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes.small,
-        fontWeight: FontWeight.w600,
-        color: SarafuTheme().primary);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes.small,
+      fontWeight: FontWeight.w600,
+      color: SarafuTheme().primary,
+    );
   }
 
   // Text style for paragraph text with primary color.
   static TextStyle textStyleParagraphSuccess(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes.medium,
-        fontWeight: FontWeight.w700,
-        color: SarafuTheme().success);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes.medium,
+      fontWeight: FontWeight.w700,
+      color: SarafuTheme().success,
+    );
   }
 
   // For snackbar/Toast text
   static TextStyle textStyleSnackbar(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes.small,
-        fontWeight: FontWeight.w700,
-        color: SarafuTheme().background);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes.small,
+      fontWeight: FontWeight.w700,
+      color: SarafuTheme().background,
+    );
   }
 
   // Text style for primary button
   static TextStyle textStyleButtonPrimary(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes._large,
-        fontWeight: FontWeight.w700,
-        color: SarafuTheme().background);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes._large,
+      fontWeight: FontWeight.w700,
+      color: SarafuTheme().text,
+    );
   }
 
   // Green primary button
   static TextStyle textStyleButtonPrimaryGreen(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes._large,
-        fontWeight: FontWeight.w700,
-        color: SarafuTheme().successDark);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes._large,
+      fontWeight: FontWeight.w700,
+      color: SarafuTheme().successDark,
+    );
   }
 
   // Text style for outline button
   static TextStyle textStyleButtonPrimaryOutline(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes._large,
-        fontWeight: FontWeight.w700,
-        color: SarafuTheme().primary);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes._large,
+      fontWeight: FontWeight.w700,
+      color: SarafuTheme().primary,
+    );
   }
 
   static TextStyle textStyleButtonPrimaryOutlineDisabled(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes._large,
-        fontWeight: FontWeight.w700,
-        color: SarafuTheme().primary60);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes._large,
+      fontWeight: FontWeight.w700,
+      color: SarafuTheme().primary60,
+    );
   }
 
   // Text style for success outline button
   static TextStyle textStyleButtonSuccessOutline(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes._large,
-        fontWeight: FontWeight.w700,
-        color: SarafuTheme().success);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes._large,
+      fontWeight: FontWeight.w700,
+      color: SarafuTheme().success,
+    );
   }
 
   // Text style for text outline button
   static TextStyle textStyleButtonTextOutline(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes._large,
-        fontWeight: FontWeight.w700,
-        color: SarafuTheme().text);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes._large,
+      fontWeight: FontWeight.w700,
+      color: SarafuTheme().text,
+    );
   }
 
   // Text style for small outline button
   static TextStyle textStyleButtonPrimarySmallOutline(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes.small,
-        fontWeight: FontWeight.w700,
-        color: SarafuTheme().primary);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes.small,
+      fontWeight: FontWeight.w700,
+      color: SarafuTheme().primary,
+    );
   }
 
   // Text style for small success outline button
   static TextStyle textStyleButtonSuccessSmallOutline(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes.small,
-        fontWeight: FontWeight.w700,
-        color: SarafuTheme().success);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes.small,
+      fontWeight: FontWeight.w700,
+      color: SarafuTheme().success,
+    );
   }
 
   // General address/seed styles
@@ -172,46 +185,51 @@ class AppStyles {
   // Text style for alternate currencies on home page
   static TextStyle textStyleCurrencyAlt(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes.small,
-        fontWeight: FontWeight.w600,
-        color: SarafuTheme().text60);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes.small,
+      fontWeight: FontWeight.w600,
+      color: SarafuTheme().text60,
+    );
   }
 
   static TextStyle textStyleCurrencyAltHidden(BuildContext context) {
-    return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes.small,
-        fontWeight: FontWeight.w600,
-        color: Colors.transparent);
+    return const TextStyle(
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes.small,
+      fontWeight: FontWeight.w600,
+      color: Colors.transparent,
+    );
   }
 
   // Text style for primary currency on home page
   static TextStyle textStyleCurrency(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes._largest,
-        fontWeight: FontWeight.w900,
-        color: SarafuTheme().primary);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes._largest,
+      fontWeight: FontWeight.w900,
+      color: SarafuTheme().primary,
+    );
   }
 
   /* Transaction cards */
   // Text style for transaction card "Received"/"Sent" text
   static TextStyle textStyleTransactionType(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes.small,
-        fontWeight: FontWeight.w600,
-        color: SarafuTheme().text);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes.small,
+      fontWeight: FontWeight.w600,
+      color: SarafuTheme().text,
+    );
   }
 
   // Amount
   static TextStyle textStyleTransactionAmount(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        color: SarafuTheme().primary60,
-        fontSize: AppFontSizes.smallest,
-        fontWeight: FontWeight.w600);
+      fontFamily: 'NunitoSans',
+      color: SarafuTheme().primary60,
+      fontSize: AppFontSizes.smallest,
+      fontWeight: FontWeight.w600,
+    );
   }
 
   // Unit (e.g. BAN)
@@ -257,19 +275,21 @@ class AppStyles {
   // Version info in settings
   static TextStyle textStyleVersion(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes.small,
-        fontWeight: FontWeight.w100,
-        color: SarafuTheme().text60);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes.small,
+      fontWeight: FontWeight.w100,
+      color: SarafuTheme().text60,
+    );
   }
 
   static TextStyle textStyleVersionUnderline(BuildContext context) {
     return TextStyle(
-        fontFamily: 'NunitoSans',
-        fontSize: AppFontSizes.small,
-        fontWeight: FontWeight.w100,
-        color: SarafuTheme().text60,
-        decoration: TextDecoration.underline);
+      fontFamily: 'NunitoSans',
+      fontSize: AppFontSizes.small,
+      fontWeight: FontWeight.w100,
+      color: SarafuTheme().text60,
+      decoration: TextDecoration.underline,
+    );
   }
 
   // Text style for alert dialog header

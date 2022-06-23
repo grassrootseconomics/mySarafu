@@ -14,28 +14,27 @@ enum PriceConversion { none }
 /// Singleton wrapper for shared preferences
 class SharedPrefsUtil {
   // Keys
-  static const String first_launch_key = 'fsarafu_first_launch';
-  static const String seed_backed_up_key = 'fsarafu_seed_backup';
-  static const String app_uuid_key = 'fsarafu_app_uuid';
-  static const String price_conversion = 'fsarafu_price_conversion_pref';
-  static const String auth_method = 'fsarafu_auth_method';
-  static const String cur_currency = 'fsarafu_currency_pref';
-  static const String cur_language = 'fsarafu_language_pref';
-  static const String cur_theme = 'fsarafu_theme_pref';
-  static const String cur_explorer = 'fsarafu_cur_explorer_pref';
-  static const String user_representative =
+  static const String firstLaunchKey = 'fsarafu_first_launch';
+  static const String seedBackedUpKey = 'fsarafu_seed_backup';
+  static const String appUuidKey = 'fsarafu_app_uuid';
+  static const String authMethod = 'fsarafu_auth_method';
+  static const String curCurrency = 'fsarafu_currency_pref';
+  static const String curLanguage = 'fsarafu_language_pref';
+  static const String curTheme = 'fsarafu_theme_pref';
+  static const String curExplorer = 'fsarafu_cur_explorer_pref';
+  static const String userRepresentative =
       'fsarafu_user_rep'; // For when non-opened accounts have set a representative
-  static const String firstcontact_added = 'fsarafu_first_c_added';
-  static const String notification_enabled = 'fsarafu_notification_on';
-  static const String lock_sarafu = 'fsarafu_lock_dev';
-  static const String sarafu_lock_timeout = 'fsarafu_lock_timeout';
+  static const String firstcontactAdded = 'fsarafu_first_c_added';
+  static const String notificationEnabled = 'fsarafu_notification_on';
+  static const String lockSarafu = 'fsarafu_lock_dev';
+  static const String sarafuLockTimeout = 'fsarafu_lock_timeout';
   // For maximum pin attempts
-  static const String pin_attempts = 'fsarafu_pin_attempts';
-  static const String pin_lock_until = 'fsarafu_lock_duraton';
+  static const String pinAttempts = 'fsarafu_pin_attempts';
+  static const String pinLockUntil = 'fsarafu_lock_duraton';
   // For certain keystore incompatible androids
-  static const String use_legacy_storage = 'fsarafu_legacy_storage';
+  static const String useLegacyStorage = 'fsarafu_legacy_storage';
   // Caching yellowspyglass API response
-  static const String yellowspyglass_api_cache =
+  static const String yellowspyglassApiCache =
       'fsarafu_yellowspyglass_api_cache';
 
   // For plain-text data
@@ -94,45 +93,45 @@ class SharedPrefsUtil {
 
   // Key-specific helpers
   Future<void> setSeedBackedUp(bool value) async {
-    return set(seed_backed_up_key, value);
+    return set(seedBackedUpKey, value);
   }
 
   Future<bool> getSeedBackedUp() async {
-    return get(seed_backed_up_key, defaultValue: false) as bool;
+    return get(seedBackedUpKey, defaultValue: false) as bool;
   }
 
   Future<void> setFirstLaunch() async {
-    return set(first_launch_key, false);
+    return set(firstLaunchKey, false);
   }
 
   Future<bool> getFirstLaunch() async {
-    return get(first_launch_key, defaultValue: true) as bool;
+    return get(firstLaunchKey, defaultValue: true) as bool;
   }
 
   Future<void> setFirstContactAdded(bool value) async {
-    return set(firstcontact_added, value);
+    return set(firstcontactAdded, value);
   }
 
   Future<bool> getFirstContactAdded() async {
-    return get(firstcontact_added, defaultValue: false) as bool;
+    return get(firstcontactAdded, defaultValue: false) as bool;
   }
 
   Future<void> setUuid(String uuid) async {
-    return setEncrypted(app_uuid_key, uuid);
+    return setEncrypted(appUuidKey, uuid);
   }
 
   Future<String?> getUuid() async {
-    return getEncrypted(app_uuid_key);
+    return getEncrypted(appUuidKey);
   }
 
   Future<void> setAuthMethod(AuthenticationMethod method) async {
-    return set(auth_method, method.getIndex());
+    return set(authMethod, method.getIndex());
   }
 
   Future<AuthenticationMethod> getAuthMethod() async {
     return AuthenticationMethod(
       AuthMethod.values[
-          await get(auth_method, defaultValue: AuthMethod.biometrics.index)
+          await get(authMethod, defaultValue: AuthMethod.biometrics.index)
               as int],
     );
   }
@@ -147,7 +146,7 @@ class SharedPrefsUtil {
   // }
 
   Future<void> setNotificationsOn(bool value) async {
-    return set(notification_enabled, value);
+    return set(notificationEnabled, value);
   }
 
   Future<bool> getNotificationsOn() async {
@@ -158,12 +157,12 @@ class SharedPrefsUtil {
     } else {
       defaultValue = true;
     }
-    return await get(notification_enabled, defaultValue: defaultValue) as bool;
+    return await get(notificationEnabled, defaultValue: defaultValue) as bool;
   }
 
   /// If notifications have been set by user/app
   Future<bool> getNotificationsSet() async {
-    final value = get(notification_enabled) as bool?;
+    final value = get(notificationEnabled) as bool?;
     if (value == null) {
       return false;
     } else {
@@ -172,20 +171,20 @@ class SharedPrefsUtil {
   }
 
   Future<void> setLock(bool value) async {
-    return set(lock_sarafu, value);
+    return set(lockSarafu, value);
   }
 
   Future<bool> getLock() async {
-    return get(lock_sarafu) as bool;
+    return get(lockSarafu) as bool;
   }
 
   Future<void> setLockTimeout(LockTimeoutSetting setting) async {
-    return set(sarafu_lock_timeout, setting.getIndex());
+    return set(sarafuLockTimeout, setting.getIndex());
   }
 
   Future<LockTimeoutSetting> getLockTimeout() async {
     final value = await get(
-      sarafu_lock_timeout,
+      sarafuLockTimeout,
       defaultValue: LockTimeoutOption.one.index,
     ) as int;
     return LockTimeoutSetting(
@@ -195,32 +194,32 @@ class SharedPrefsUtil {
 
   // Locking out when max pin attempts exceeded
   Future<int> getLockAttempts() async {
-    return await get(pin_attempts, defaultValue: 0) as int;
+    return await get(pinAttempts, defaultValue: 0) as int;
   }
 
   Future<void> incrementLockAttempts() async {
-    await set(pin_attempts, await getLockAttempts() + 1);
+    await set(pinAttempts, await getLockAttempts() + 1);
   }
 
   Future<void> resetLockAttempts() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(pin_attempts);
-    await prefs.remove(pin_lock_until);
+    await prefs.remove(pinAttempts);
+    await prefs.remove(pinLockUntil);
   }
 
   Future<bool> shouldLock() async {
-    if (await get(pin_lock_until) != null || await getLockAttempts() >= 5) {
+    if (await get(pinLockUntil) != null || await getLockAttempts() >= 5) {
       return true;
     }
     return false;
   }
 
-  Future<bool> useLegacyStorage() async {
-    return await get(use_legacy_storage, defaultValue: false) as bool;
+  Future<bool> usesLegacyStorage() async {
+    return await get(useLegacyStorage, defaultValue: false) as bool;
   }
 
   Future<void> setUseLegacyStorage() async {
-    await set(use_legacy_storage, true);
+    await set(useLegacyStorage, true);
   }
 
   Future<void> updateLockDate() async {
@@ -228,7 +227,7 @@ class SharedPrefsUtil {
     if (attempts >= 20) {
       // 4+ failed attempts
       await set(
-        pin_lock_until,
+        pinLockUntil,
         DateFormat.yMd()
             .add_jms()
             .format(DateTime.now().toUtc().add(const Duration(hours: 24))),
@@ -236,7 +235,7 @@ class SharedPrefsUtil {
     } else if (attempts >= 15) {
       // 3 failed attempts
       await set(
-        pin_lock_until,
+        pinLockUntil,
         DateFormat.yMd()
             .add_jms()
             .format(DateTime.now().toUtc().add(const Duration(minutes: 15))),
@@ -244,14 +243,14 @@ class SharedPrefsUtil {
     } else if (attempts >= 10) {
       // 2 failed attempts
       await set(
-        pin_lock_until,
+        pinLockUntil,
         DateFormat.yMd()
             .add_jms()
             .format(DateTime.now().toUtc().add(const Duration(minutes: 5))),
       );
     } else if (attempts >= 5) {
       await set(
-        pin_lock_until,
+        pinLockUntil,
         DateFormat.yMd()
             .add_jms()
             .format(DateTime.now().toUtc().add(const Duration(minutes: 1))),
@@ -260,7 +259,7 @@ class SharedPrefsUtil {
   }
 
   Future<DateTime?> getLockDate() async {
-    final lockDateStr = await get(pin_lock_until) as String?;
+    final lockDateStr = await get(pinLockUntil) as String?;
     if (lockDateStr == null) {
       return null;
     }
@@ -270,16 +269,15 @@ class SharedPrefsUtil {
   // For logging out
   Future<void> deleteAll() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(seed_backed_up_key);
-    await prefs.remove(app_uuid_key);
-    await prefs.remove(price_conversion);
-    await prefs.remove(user_representative);
-    await prefs.remove(cur_currency);
-    await prefs.remove(auth_method);
-    await prefs.remove(notification_enabled);
-    await prefs.remove(lock_sarafu);
-    await prefs.remove(pin_attempts);
-    await prefs.remove(pin_lock_until);
-    await prefs.remove(sarafu_lock_timeout);
+    await prefs.remove(seedBackedUpKey);
+    await prefs.remove(appUuidKey);
+    await prefs.remove(userRepresentative);
+    await prefs.remove(curCurrency);
+    await prefs.remove(authMethod);
+    await prefs.remove(notificationEnabled);
+    await prefs.remove(lockSarafu);
+    await prefs.remove(pinAttempts);
+    await prefs.remove(pinLockUntil);
+    await prefs.remove(sarafuLockTimeout);
   }
 }

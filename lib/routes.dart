@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/cubits/accounts/accounts_cubit.dart';
 import 'package:my_sarafu/screens/home_screen.dart';
 import 'package:my_sarafu/screens/landing_screen.dart';
+import 'package:my_sarafu/screens/lock_screen.dart';
 import 'package:my_sarafu/screens/settings_screen.dart';
 import 'package:my_sarafu/screens/vouchers_screen.dart';
 
@@ -24,6 +25,10 @@ MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
     case '/settings':
       return MaterialPageRoute<Widget>(
         builder: (context) => const SettingsView(),
+      );
+    case '/locked':
+      return MaterialPageRoute<Widget>(
+        builder: (context) => const AppLockScreen(),
       );
     default:
       return MaterialPageRoute<Widget>(

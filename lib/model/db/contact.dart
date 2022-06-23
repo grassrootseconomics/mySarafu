@@ -19,6 +19,10 @@ class Contact {
   @JsonKey(name: 'address')
   String address;
 
-  bool operator ==(o) => o is Contact && o.name == name && o.address == address;
+  @override
+  bool operator ==(Object o) =>
+      o is Contact && o.name == name && o.address == address;
+
+  @override
   int get hashCode => hash2(name.hashCode, address.hashCode);
 }

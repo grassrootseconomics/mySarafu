@@ -36,7 +36,7 @@ dependencies:
   sqflite: ^2.0.2+1
   sticky_grouped_list: ^3.0.0
   validators: ^3.0.0
-  web3dart: ^2.4.0
+  web3dart: 2.3.5
 
 dev_dependencies:
   bloc_test: ^9.0.3
@@ -49,5 +49,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+  fonts:
+    - family: AppIcons
+      fonts:
+        - asset: fonts/AppIcons.ttf
   assets:
     - assets/images/

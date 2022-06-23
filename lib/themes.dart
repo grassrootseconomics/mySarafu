@@ -112,13 +112,13 @@ class BaseTheme {
 class SarafuTheme extends BaseTheme {
   SarafuTheme()
       : super(
-          primary: yellow,
-          primary60: yellow.withOpacity(0.6),
-          primary45: yellow.withOpacity(0.45),
-          primary30: yellow.withOpacity(0.3),
-          primary20: yellow.withOpacity(0.2),
-          primary15: yellow.withOpacity(0.15),
-          primary10: yellow.withOpacity(0.1),
+          primary: green,
+          primary60: green.withOpacity(0.6),
+          primary45: green.withOpacity(0.45),
+          primary30: green.withOpacity(0.3),
+          primary20: green.withOpacity(0.2),
+          primary15: green.withOpacity(0.15),
+          primary10: green.withOpacity(0.1),
           success: green,
           success60: green.withOpacity(0.6),
           success30: green.withOpacity(0.3),
@@ -174,5 +174,5 @@ class SarafuTheme extends BaseTheme {
   static const white = Color(0xFFFFFFFF);
 
   static const black = Color(0xFF000000);
-  // OverlayTheme qrScanTheme = OverlayTheme.KALIUM;
+  // OverlayTheme qrScanTheme = OverlayTheme.Sarafu;
 }

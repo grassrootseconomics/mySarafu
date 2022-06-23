@@ -1,85 +1,99 @@
 import 'package:flutter/material.dart';
+import 'package:my_sarafu/app_icons.dart';
+import 'package:my_sarafu/dimens.dart';
+import 'package:my_sarafu/l10n/l10n.dart';
+import 'package:my_sarafu/model/authentication_method.dart';
+import 'package:my_sarafu/repository/vault_repository.dart';
+import 'package:my_sarafu/styles.dart';
+import 'package:my_sarafu/themes.dart';
+import 'package:my_sarafu/utils/biometrics.dart';
+import 'package:my_sarafu/utils/service_locator.dart';
+import 'package:my_sarafu/utils/sharedprefsutil.dart';
+import 'package:my_sarafu/widgets/buttons.dart';
+import 'package:my_sarafu/widgets/pin_screen.dart';
 
 class AppLockScreen extends StatefulWidget {
+  const AppLockScreen({Key? key}) : super(key: key);
+
   @override
-  _AppLockScreenState createState() => _AppLockScreenState();
+  AppLockScreenState createState() => AppLockScreenState();
 }
 
-class _AppLockScreenState extends State<AppLockScreen> {
+class AppLockScreenState extends State<AppLockScreen> {
   bool _showUnlockButton = false;
   bool _showLock = false;
   bool _lockedOut = true;
-  String _countDownTxt = "";
+  String _countDownTxt = '';
 
   Future<void> _goHome() async {
-    if (StateContainer.of(context).wallet != null) {
-      StateContainer.of(context).reconnect();
-    } else {
-      await NanoUtil().loginAccount(context);
-    }
-    StateContainer.of(context).requestUpdate();
-    Navigator.of(context).pushNamedAndRemoveUntil(
-        '/home_transition', (Route<dynamic> route) => false);
+    // if (StateContainer.of(context).wallet != null) {
+    //   StateContainer.of(context).reconnect();
+    // } else {
+    //   await NanoUtil().loginAccount(context);
+    // }
+    await Navigator.of(context)
+        .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
   }
 
   Widget _buildPinScreen(BuildContext context, String expectedPin) {
     return PinScreen(
       PinOverlayType.enterPin,
       expectedPin: expectedPin,
-      description: AppLocalization.of(context).unlockPinKal,
+      description: context.l10n.unlockPin,
     );
   }
 
   String _formatCountDisplay(int count) {
     if (count <= 60) {
       // Seconds only
-      String secondsStr = count.toString();
+      var secondsStr = count.toString();
       if (count < 10) {
-        secondsStr = "0" + secondsStr;
+        secondsStr = '0$secondsStr';
       }
-      return "00:" + secondsStr;
-    } else if (count > 60 && count <= 3600) {
+      return '00:$secondsStr';
+    } else if (count >= 60 && count <= 3600) {
       // Minutes:Seconds
-      String minutesStr = "";
-      int minutes = count ~/ 60;
+      var minutesStr = '';
+      final minutes = count ~/ 60;
       if (minutes < 10) {
-        minutesStr = "0" + minutes.toString();
+        minutesStr = '0$minutes';
       } else {
         minutesStr = minutes.toString();
       }
-      String secondsStr = "";
-      int seconds = count % 60;
+      var secondsStr = '';
+      final seconds = count % 60;
       if (seconds < 10) {
-        secondsStr = "0" + seconds.toString();
+        secondsStr = '0$seconds';
       } else {
         secondsStr = seconds.toString();
       }
-      return minutesStr + ":" + secondsStr;
+      return '$minutesStr:$secondsStr';
     } else {
       // Hours:Minutes:Seconds
-      String hoursStr = "";
-      int hours = count ~/ 3600;
+      var hoursStr = '';
+      final hours = count ~/ 3600;
       if (hours < 10) {
-        hoursStr = "0" + hours.toString();
+        hoursStr = '0$hours';
       } else {
         hoursStr = hours.toString();
       }
-      count = count % 3600;
-      String minutesStr = "";
-      int minutes = count ~/ 60;
+      // TODO(x): Why is this reassigned
+      final count2 = count % 3600;
+      var minutesStr = '';
+      final minutes = count2 ~/ 60;
       if (minutes < 10) {
-        minutesStr = "0" + minutes.toString();
+        minutesStr = '0$minutes';
       } else {
         minutesStr = minutes.toString();
       }
-      String secondsStr = "";
-      int seconds = count % 60;
+      var secondsStr = '';
+      final seconds = count2 % 60;
       if (seconds < 10) {
-        secondsStr = "0" + seconds.toString();
+        secondsStr = '0$seconds';
       } else {
         secondsStr = seconds.toString();
       }
-      return hoursStr + ":" + minutesStr + ":" + secondsStr;
+      return '$hoursStr:$minutesStr:$secondsStr';
     }
   }
 
@@ -93,7 +107,7 @@ class _AppLockScreenState extends State<AppLockScreen> {
           _countDownTxt = _formatCountDisplay(count);
         });
       }
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () {
         _runCountdown(count - 1);
       });
     } else {
@@ -106,12 +120,11 @@ class _AppLockScreenState extends State<AppLockScreen> {
   }
 
   Future<void> authenticateWithBiometrics() async {
-    bool authenticated = await sl
+    final authenticated = await sl
         .get<BiometricUtil>()
-        .authenticateWithBiometrics(
-            context, AppLocalization.of(context).unlockBiometricsKal);
+        .authenticateWithBiometrics(context, context.l10n.unlockBiometrics);
     if (authenticated) {
-      _goHome();
+      await _goHome();
     } else {
       setState(() {
         _showUnlockButton = true;
@@ -120,26 +133,32 @@ class _AppLockScreenState extends State<AppLockScreen> {
   }
 
   Future<void> authenticateWithPin({bool transitions = false}) async {
-    String expectedPin = await sl.get<Vault>().getPin();
-    bool auth = false;
+    final expectedPin = await sl.get<VaultRepository>().getPin();
+    bool? auth = false;
     if (transitions) {
+      if (!mounted) return;
       auth = await Navigator.of(context).push(
-        MaterialPageRoute(builder: (BuildContext context) {
-          return _buildPinScreen(context, expectedPin);
-        }),
+        MaterialPageRoute<bool>(
+          builder: (BuildContext context) {
+            return _buildPinScreen(context, expectedPin ?? "0000");
+          },
+        ),
       );
     } else {
+      if (!mounted) return;
       auth = await Navigator.of(context).push(
-        NoPushTransitionRoute(builder: (BuildContext context) {
-          return _buildPinScreen(context, expectedPin);
-        }),
+        MaterialPageRoute<bool>(
+          builder: (BuildContext context) {
+            return _buildPinScreen(context, expectedPin ?? "0000");
+          },
+        ),
       );
     }
     if (auth != null && auth) {
-      await Future.delayed(Duration(milliseconds: 200));
-      _goHome();
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+      await _goHome();
     }
-    Future.delayed(Duration(milliseconds: 200), () {
+    Future.delayed(const Duration(milliseconds: 200), () {
       if (mounted) {
         setState(() {
           _showUnlockButton = true;
@@ -152,11 +171,11 @@ class _AppLockScreenState extends State<AppLockScreen> {
   Future<void> _authenticate({bool transitions = false}) async {
     // Test if user is locked out
     // Get duration of lockout
-    DateTime lockUntil = await sl.get<SharedPrefsUtil>().getLockDate();
+    final lockUntil = await sl.get<SharedPrefsUtil>().getLockDate();
     if (lockUntil == null) {
       await sl.get<SharedPrefsUtil>().resetLockAttempts();
     } else {
-      int countDown = lockUntil.difference(DateTime.now().toUtc()).inSeconds;
+      final countDown = lockUntil.difference(DateTime.now().toUtc()).inSeconds;
       // They're not allowed to attempt
       if (countDown > 0) {
         _runCountdown(countDown);
@@ -166,10 +185,9 @@ class _AppLockScreenState extends State<AppLockScreen> {
     setState(() {
       _lockedOut = false;
     });
-    AuthenticationMethod authMethod =
-        await sl.get<SharedPrefsUtil>().getAuthMethod();
-    bool hasBiometrics = await sl.get<BiometricUtil>().hasBiometrics();
-    if (authMethod.method == AuthMethod.BIOMETRICS && hasBiometrics) {
+    final authMethod = await sl.get<SharedPrefsUtil>().getAuthMethod();
+    final hasBiometrics = await sl.get<BiometricUtil>().hasBiometrics();
+    if (authMethod.method == AuthMethod.biometrics && hasBiometrics) {
       setState(() {
         _showLock = true;
         _showUnlockButton = true;
@@ -193,73 +211,73 @@ class _AppLockScreenState extends State<AppLockScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            color: StateContainer.of(context).curTheme.background,
-            width: double.infinity,
-            child: SafeArea(
-              minimum: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.height * 0.035,
-                top: MediaQuery.of(context).size.height * 0.1,
-              ),
-              child: Column(
-                children: <Widget>[
-                  Expanded(
-                    child: _showLock
-                        ? Column(
-                            children: <Widget>[
-                              Container(
-                                child: Icon(
-                                  AppIcons.lock,
-                                  size: 80,
-                                  color: StateContainer.of(context)
-                                      .curTheme
-                                      .primary,
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  CaseChange.toUpperCase(
-                                      AppLocalization.of(context).locked,
-                                      context),
-                                  style:
-                                      AppStyles.textStyleHeaderColored(context),
-                                ),
-                                margin: EdgeInsets.only(top: 10),
-                              ),
-                            ],
-                          )
-                        : SizedBox(),
-                  ),
-                  _lockedOut
-                      ? Container(
-                          width: MediaQuery.of(context).size.width - 100,
-                          margin: EdgeInsets.symmetric(horizontal: 50),
-                          child: Text(
-                            AppLocalization.of(context).tooManyFailedAttempts,
-                            style: AppStyles.textStyleErrorMedium(context),
-                            textAlign: TextAlign.center,
+      body: Container(
+        color: SarafuTheme().background,
+        width: double.infinity,
+        child: SafeArea(
+          minimum: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height * 0.035,
+            top: MediaQuery.of(context).size.height * 0.1,
+          ),
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: _showLock
+                    ? Column(
+                        children: <Widget>[
+                          Container(
+                            child: Icon(
+                              AppIcons.lock,
+                              size: 80,
+                              color: SarafuTheme().primary,
+                            ),
                           ),
-                        )
-                      : SizedBox(),
-                  _showUnlockButton
-                      ? Row(
-                          children: <Widget>[
-                            AppButton.buildAppButton(
-                                context,
-                                AppButtonType.PRIMARY,
-                                _lockedOut
-                                    ? _countDownTxt
-                                    : AppLocalization.of(context).unlock,
-                                Dimens.BUTTON_BOTTOM_DIMENS, onPressed: () {
-                              if (!_lockedOut) {
-                                _authenticate(transitions: true);
-                              }
-                            }, disabled: _lockedOut),
-                          ],
-                        )
-                      : SizedBox(),
-                ],
+                          Container(
+                            child: Text(
+                              context.l10n.locked.toUpperCase(),
+                              style: AppStyles.textStyleHeaderColored(context),
+                            ),
+                            margin: const EdgeInsets.only(top: 10),
+                          ),
+                        ],
+                      )
+                    : const SizedBox(),
               ),
-            )));
+              if (_lockedOut)
+                Container(
+                  width: MediaQuery.of(context).size.width - 100,
+                  margin: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Text(
+                    context.l10n.tooManyFailedAttempts,
+                    style: AppStyles.textStyleErrorMedium(context),
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              else
+                const SizedBox(),
+              if (_showUnlockButton)
+                Row(
+                  children: <Widget>[
+                    AppButton.buildAppButton(
+                      context,
+                      AppButtonType.primary,
+                      _lockedOut ? _countDownTxt : context.l10n.unlock,
+                      Dimens.buttonBottomDimens,
+                      onPressed: () {
+                        if (!_lockedOut) {
+                          _authenticate(transitions: true);
+                        }
+                      },
+                      disabled: _lockedOut,
+                    ),
+                  ],
+                )
+              else
+                const SizedBox(),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

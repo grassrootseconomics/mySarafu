@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:my_sarafu/utils/logger.dart';
+import 'package:my_sarafu/utils/service_locator.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
@@ -46,6 +47,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   await runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+      setupServiceLocator();
       final storage = await HydratedStorage.build(
         storageDirectory:
             kIsWeb ? HydratedStorage.webStorageDirectory : await getConfigDir(),

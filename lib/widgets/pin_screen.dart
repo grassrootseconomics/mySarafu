@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:my_sarafu/app_icons.dart';
+import 'package:my_sarafu/l10n/l10n.dart';
 import 'package:my_sarafu/styles.dart';
 import 'package:my_sarafu/themes.dart';
 import 'package:my_sarafu/utils/service_locator.dart';
@@ -14,22 +15,22 @@ class ShakeCurve extends Curve {
   @override
   double transform(double t) {
     //t from 0.0 to 1.0
-    return sin(t * 3 * pi);
+    return sin(t * 2.5 * pi).abs();
   }
 }
 
 class PinScreen extends StatefulWidget {
   const PinScreen(
-    Key? key,
     this.type, {
+    Key? key,
     this.description = '',
     this.expectedPin = '',
-    required this.pinScreenBackgroundColor,
+    this.pinScreenBackgroundColor = Colors.green,
   }) : super(key: key);
   final PinOverlayType type;
   final String expectedPin;
   final String description;
-  final Color pinScreenBackgroundColor;
+  final Color? pinScreenBackgroundColor;
 
   @override
   PinScreenState createState() => PinScreenState();
@@ -46,17 +47,17 @@ class PinScreenState extends State<PinScreen>
   String pinCreateTitle = '';
 
   // Stateful data
-  List<IconData> _dotStates;
-  String _pin;
-  String _pinConfirmed;
-  bool
+  late List<IconData> _dotStates;
+  late String _pin;
+  late String _pinConfirmed;
+  late bool
       _awaitingConfirmation; // true if pin has been entered once, false if not entered once
-  String _header;
+  late String _header;
   int _failedAttempts = 0;
 
   // Invalid animation
-  AnimationController _controller;
-  Animation<double> _animation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   @override
   void initState() {
@@ -104,7 +105,8 @@ class PinScreenState extends State<PinScreen>
               } else {
                 setState(() {
                   _pin = '';
-                  _header = context.l10n.pinInvalid;
+                  _header =
+                      '${context.l10n.pinInvalid} - ${_failedAttempts - maxAttempts} Attempts left';
                   _dotStates = List.filled(_pinLength, AppIcons.dotemtpy);
                   _controller.value = 0;
                 });
@@ -163,7 +165,7 @@ class PinScreenState extends State<PinScreen>
 
   void _backSpace() {
     if (_dotStates[0] != AppIcons.dotemtpy) {
-      int lastFilledIndex;
+      var lastFilledIndex = 0;
       for (var i = 0; i < _dotStates.length; i++) {
         if (_dotStates[i] == AppIcons.dotfilled) {
           if (i == _dotStates.length ||
@@ -239,7 +241,7 @@ class PinScreenState extends State<PinScreen>
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,
-              color: SarafuTheme().primary,
+              color: SarafuTheme().text,
               fontFamily: 'NunitoSans',
               fontWeight: FontWeight.w700,
             ),
@@ -250,7 +252,7 @@ class PinScreenState extends State<PinScreen>
   }
 
   List<Widget> _buildPinDots() {
-    var ret = List<Widget>();
+    final ret = <Widget>[];
     for (var i = 0; i < _pinLength; i++) {
       ret.add(
         Icon(
@@ -287,9 +289,8 @@ class PinScreenState extends State<PinScreen>
       body: Container(
         constraints: const BoxConstraints.expand(),
         child: Material(
-          color: widget.pinScreenBackgroundColor == null
-              ? SarafuTheme().backgroundDark
-              : widget.pinScreenBackgroundColor,
+          color:
+              widget.pinScreenBackgroundColor ?? SarafuTheme().backgroundDark,
           child: Column(
             children: <Widget>[
               Container(
@@ -303,14 +304,14 @@ class PinScreenState extends State<PinScreen>
                       margin: const EdgeInsets.symmetric(horizontal: 40),
                       child: AutoSizeText(
                         _header,
-                        // style:
-                        //     AppStyles.textStylePinScreenHeaderColored(context),
+                        style:
+                            AppStyles.textStylePinScreenHeaderColored(context),
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         stepGranularity: 0.1,
                       ),
                     ),
-                    // Descripttion
+                    // Description
                     Container(
                       margin: const EdgeInsets.symmetric(
                         horizontal: 40,
@@ -318,7 +319,7 @@ class PinScreenState extends State<PinScreen>
                       ),
                       child: AutoSizeText(
                         widget.description,
-                        // style: AppStyles.textStyleParagraph(context),
+                        style: AppStyles.textStyleParagraph(context),
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         stepGranularity: 0.1,
