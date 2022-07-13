@@ -50,12 +50,13 @@ class AccountsCubit extends HydratedCubit<AccountsState> {
   void deleteAccount(int accountIdx, {required String password}) {
     final account = state.accounts[accountIdx];
     final isOwner = account.verifyPassword(password);
+    final updatedAccounts = [...state.accounts]..removeAt(accountIdx);
+
     if (isOwner) {
-      final accounts = [...state.accounts..removeAt(accountIdx)];
       emit(
         AccountsLoaded(
-          accounts: accounts,
-          activeAccountIdx: accountIdx,
+          accounts: updatedAccounts,
+          activeAccountIdx: 0,
         ),
       );
     }
@@ -89,10 +90,14 @@ class AccountsCubit extends HydratedCubit<AccountsState> {
   AccountsState fromJson(Map<String, dynamic> json) {
     final accounts =
         (json['accounts'] as List<dynamic>).map(Account.fromJson).toList();
-    return AccountsLoaded(
-      accounts: accounts,
-      activeAccountIdx: json['activeAccountIdx'] as int?,
-    );
+    if (accounts.isEmpty) {
+      return const AccountsEmpty();
+    } else {
+      return AccountsLoaded(
+        accounts: accounts,
+        activeAccountIdx: json['activeAccountIdx'] as int?,
+      );
+    }
   }
 
   @override

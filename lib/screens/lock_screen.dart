@@ -140,7 +140,7 @@ class AppLockScreenState extends State<AppLockScreen> {
       auth = await Navigator.of(context).push(
         MaterialPageRoute<bool>(
           builder: (BuildContext context) {
-            return _buildPinScreen(context, expectedPin ?? "0000");
+            return _buildPinScreen(context, expectedPin ?? '0000');
           },
         ),
       );
@@ -149,7 +149,7 @@ class AppLockScreenState extends State<AppLockScreen> {
       auth = await Navigator.of(context).push(
         MaterialPageRoute<bool>(
           builder: (BuildContext context) {
-            return _buildPinScreen(context, expectedPin ?? "0000");
+            return _buildPinScreen(context, expectedPin ?? '0000');
           },
         ),
       );
@@ -178,7 +178,7 @@ class AppLockScreenState extends State<AppLockScreen> {
       final countDown = lockUntil.difference(DateTime.now().toUtc()).inSeconds;
       // They're not allowed to attempt
       if (countDown > 0) {
-        _runCountdown(countDown);
+        await _runCountdown(countDown);
         return;
       }
     }
@@ -225,19 +225,17 @@ class AppLockScreenState extends State<AppLockScreen> {
                 child: _showLock
                     ? Column(
                         children: <Widget>[
-                          Container(
-                            child: Icon(
-                              AppIcons.lock,
-                              size: 80,
-                              color: SarafuTheme().primary,
-                            ),
+                          Icon(
+                            AppIcons.lock,
+                            size: 80,
+                            color: SarafuTheme().primary,
                           ),
                           Container(
+                            margin: const EdgeInsets.only(top: 10),
                             child: Text(
                               context.l10n.locked.toUpperCase(),
                               style: AppStyles.textStyleHeaderColored(context),
                             ),
-                            margin: const EdgeInsets.only(top: 10),
                           ),
                         ],
                       )

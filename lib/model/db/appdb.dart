@@ -147,7 +147,7 @@ CREATE TABLE Accounts(
 
   Future<int> saveContacts(List<Contact> contacts) async {
     var count = 0;
-    for (var c in contacts) {
+    for (final c in contacts) {
       if (await saveContact(c) > 0) {
         count++;
       }

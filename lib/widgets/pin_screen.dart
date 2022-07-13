@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_int_literals
+
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -6,6 +8,7 @@ import 'package:my_sarafu/app_icons.dart';
 import 'package:my_sarafu/l10n/l10n.dart';
 import 'package:my_sarafu/styles.dart';
 import 'package:my_sarafu/themes.dart';
+import 'package:my_sarafu/utils/logger.dart';
 import 'package:my_sarafu/utils/service_locator.dart';
 import 'package:my_sarafu/utils/sharedprefsutil.dart';
 
@@ -50,8 +53,7 @@ class PinScreenState extends State<PinScreen>
   late List<IconData> _dotStates;
   late String _pin;
   late String _pinConfirmed;
-  late bool
-      _awaitingConfirmation; // true if pin has been entered once, false if not entered once
+  late bool _awaitingConfirmation; // true if pin has been entered once
   late String _header;
   int _failedAttempts = 0;
 
@@ -103,10 +105,12 @@ class PinScreenState extends State<PinScreen>
                   );
                 });
               } else {
+                final attemptsLeft = _failedAttempts - maxAttempts;
                 setState(() {
                   _pin = '';
                   _header =
-                      '${context.l10n.pinInvalid} - ${_failedAttempts - maxAttempts} Attempts left';
+                      // ignore: lines_longer_than_80_chars
+                      '${context.l10n.pinInvalid} - $attemptsLeft Attempts left';
                   _dotStates = List.filled(_pinLength, AppIcons.dotemtpy);
                   _controller.value = 0;
                 });
@@ -235,7 +239,7 @@ class PinScreenState extends State<PinScreen>
           }
         },
         child: Container(
-          alignment: const AlignmentDirectional(0, 0),
+          alignment: AlignmentDirectional.center,
           child: Text(
             buttonText,
             textAlign: TextAlign.center,
@@ -257,7 +261,7 @@ class PinScreenState extends State<PinScreen>
       ret.add(
         Icon(
           _dotStates[i],
-          color: SarafuTheme().primary,
+          color: SarafuTheme().text,
           size: 20,
         ),
       );
@@ -352,93 +356,98 @@ class PinScreenState extends State<PinScreen>
                         : MediaQuery.of(context).size.height * 0.05,
                     top: MediaQuery.of(context).size.height * 0.05,
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.height * 0.01,
+                  child: KeyboardListener(
+                    focusNode: FocusNode(),
+                    autofocus: true,
+                    onKeyEvent: _onKeyEvent,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height * 0.01,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              _buildPinScreenButton('1', context),
+                              _buildPinScreenButton('2', context),
+                              _buildPinScreenButton('3', context),
+                            ],
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            _buildPinScreenButton('1', context),
-                            _buildPinScreenButton('2', context),
-                            _buildPinScreenButton('3', context),
-                          ],
+                        Container(
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height * 0.01,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              _buildPinScreenButton('4', context),
+                              _buildPinScreenButton('5', context),
+                              _buildPinScreenButton('6', context),
+                            ],
+                          ),
                         ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.height * 0.01,
+                        Container(
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height * 0.01,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              _buildPinScreenButton('7', context),
+                              _buildPinScreenButton('8', context),
+                              _buildPinScreenButton('9', context),
+                            ],
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            _buildPinScreenButton('4', context),
-                            _buildPinScreenButton('5', context),
-                            _buildPinScreenButton('6', context),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            _buildPinScreenButton('7', context),
-                            _buildPinScreenButton('8', context),
-                            _buildPinScreenButton('9', context),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.height * 0.009,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            SizedBox(
-                              height: smallScreen(context)
-                                  ? buttonSize - 15
-                                  : buttonSize,
-                              width: smallScreen(context)
-                                  ? buttonSize - 15
-                                  : buttonSize,
-                            ),
-                            _buildPinScreenButton('0', context),
-                            SizedBox(
-                              height: smallScreen(context)
-                                  ? buttonSize - 15
-                                  : buttonSize,
-                              width: smallScreen(context)
-                                  ? buttonSize - 15
-                                  : buttonSize,
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(200),
-                                highlightColor: SarafuTheme().primary15,
-                                splashColor: SarafuTheme().primary30,
-                                onTap: () {},
-                                onTapDown: (details) {
-                                  _backSpace();
-                                },
-                                child: Container(
-                                  alignment: const AlignmentDirectional(0, 0),
-                                  child: Icon(
-                                    Icons.backspace,
-                                    color: SarafuTheme().primary,
-                                    size: 20,
+                        Container(
+                          margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height * 0.009,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              SizedBox(
+                                height: smallScreen(context)
+                                    ? buttonSize - 15
+                                    : buttonSize,
+                                width: smallScreen(context)
+                                    ? buttonSize - 15
+                                    : buttonSize,
+                              ),
+                              _buildPinScreenButton('0', context),
+                              SizedBox(
+                                height: smallScreen(context)
+                                    ? buttonSize - 15
+                                    : buttonSize,
+                                width: smallScreen(context)
+                                    ? buttonSize - 15
+                                    : buttonSize,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(200),
+                                  highlightColor: SarafuTheme().primary15,
+                                  splashColor: SarafuTheme().primary30,
+                                  onTap: () {},
+                                  onTapDown: (details) {
+                                    _backSpace();
+                                  },
+                                  child: Container(
+                                    alignment: AlignmentDirectional.center,
+                                    child: Icon(
+                                      Icons.backspace,
+                                      color: SarafuTheme().primary,
+                                      size: 20,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -447,5 +456,9 @@ class PinScreenState extends State<PinScreen>
         ),
       ),
     );
+  }
+
+  void _onKeyEvent(KeyEvent value) {
+    log.d('_onKeyEvent: $value');
   }
 }

@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:my_sarafu/l10n/l10n.dart';
 import 'package:my_sarafu/styles.dart';
 import 'package:my_sarafu/themes.dart';
 import 'package:my_sarafu/utils/user_data_util.dart';
-import 'package:my_sarafu/l10n/l10n.dart';
 
 /// A widget for displaying a mnemonic phrase
 class MnemonicDisplay extends StatefulWidget {
@@ -53,20 +53,19 @@ class MnemonicDisplayState extends State<MnemonicDisplay> {
       final items = <Widget>[];
       for (var j = 0; j < itemsPerRow; j++) {
         items.add(
-          Container(
+          SizedBox(
             width: (MediaQuery.of(context).size.width -
                     (smallScreen(context) ? 15 : 30)) /
                 itemsPerRow,
             child: RichText(
-              textAlign: TextAlign.start,
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: curWord < 9 ? " " : "",
+                    text: curWord < 9 ? ' ' : '',
                     style: AppStyles.textStyleNumbersOfMnemonic(context),
                   ),
                   TextSpan(
-                    text: " ${curWord + 1}) ",
+                    text: ' ${curWord + 1}) ',
                     style: AppStyles.textStyleNumbersOfMnemonic(context),
                   ),
                   TextSpan(
@@ -156,7 +155,7 @@ class MnemonicDisplayState extends State<MnemonicDisplay> {
         if (widget.showButton)
           Container(
             margin: const EdgeInsetsDirectional.only(top: 5),
-            padding: const EdgeInsets.all(0.0),
+            padding: EdgeInsets.zero,
             child: OutlinedButton(
               onPressed: () {
                 UserDataUtil.setSecureClipboardItem(widget.wordList.join(' '));

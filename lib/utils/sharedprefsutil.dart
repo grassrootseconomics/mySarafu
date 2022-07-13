@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_positional_boolean_parameters
+
 import 'dart:io';
 
 import 'package:intl/intl.dart';
@@ -22,8 +24,7 @@ class SharedPrefsUtil {
   static const String curLanguage = 'fsarafu_language_pref';
   static const String curTheme = 'fsarafu_theme_pref';
   static const String curExplorer = 'fsarafu_cur_explorer_pref';
-  static const String userRepresentative =
-      'fsarafu_user_rep'; // For when non-opened accounts have set a representative
+
   static const String firstcontactAdded = 'fsarafu_first_c_added';
   static const String notificationEnabled = 'fsarafu_notification_on';
   static const String lockSarafu = 'fsarafu_lock_dev';
@@ -49,6 +50,8 @@ class SharedPrefsUtil {
       // That can lead to some unexpected behavior when using either is or is!
       // where the type is either int or double.
       await sharedPreferences.setDouble(key, value);
+      // TODO(x): Look in to double_and_int_checks for more info.
+      // ignore: avoid_double_and_int_checks
     } else if (value is int) {
       await sharedPreferences.setInt(key, value);
     }
@@ -271,7 +274,6 @@ class SharedPrefsUtil {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(seedBackedUpKey);
     await prefs.remove(appUuidKey);
-    await prefs.remove(userRepresentative);
     await prefs.remove(curCurrency);
     await prefs.remove(authMethod);
     await prefs.remove(notificationEnabled);
