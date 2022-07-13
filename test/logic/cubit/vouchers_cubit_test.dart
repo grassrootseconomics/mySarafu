@@ -35,7 +35,7 @@ void main() {
       });
 
       test('fetchAllVouchers', () async {
-        expect(vouchersCubit.state, isA<VouchersInitial>());
+        expect(vouchersCubit.state, isA<VouchersEmpty>());
         await vouchersCubit.fetchAllVouchers(MockEthereumAddress());
         expect(
           vouchersCubit.state,

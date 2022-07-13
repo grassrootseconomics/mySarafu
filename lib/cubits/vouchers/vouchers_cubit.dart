@@ -10,8 +10,7 @@ part 'vouchers_state.dart';
 
 // TODO(william): Auto fetch all vouchers on first load
 class VouchersCubit extends HydratedCubit<VouchersState> {
-  VouchersCubit(this._voucherRepository)
-      : super(const VouchersLoaded(vouchers: []));
+  VouchersCubit(this._voucherRepository) : super(const VouchersEmpty());
   final VoucherRepository _voucherRepository;
 
   Future<void> fetchAllVouchers(EthereumAddress address) async {
@@ -61,6 +60,9 @@ class VouchersCubit extends HydratedCubit<VouchersState> {
       final activeVoucherIdx = json['activeVoucherIdx'] != null
           ? json['activeVoucherIdx'] as int
           : 0;
+      if (vouchers.isEmpty) {
+        return const VouchersEmpty();
+      }
       return VouchersLoaded(
         vouchers: vouchers,
         activeVoucherIdx: activeVoucherIdx,
@@ -69,14 +71,17 @@ class VouchersCubit extends HydratedCubit<VouchersState> {
       log.e(e);
     }
 
-    return const VouchersInitial(vouchers: []);
+    return const VouchersEmpty();
   }
 
   @override
   Map<String, Object> toJson(VouchersState state) {
     final data = {
-      'vouchers':
-          state.vouchers.map<Map<String, String>>((t) => t.toJson()).toList(),
+      'vouchers': state.vouchers.isEmpty
+          ? <String>[]
+          : state.vouchers
+              .map<Map<String, String>>((voucher) => voucher.toJson())
+              .toList(),
       'activeVoucherIdx': 0,
     };
     return data;

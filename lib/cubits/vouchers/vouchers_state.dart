@@ -7,15 +7,12 @@ abstract class VouchersState extends Equatable {
   final int? activeVoucherIdx;
 }
 
-class VouchersInitial extends VouchersState {
-  const VouchersInitial({
-    required List<Voucher> vouchers,
-    int? activeVoucherIdx,
-  }) : super(vouchers: vouchers, activeVoucherIdx: activeVoucherIdx);
+class VouchersEmpty extends VouchersState {
+  const VouchersEmpty() : super(vouchers: const []);
 
   @override
   List<Object?> get props {
-    return [...vouchers];
+    return [];
   }
 }
 
