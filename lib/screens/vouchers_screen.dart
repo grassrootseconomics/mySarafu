@@ -29,12 +29,11 @@ class VouchersView extends StatelessWidget {
                 }
               },
               builder: (context, state) {
-                if (state is VouchersInitial) {
+                if (state is VouchersEmpty) {
                   return buildInitialInput(context);
                 } else if (state is VouchersLoaded) {
                   return buildVoucherList(context, state.vouchers);
                 } else {
-                  // (state is WeatherError)
                   return buildInitialInput(context);
                 }
               },
