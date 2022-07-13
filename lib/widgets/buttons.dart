@@ -1,6 +1,7 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/exceptions.dart';
 import 'package:my_sarafu/styles.dart';
 import 'package:my_sarafu/themes.dart';
 
@@ -220,8 +221,6 @@ class AppButton {
             ),
           ),
         );
-      default:
-        throw UIException('Invalid Button Type $type');
     }
   } //
 }

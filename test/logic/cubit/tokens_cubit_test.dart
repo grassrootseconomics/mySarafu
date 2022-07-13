@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:my_sarafu/cubits/vouchers/vouchers_cubit.dart';
 
 import '../../helpers/hydrated_bloc.dart';
-import '../../mocks.dart';
+import '../../helpers/mocks.dart';
 
 void main() {
   group('VouchersCubit', () {

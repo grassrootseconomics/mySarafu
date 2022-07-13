@@ -12,6 +12,6 @@ void setupServiceLocator() {
     ..registerLazySingleton<DBHelper>(DBHelper.new)
     ..registerLazySingleton<BiometricUtil>(BiometricUtil.new)
     ..registerLazySingleton<VaultRepository>(VaultRepository.new)
-    ..registerLazySingleton<SharedPrefsUtil>(() => SharedPrefsUtil())
+    ..registerLazySingleton<SharedPrefsUtil>(SharedPrefsUtil.new)
     ..registerLazySingleton<Logger>(() => Logger(printer: PrettyPrinter()));
 }

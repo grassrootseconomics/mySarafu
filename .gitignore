@@ -9,6 +9,8 @@
 .buildlog/
 .history
 .svn/
+# don't check in golden failure output
+**/failures/*.png
 
 # IntelliJ related
 *.iml
