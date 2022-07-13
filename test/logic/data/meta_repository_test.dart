@@ -1,4 +1,3 @@
-@Skip('Currently failing')
 // TODO(x): Rework and Mock Meta Repository
 import 'package:flutter_test/flutter_test.dart';
 import 'package:my_sarafu/model/network_presets.dart';
@@ -29,16 +28,20 @@ final testPersonMap = <String, dynamic>{
 };
 final testPerson = Person.fromJson(testPersonMap);
 void main() {
-  group('MetaRepository', () {
-    test('getAddressFromPhoneNumber', () async {
-      final meta = MetaRepository(metaUrl: mainnet.metaUrl);
-      final data = await meta.getAddressFromPhoneNumber('+254723522717');
-      expect(data, testAddress);
-    });
-    test('getMetaFromAddress', () async {
-      final meta = MetaRepository(metaUrl: mainnet.metaUrl);
-      final data = await meta.getPersonFromAddress(testAddress);
-      expect(data, equals(testPerson));
-    });
-  });
+  group(
+    'MetaRepository',
+    () {
+      test('getAddressFromPhoneNumber', () async {
+        final meta = MetaRepository(metaUrl: mainnet.metaUrl);
+        final data = await meta.getAddressFromPhoneNumber('+254723522717');
+        expect(data, testAddress);
+      });
+      test('getMetaFromAddress', () async {
+        final meta = MetaRepository(metaUrl: mainnet.metaUrl);
+        final data = await meta.getPersonFromAddress(testAddress);
+        expect(data, equals(testPerson));
+      });
+    },
+    skip: 'Meta need to be mocked and reimplemented',
+  );
 }
