@@ -26,10 +26,10 @@ class NetworkPreset {
 NetworkPreset mainnet = NetworkPreset(
   chainSpec: 'evm:kitabu:6060:sarafu',
   contractRegistryAddress:
-      EthereumAddress.fromHex('0xe3e3431bf25b06166513019ed7b21598d27d05dc'),
+      EthereumAddress.fromHex('0x5A7e6aEBDA04Aee38aEd1Fc3C87dA589eeB92FeC'),
   metaUrl: 'https://meta.sarafu.network',
   defaultVoucherAddress:
-      EthereumAddress.fromHex('aB89822F31c2092861F713F6F34bd6877a8C1878'),
+      EthereumAddress.fromHex('02b0DF387A3A68AA3134668752dd82bE70B7dE1C'),
   cacheUrl: 'https://cache.sarafu.network',
   rpcProvider: 'https://rpc.sarafu.network',
 );
