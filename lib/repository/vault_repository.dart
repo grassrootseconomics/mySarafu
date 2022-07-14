@@ -79,6 +79,7 @@ class VaultRepository {
   static const _channel = MethodChannel('fappchannel');
 
   Future<String?> getSecret() async {
+    // TODO(x): This is not implemented;
     return _channel.invokeMethod('getSecret');
   }
 }
