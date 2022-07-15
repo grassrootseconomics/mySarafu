@@ -1,67 +1,73 @@
-// TODO(williamluke4): Remove this
-// ignore_for_file: avoid_dynamic_calls
+// ignore_for_file: constant_identifier_names
 
 import 'package:equatable/equatable.dart';
 import 'package:my_sarafu/model/network_presets.dart';
-import 'package:my_sarafu/utils/logger.dart';
 import 'package:web3dart/credentials.dart';
+
+enum AccountType {
+  CUSTODIAL_PERSONAL,
+  CUSTODIAL_BUSINESS,
+  CUSTODIAL_COMMUNITY,
+  CUSTODIAL_SYSTEM,
+  NON_CUSTODIAL_PERSONAL,
+  NON_CUSTODIAL_BUSINESS,
+  NON_CUSTODIAL_COMMUNITY,
+  NON_CUSTODIAL_SYSTEM,
+}
 
 class Account extends Equatable {
   const Account({
-    required this.name,
-    required this.address,
-    required this.encryptedWallet,
+    this.activeChainIndex = 0,
+    this.accountType = AccountType.NON_CUSTODIAL_PERSONAL,
+    required this.walletAddresses,
     required this.activeVoucher,
+    this.verified = false,
   });
 
-  factory Account.fromJson(dynamic json) {
+  factory Account.fromJson(Map<String, dynamic> json) {
     return Account(
-      name: json['name'] as String,
-      address: EthereumAddress.fromHex(json['address'] as String),
-      encryptedWallet: json['encryptedWallet'] as String,
+      accountType: AccountType.values.byName(json['accountType'] as String),
+      activeChainIndex: json['activeChainIndex'] as int,
+      walletAddresses: (json['walletAddresses'] as List<String>)
+          .map(EthereumAddress.fromHex)
+          .toList(),
       activeVoucher: json['activeVoucher'] is String
           ? EthereumAddress.fromHex(json['activeVoucher'] as String)
           : mainnet.defaultVoucherAddress,
+      verified: json['verified'] as bool,
     );
   }
-  final String name;
-  final String encryptedWallet;
-  final EthereumAddress address;
+  EthereumAddress get activeWalletAddress => walletAddresses[activeChainIndex];
+  final AccountType accountType;
+  final int activeChainIndex;
   final EthereumAddress activeVoucher;
+  final List<EthereumAddress> walletAddresses;
+  final bool verified;
 
-  bool verifyPassword(String password) {
-    try {
-      Wallet.fromJson(encryptedWallet, password);
-    } catch (e) {
-      log.e(e);
-      return false;
-    }
-    return true;
-  }
-
-  Map<String, String> toJson() {
-    return {
-      'name': name,
-      'address': address.toString(),
-      'encryptedWallet': encryptedWallet,
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'accountType': accountType.name,
+      'activeChainIndex': activeChainIndex,
+      'walletAddresses': walletAddresses.map((e) => e.hexEip55).toList(),
       'activeVoucher': activeVoucher.hexEip55,
+      'verified': verified,
     };
   }
 
   @override
-  List<Object?> get props => [name, address, encryptedWallet, activeVoucher];
+  List<Object?> get props => [accountType, activeChainIndex, walletAddresses];
 
   Account copyWith({
-    String? name,
-    String? encryptedWallet,
-    EthereumAddress? address,
+    AccountType? accountType,
+    int? activeChainIndex,
     EthereumAddress? activeVoucher,
+    List<EthereumAddress>? walletAddresses,
   }) {
     return Account(
-      name: name ?? this.name,
-      encryptedWallet: encryptedWallet ?? this.encryptedWallet,
-      address: address ?? this.address,
+      accountType: accountType ?? this.accountType,
+      activeChainIndex: activeChainIndex ?? this.activeChainIndex,
       activeVoucher: activeVoucher ?? this.activeVoucher,
+      walletAddresses: walletAddresses ?? this.walletAddresses,
     );
   }
 }

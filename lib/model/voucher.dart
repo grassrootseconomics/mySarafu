@@ -17,7 +17,6 @@ class Voucher extends Equatable {
   });
 
   factory Voucher.fromJson(Map<String, dynamic> json) {
-    log.d('Loading Json for VoucherItem $json');
     final idx = int.parse(json['idx'] as String);
     final address = json['address'] as String;
     final name = json['name'] as String;

@@ -7,6 +7,7 @@ import 'package:my_sarafu/repository/vault_repository.dart';
 import 'package:my_sarafu/styles.dart';
 import 'package:my_sarafu/themes.dart';
 import 'package:my_sarafu/utils/biometrics.dart';
+import 'package:my_sarafu/utils/format.dart';
 import 'package:my_sarafu/utils/service_locator.dart';
 import 'package:my_sarafu/utils/sharedprefsutil.dart';
 import 'package:my_sarafu/widgets/buttons.dart';
@@ -43,60 +44,6 @@ class AppLockScreenState extends State<AppLockScreen> {
     );
   }
 
-  String _formatCountDisplay(int count) {
-    if (count <= 60) {
-      // Seconds only
-      var secondsStr = count.toString();
-      if (count < 10) {
-        secondsStr = '0$secondsStr';
-      }
-      return '00:$secondsStr';
-    } else if (count >= 60 && count <= 3600) {
-      // Minutes:Seconds
-      var minutesStr = '';
-      final minutes = count ~/ 60;
-      if (minutes < 10) {
-        minutesStr = '0$minutes';
-      } else {
-        minutesStr = minutes.toString();
-      }
-      var secondsStr = '';
-      final seconds = count % 60;
-      if (seconds < 10) {
-        secondsStr = '0$seconds';
-      } else {
-        secondsStr = seconds.toString();
-      }
-      return '$minutesStr:$secondsStr';
-    } else {
-      // Hours:Minutes:Seconds
-      var hoursStr = '';
-      final hours = count ~/ 3600;
-      if (hours < 10) {
-        hoursStr = '0$hours';
-      } else {
-        hoursStr = hours.toString();
-      }
-      // TODO(x): Why is this reassigned
-      final count2 = count % 3600;
-      var minutesStr = '';
-      final minutes = count2 ~/ 60;
-      if (minutes < 10) {
-        minutesStr = '0$minutes';
-      } else {
-        minutesStr = minutes.toString();
-      }
-      var secondsStr = '';
-      final seconds = count2 % 60;
-      if (seconds < 10) {
-        secondsStr = '0$seconds';
-      } else {
-        secondsStr = seconds.toString();
-      }
-      return '$hoursStr:$minutesStr:$secondsStr';
-    }
-  }
-
   Future<void> _runCountdown(int count) async {
     if (count >= 1) {
       if (mounted) {
@@ -104,7 +51,7 @@ class AppLockScreenState extends State<AppLockScreen> {
           _showUnlockButton = true;
           _showLock = true;
           _lockedOut = true;
-          _countDownTxt = _formatCountDisplay(count);
+          _countDownTxt = formatCountDown(count);
         });
       }
       Future.delayed(const Duration(seconds: 1), () {
@@ -134,13 +81,16 @@ class AppLockScreenState extends State<AppLockScreen> {
 
   Future<void> authenticateWithPin({bool transitions = false}) async {
     final expectedPin = await sl.get<VaultRepository>().getPin();
+    if (expectedPin == null) {
+      throw Exception('Pin not set');
+    }
     bool? auth = false;
     if (transitions) {
       if (!mounted) return;
       auth = await Navigator.of(context).push(
         MaterialPageRoute<bool>(
           builder: (BuildContext context) {
-            return _buildPinScreen(context, expectedPin ?? '0000');
+            return _buildPinScreen(context, expectedPin);
           },
         ),
       );
@@ -149,7 +99,7 @@ class AppLockScreenState extends State<AppLockScreen> {
       auth = await Navigator.of(context).push(
         MaterialPageRoute<bool>(
           builder: (BuildContext context) {
-            return _buildPinScreen(context, expectedPin ?? '0000');
+            return _buildPinScreen(context, expectedPin);
           },
         ),
       );

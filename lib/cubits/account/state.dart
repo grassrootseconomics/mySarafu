@@ -1,3 +1,5 @@
+// ignore_for_file: overridden_fields
+
 part of 'cubit.dart';
 
 @immutable
@@ -15,47 +17,34 @@ class NoAccountState extends AccountState {
   }
 }
 
-class CreatingAccountState extends AccountState {
-  const CreatingAccountState({
-    required this.name,
-    required this.password,
-    required this.passwordConfirmation,
+class UnverifiedAccountState extends AccountState {
+  const UnverifiedAccountState({
+    required this.account,
   }) : super();
-  final String name;
-  final String password;
-  final String passwordConfirmation;
+  @override
+  final Account account;
 
   @override
   List<Object?> get props {
-    return [name, password, passwordConfirmation];
+    return [account];
   }
 }
 
 class InvalidAccountState extends AccountState {
-  const InvalidAccountState({
-    this.name,
-    this.password,
-    this.passwordConfirmation,
-  }) : super();
-  final String? name;
-  final String? password;
-  final String? passwordConfirmation;
-
+  const InvalidAccountState() : super();
   @override
   List<Object?> get props {
-    return [name, password, passwordConfirmation];
+    return [];
   }
 }
 
-class CreatedAccountState extends AccountState {
-  const CreatedAccountState({
+class VerifiedAccountState extends AccountState {
+  const VerifiedAccountState({
     required this.account,
   }) : super();
-
   @override
-  // TODO(x): Remove this
-  // ignore: overridden_fields
   final Account account;
+
   @override
   List<Object?> get props {
     return [account];
@@ -64,16 +53,13 @@ class CreatedAccountState extends AccountState {
 
 class ErrorAccountState extends AccountState {
   const ErrorAccountState({
-    this.name,
-    this.password,
-    this.passwordConfirmation,
+    this.account,
     required this.message,
   }) : super();
   final String message;
-  final String? name;
-  final String? password;
-  final String? passwordConfirmation;
+  @override
+  final Account? account;
 
   @override
-  List<Object?> get props => [name, password, passwordConfirmation, message];
+  List<Object?> get props => [account, message];
 }

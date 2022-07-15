@@ -50,8 +50,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.1"
-  bip39:
+  base58check:
     dependency: transitive
+    description:
+      name: base58check
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  bip39:
+    dependency: "direct main"
     description:
       name: bip39
       url: "https://pub.dartlang.org"
@@ -91,7 +98,7 @@ packages:
       name: build_config
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   build_daemon:
     dependency: transitive
     description:
@@ -112,7 +119,7 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.11"
+    version: "2.2.0"
   build_runner_core:
     dependency: transitive
     description:
@@ -204,6 +211,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
+  dart_bip32_bip44:
+    dependency: "direct main"
+    description:
+      name: dart_bip32_bip44
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   dart_countries:
     dependency: transitive
     description:
@@ -427,13 +441,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.17.0"
-  intl_phone_number_input:
-    dependency: "direct main"
-    description:
-      name: intl_phone_number_input
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.7.0+2"
   io:
     dependency: transitive
     description:
@@ -454,7 +461,7 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.5.0"
+    version: "4.6.0"
   json_rpc_2:
     dependency: transitive
     description:
@@ -468,35 +475,7 @@ packages:
       name: json_serializable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.2.0"
-  libphonenumber:
-    dependency: transitive
-    description:
-      name: libphonenumber
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.2"
-  libphonenumber_platform_interface:
-    dependency: transitive
-    description:
-      name: libphonenumber_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.1"
-  libphonenumber_plugin:
-    dependency: transitive
-    description:
-      name: libphonenumber_plugin
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.3"
-  libphonenumber_web:
-    dependency: transitive
-    description:
-      name: libphonenumber_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0+1"
+    version: "6.3.1"
   local_auth:
     dependency: "direct main"
     description:
@@ -574,6 +553,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  mockito:
+    dependency: "direct main"
+    description:
+      name: mockito
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.2.0"
   mocktail:
     dependency: "direct dev"
     description:

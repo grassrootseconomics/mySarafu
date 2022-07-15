@@ -10,8 +10,10 @@ dependencies:
   animations: ^2.0.3
   auto_size_text: ^3.0.0
   barcode_scan2: ^4.2.1
+  bip39: ^1.0.6
   bloc: ^8.0.3
   contacts_service: ^0.6.3
+  dart_bip32_bip44: ^0.2.0
   equatable: ^2.0.3
   flutter:
     sdk: flutter
@@ -24,10 +26,10 @@ dependencies:
   get_it: ^7.2.0
   hydrated_bloc: 9.0.0-dev.2
   intl: ^0.17.0
-  intl_phone_number_input: ^0.7.0
-  json_serializable: ^6.2.0
+  json_serializable: ^6.3.1
   local_auth: ^2.1.0
   logger: ^1.1.0
+  mockito: ^5.2.0
   path_provider: ^2.0.11
   permission_handler: ^10.0.0
   phone_numbers_parser: ^5.0.5
@@ -40,7 +42,7 @@ dependencies:
 
 dev_dependencies:
   bloc_test: ^9.0.3
-  build_runner: ^2.1.11
+  build_runner: ^2.2.0
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0

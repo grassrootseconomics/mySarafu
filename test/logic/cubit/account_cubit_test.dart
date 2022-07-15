@@ -1,80 +1,59 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:my_sarafu/cubits/account/cubit.dart';
+import 'package:my_sarafu/model/account.dart';
+import 'package:my_sarafu/model/network_presets.dart';
+import 'package:my_sarafu/repository/vault_repository.dart';
+import 'package:web3dart/credentials.dart';
+
+import '../../helpers/hydrated_bloc.dart';
+import '../../helpers/mocks.dart';
 
 void main() {
+  final VaultRepository vaultRepository = MockVaultRepository();
+
   group('AccountCubit', () {
     test('equality', () {
       expect(
-        AccountCubit().state,
-        AccountCubit().state,
+        AccountCubit(vaultRepository: vaultRepository).state,
+        AccountCubit(vaultRepository: vaultRepository).state,
       );
     });
     group('operations', () {
+      late AccountCubit accountCubit;
+      setUp(() async {
+        accountCubit = await mockHydratedStorage(
+          () => AccountCubit(vaultRepository: vaultRepository),
+        );
+      });
       blocTest<AccountCubit, AccountState>(
-        'createAccount emits CreatingAccountState then CreatedAccountState',
-        build: AccountCubit.new,
-        act: (cubit) => cubit.createAccount(
-          name: 'test',
-          password: 'test',
-          passwordConfirmation: 'test',
-        ),
-        expect: () => [isA<CreatingAccountState>(), isA<CreatedAccountState>()],
+        'createAccount emits UnverifiedAccountState',
+        build: () => accountCubit,
+        act: (cubit) {
+          cubit.createAccount(
+            mnumonic: mockMnemonic,
+            pin: '000000',
+          );
+        },
+        expect: () => [isA<UnverifiedAccountState>()],
       );
 
       blocTest<AccountCubit, AccountState>(
-        'createAccount(mismatch passwords) emits ErrorAccountState',
-        build: AccountCubit.new,
+        'creates a unverified account',
+        build: () => AccountCubit(vaultRepository: vaultRepository),
         act: (cubit) => cubit.createAccount(
-          name: 'test',
-          password: 'test',
-          passwordConfirmation: 'tes',
+          mnumonic: mockMnemonic,
+          pin: '000000',
         ),
         expect: () => [
-          const ErrorAccountState(
-            name: 'test',
-            password: 'test',
-            passwordConfirmation: 'tes',
-            message: 'Passwords do not match',
+          UnverifiedAccountState(
+            account: Account(
+              activeVoucher: mainnet.defaultVoucherAddress,
+              walletAddresses: <EthereumAddress>[mockAddress0],
+            ),
           )
         ],
       );
-      blocTest<AccountCubit, AccountState>(
-        'createAccount(invalid) emits InvalidAccountState',
-        build: AccountCubit.new,
-        act: (cubit) => cubit.createAccount(
-          name: '',
-          password: '',
-          passwordConfirmation: '',
-        ),
-        expect: () => [
-          const InvalidAccountState(
-            name: '',
-            password: '',
-            passwordConfirmation: '',
-          )
-        ],
-      );
-      // blocTest<VouchersCubit, Color>(
-      //   'emits correct color for WeatherCondition.cloudy',
-      //   build: () => themeCubit,
-      //   act: (cubit) => cubit.updateTheme(cloudyWeather),
-      //   expect: () => <Color>[Colors.blueGrey],
-      // );
-
-      // blocTest<VouchersCubit, Color>(
-      //   'emits correct color for WeatherCondition.rainy',
-      //   build: () => themeCubit,
-      //   act: (cubit) => cubit.updateTheme(rainyWeather),
-      //   expect: () => <Color>[Colors.indigoAccent],
-      // );
-
-      // blocTest<VouchersCubit, Color>(
-      //   'emits correct color for WeatherCondition.unknown',
-      //   build: () => themeCubit,
-      //   act: (cubit) => cubit.updateTheme(unknownWeather),
-      //   expect: () => <Color>[ThemeCubit.defaultColor],
-      // );
     });
   });
 }

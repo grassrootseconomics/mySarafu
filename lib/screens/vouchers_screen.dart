@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/cubits/accounts/accounts_cubit.dart';
+import 'package:my_sarafu/cubits/account/cubit.dart';
 import 'package:my_sarafu/cubits/vouchers/views/voucher_list_item.dart';
 import 'package:my_sarafu/cubits/vouchers/vouchers_cubit.dart';
 import 'package:my_sarafu/model/voucher.dart';
@@ -46,7 +46,7 @@ class VouchersView extends StatelessWidget {
 }
 
 Widget buildInitialInput(BuildContext context) {
-  final account = context.read<AccountsCubit>().activeAccount;
+  final account = context.read<AccountCubit>().state.account;
   if (account == null) {
     return const Center(
       child: Text('No account selected'),
@@ -54,8 +54,9 @@ Widget buildInitialInput(BuildContext context) {
   }
   return Center(
     child: TextButton(
-      onPressed: () =>
-          context.read<VouchersCubit>().fetchAllVouchers(account.address),
+      onPressed: () => context
+          .read<VouchersCubit>()
+          .fetchAllVouchers(account.activeWalletAddress),
       child: const Text(
         'Fetch All Vouchers',
         style: TextStyle(color: Colors.black),
@@ -66,7 +67,7 @@ Widget buildInitialInput(BuildContext context) {
 
 Widget buildVoucherList(BuildContext context, List<Voucher> vouchers) {
   final voucherCubit = context.read<VouchersCubit>();
-  final account = context.read<AccountsCubit>().activeAccount;
+  final account = context.read<AccountCubit>().state.account;
   if (account == null) {
     return const Center(
       child: Text('No account selected'),
@@ -78,7 +79,8 @@ Widget buildVoucherList(BuildContext context, List<Voucher> vouchers) {
       children: [
         Expanded(
           child: RefreshIndicator(
-            onRefresh: () => voucherCubit.fetchAllVouchers(account.address),
+            onRefresh: () =>
+                voucherCubit.fetchAllVouchers(account.activeWalletAddress),
             child: ScrollConfiguration(
               behavior: ScrollConfiguration.of(context).copyWith(
                 dragDevices: {

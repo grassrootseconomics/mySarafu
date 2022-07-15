@@ -1,68 +1,75 @@
-import 'dart:math';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:my_sarafu/model/account.dart';
 import 'package:my_sarafu/model/network_presets.dart';
+import 'package:my_sarafu/repository/vault_repository.dart';
+import 'package:my_sarafu/utils/hdwallet.dart';
 import 'package:my_sarafu/utils/logger.dart';
-import 'package:web3dart/web3dart.dart';
 
 part 'state.dart';
 
-class AccountCubit extends Cubit<AccountState> {
-  AccountCubit() : super(const NoAccountState());
+class AccountCubit extends HydratedCubit<AccountState> {
+  AccountCubit({required this.vaultRepository}) : super(const NoAccountState());
+  final VaultRepository vaultRepository;
 
-  void createAccount({
-    required String name,
-    required String password,
-    required String passwordConfirmation,
-  }) {
-    if (name.isEmpty || password.isEmpty || passwordConfirmation.isEmpty) {
-      emit(
-        InvalidAccountState(
-          name: name,
-          password: password,
-          passwordConfirmation: passwordConfirmation,
-        ),
-      );
+  Future<void> createAccount({
+    required String mnumonic,
+    required String pin,
+    bool backup = false,
+  }) async {
+    final notValid = !validateMnemonic(mnumonic);
+    if (notValid) {
+      emit(const ErrorAccountState(message: 'Invalid mnemonic'));
       return;
     }
-    if (password != passwordConfirmation) {
-      emit(
-        ErrorAccountState(
-          name: name,
-          password: password,
-          passwordConfirmation: passwordConfirmation,
-          message: 'Passwords do not match',
-        ),
-      );
-      return;
-    }
-    log.d('Creating account');
-
-    emit(
-      CreatingAccountState(
-        name: name,
-        password: password,
-        passwordConfirmation: passwordConfirmation,
-      ),
-    );
-    final rng = Random.secure();
-    final credentials = EthPrivateKey.createRandom(rng);
-    final wallet = Wallet.createNew(credentials, password, rng);
-    final address = wallet.privateKey.address;
-    final encryptedWallet = wallet.toJson();
+    final mnemonic = generateMnemonic();
+    await vaultRepository.writePin(pin);
+    await vaultRepository.setSeed(mnemonic);
+    final chain = createChain(mnemonic);
+    final address = await getAddress(chain, 0);
     final account = Account(
-      encryptedWallet: encryptedWallet,
-      name: name,
-      address: address,
+      walletAddresses: [address],
       activeVoucher: mainnet.defaultVoucherAddress,
     );
     log.d('Created account $account');
 
-    emit(CreatedAccountState(account: account));
+    emit(UnverifiedAccountState(account: account));
+  }
+
+  Future<void> verifyAccount({
+    String? phoneNumber,
+    String? email,
+    required String otp,
+  }) async {
+    emit(VerifiedAccountState(account: state.account!));
+  }
+
+  @override
+  AccountState? fromJson(Map<String, dynamic> json) {
+    if (json.isEmpty) return const NoAccountState();
+    final accountJson = json['account'] as Map<String, dynamic>;
+    if (json['verified'] == true) {
+      return VerifiedAccountState(account: Account.fromJson(accountJson));
+    } else {
+      return UnverifiedAccountState(account: Account.fromJson(accountJson));
+    }
+  }
+
+  @override
+  Map<String, dynamic>? toJson(AccountState state) {
+    if (state is UnverifiedAccountState) {
+      return <String, dynamic>{
+        'account': state.account.toJson(),
+        'verified': false,
+      };
+    }
+    if (state is VerifiedAccountState) {
+      return <String, dynamic>{
+        'account': state.account.toJson(),
+        'verified': true,
+      };
+    }
+    return null;
   }
 }
-//  wallet: jsonDecode(json['wallet'] as String) as String,
-//       password: json['password'] as String,

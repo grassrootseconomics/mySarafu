@@ -3,9 +3,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/cubits/accounts/accounts_cubit.dart';
+import 'package:my_sarafu/cubits/account/cubit.dart';
 import 'package:my_sarafu/cubits/vouchers/vouchers_cubit.dart';
-import 'package:my_sarafu/model/account.dart';
 import 'package:my_sarafu/model/transaction.dart';
 import 'package:my_sarafu/utils/converter.dart';
 import 'package:my_sarafu/widgets/icon.dart';
@@ -25,9 +24,9 @@ class TransactionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<VouchersCubit, VouchersState>(
       builder: (context, state) {
-        final account = context
-            .select<AccountsCubit, Account?>((cubit) => cubit.activeAccount);
-        final direction = transaction.recipient == account?.address
+        final account = context.read<AccountCubit>().state.account;
+        final direction = transaction.recipient ==
+                account?.walletAddresses[account.activeChainIndex]
             ? Direction.incoming
             : Direction.outgoing;
         final other = direction == Direction.incoming

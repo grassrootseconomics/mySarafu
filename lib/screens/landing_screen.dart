@@ -1,80 +1,21 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:my_sarafu/cubits/account/views/form.dart';
-import 'package:my_sarafu/cubits/accounts/accounts_cubit.dart';
+import 'package:my_sarafu/cubits/account/cubit.dart';
+import 'package:my_sarafu/utils/hdwallet.dart';
+import 'package:my_sarafu/utils/logger.dart';
+import 'package:my_sarafu/widgets/pin_screen.dart';
 
 class LandingView extends StatelessWidget {
   const LandingView({Key? key}) : super(key: key);
-
-  Widget buildBackButton(BuildContext context) {
-    final hasAccounts = context.select<AccountsCubit, bool>(
-      (cubit) => cubit.state.accounts.isNotEmpty,
-    );
-    return hasAccounts
-        ? IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context),
-          )
-        : Container();
-  }
-
   @override
   Widget build(BuildContext context) {
-    Widget _buildConnectAccountButton() {
-      return TextButton(
-        onPressed: () {
-          showModalBottomSheet<void>(
-            context: context,
-            builder: (BuildContext context) {
-              return Form(
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        InternationalPhoneNumberInput(
-                          onInputChanged: print,
-                          validator: (value) {
-                            if (value!.length == 9) {
-                              return 'Please enter a valid phone number';
-                            } else {
-                              return null;
-                            }
-                          },
-                          autoValidateMode: AutovalidateMode.onUserInteraction,
-                          hintText: 'Enter phone number',
-                          countries: const ['KE'],
-                          autoFocusSearch: true,
-                          selectorConfig: const SelectorConfig(
-                            useEmoji: true,
-                            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          );
-        },
-        child: const Text('Connect Account'),
-      );
-    }
-
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: Column(
             children: <Widget>[
-              Row(
-                children: [
-                  buildBackButton(context),
-                ],
-              ),
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.all(8),
@@ -90,27 +31,61 @@ class LandingView extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildConnectAccountButton(),
-                  TextButton(
-                    onPressed: null,
-                    child: const Text('Import Account'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      showModalBottomSheet<void>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AccountView();
-                        },
-                      );
-                    },
-                    child: const Text('Create Account'),
-                  )
-                ],
-              ),
+              BlocConsumer<AccountCubit, AccountState>(
+                listener: (context, state) {
+                  log.d(state.toString());
+                  if (state is VerifiedAccountState) {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/locked',
+                      (Route<dynamic> route) => false,
+                    );
+                  }
+                  if (state is UnverifiedAccountState) {
+                    Navigator.pushNamed(context, '/create_account');
+                  }
+                },
+                builder: (context, state) {
+                  if (state is NoAccountState) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const TextButton(
+                          onPressed: null,
+                          child: Text('Connect Account'),
+                        ),
+                        const TextButton(
+                          onPressed: null,
+                          child: Text('Import Account'),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            final pin = await Navigator.of(context).push(
+                              MaterialPageRoute<String>(
+                                builder: (BuildContext context) {
+                                  return const PinScreen(
+                                    PinOverlayType.newPin,
+                                  );
+                                },
+                              ),
+                            );
+                            final mnumonic = generateMnemonic();
+                            await context.read<AccountCubit>().createAccount(
+                                  mnumonic: mnumonic,
+                                  pin: pin!,
+                                );
+                            await Navigator.pushReplacementNamed(
+                              context,
+                              '/create_account',
+                            );
+                          },
+                          child: const Text('Create Account'),
+                        )
+                      ],
+                    );
+                  }
+                  return const Text('Account created successfully');
+                },
+              )
             ],
           ),
         ),
