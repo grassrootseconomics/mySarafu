@@ -1,3 +1,5 @@
+// ignore_for_file: overridden_fields
+
 part of 'cubit.dart';
 
 @immutable
@@ -19,6 +21,7 @@ class UnverifiedAccountState extends AccountState {
   const UnverifiedAccountState({
     required this.account,
   }) : super();
+  @override
   final Account account;
 
   @override
@@ -39,6 +42,7 @@ class VerifiedAccountState extends AccountState {
   const VerifiedAccountState({
     required this.account,
   }) : super();
+  @override
   final Account account;
 
   @override
@@ -53,6 +57,7 @@ class ErrorAccountState extends AccountState {
     required this.message,
   }) : super();
   final String message;
+  @override
   final Account? account;
 
   @override

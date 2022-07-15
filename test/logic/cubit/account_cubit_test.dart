@@ -1,14 +1,16 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:my_sarafu/cubits/account/cubit.dart';
+import 'package:my_sarafu/model/account.dart';
+import 'package:my_sarafu/model/network_presets.dart';
 import 'package:my_sarafu/repository/vault_repository.dart';
+import 'package:web3dart/credentials.dart';
 
-import 'account_cubit_test.mocks.dart';
+import '../../helpers/hydrated_bloc.dart';
+import '../../helpers/mocks.dart';
 
-@GenerateMocks([VaultRepository])
 void main() {
-  VaultRepository vaultRepository = MockVaultRepository();
+  final VaultRepository vaultRepository = MockVaultRepository();
 
   group('AccountCubit', () {
     test('equality', () {
@@ -18,47 +20,37 @@ void main() {
       );
     });
     group('operations', () {
+      late AccountCubit accountCubit;
+      setUp(() async {
+        accountCubit = await mockHydratedStorage(
+          () => AccountCubit(vaultRepository: vaultRepository),
+        );
+      });
       blocTest<AccountCubit, AccountState>(
         'createAccount emits UnverifiedAccountState',
-        build: () => AccountCubit(vaultRepository: vaultRepository),
-        act: (cubit) => cubit.createAccount(
-          name: 'test',
-          mnumonic: 'test',
-          pin: 'test',
-        ),
+        build: () => accountCubit,
+        act: (cubit) {
+          cubit.createAccount(
+            mnumonic: mockMnemonic,
+            pin: '000000',
+          );
+        },
         expect: () => [isA<UnverifiedAccountState>()],
       );
 
       blocTest<AccountCubit, AccountState>(
-        'createAccount(mismatch passwords) emits ErrorAccountState',
-        build: AccountCubit.new,
+        'creates a unverified account',
+        build: () => AccountCubit(vaultRepository: vaultRepository),
         act: (cubit) => cubit.createAccount(
-          name: 'test',
-          password: 'test',
-          passwordConfirmation: 'tes',
+          mnumonic: mockMnemonic,
+          pin: '000000',
         ),
         expect: () => [
-          const ErrorAccountState(
-            name: 'test',
-            password: 'test',
-            passwordConfirmation: 'tes',
-            message: 'Passwords do not match',
-          )
-        ],
-      );
-      blocTest<AccountCubit, AccountState>(
-        'createAccount(invalid) emits InvalidAccountState',
-        build: AccountCubit.new,
-        act: (cubit) => cubit.createAccount(
-          name: '',
-          password: '',
-          passwordConfirmation: '',
-        ),
-        expect: () => [
-          const InvalidAccountState(
-            name: '',
-            password: '',
-            passwordConfirmation: '',
+          UnverifiedAccountState(
+            account: Account(
+              activeVoucher: mainnet.defaultVoucherAddress,
+              walletAddresses: <EthereumAddress>[mockAddress0],
+            ),
           )
         ],
       );

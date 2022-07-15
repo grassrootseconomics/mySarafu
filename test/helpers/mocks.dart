@@ -1,6 +1,7 @@
 import 'package:mocktail/mocktail.dart';
 import 'package:my_sarafu/model/account.dart';
 import 'package:my_sarafu/model/voucher.dart';
+import 'package:my_sarafu/repository/vault_repository.dart';
 import 'package:my_sarafu/repository/vouchers_repository.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -23,9 +24,6 @@ Voucher mockVoucher = Voucher(
   decimals: 6,
 );
 Account mockAccount = Account(
-  name: 'test',
-  activeChainIndex: 0,
-  accountType: AccountType.NON_CUSTODIAL_PERSONAL,
   activeVoucher: mockVoucher.address,
   walletAddresses: [mockAddress0, mockAddress1],
 );
@@ -55,6 +53,18 @@ class MockVoucherRepository extends Mock implements VoucherRepository {
       updated.add(updatedVoucher);
     }
     return updated;
+  }
+}
+
+class MockVaultRepository extends Mock implements VaultRepository {
+  @override
+  Future<String> setSeed(String mnemonic) async {
+    return mnemonic;
+  }
+
+  @override
+  Future<String> writePin(String pin) async {
+    return pin;
   }
 }
 

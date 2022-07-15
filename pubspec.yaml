@@ -18,7 +18,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
-  flutter_gen: ^4.3.0
   flutter_localizations:
     sdk: flutter
   flutter_nano_ffi: ^2.0.0

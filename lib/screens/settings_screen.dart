@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/cubits/accounts/accounts_cubit.dart';
-import 'package:my_sarafu/cubits/accounts/views/account_list_item.dart';
 import 'package:my_sarafu/cubits/settings/settings_cubit.dart';
 import 'package:my_sarafu/model/network_presets.dart';
 import 'package:my_sarafu/widgets/bottom_nav/view/bottom_nav.dart';
@@ -13,79 +11,15 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.select((SettingsCubit cubit) => cubit.state);
-    final account = context.select((AccountsCubit cubit) => cubit.state);
     return Scaffold(
       bottomNavigationBar: const BottomNavBar(key: Key('bottomNavBar')),
       body: SafeArea(
         child: SettingsList(
           sections: [
             SettingsSection(
-              title: const Text('Accounts'),
+              title: const Text('Wallets'),
               // TODO(x): Remove settings_ui dependency.
               tiles: <SettingsTile>[
-                SettingsTile.navigation(
-                  leading: const Icon(Icons.account_circle_rounded),
-                  title: const Text('Account'),
-                  onPressed: (_) {
-                    showModalBottomSheet<void>(
-                      context: context,
-                      builder: (BuildContext _) {
-                        return Form(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () => Navigator.pushNamed(
-                                      context,
-                                      '/landing',
-                                    ),
-                                    child: const Text('Create New Account'),
-                                  ),
-                                  Expanded(
-                                    child: ListView.builder(
-                                      itemCount: account.accounts.length,
-                                      itemBuilder: (context, index) =>
-                                          AccountListItem(
-                                        onPressed: (accountIdx) {
-                                          context
-                                              .read<AccountsCubit>()
-                                              .setActiveAccount(accountIdx);
-                                          Navigator.pop(context);
-                                        },
-                                        accountIdx: index,
-                                        account: account.accounts[index],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  value: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        context.read<AccountsCubit>().activeAccount?.name ?? '',
-                        textAlign: TextAlign.left,
-                      ),
-                      SelectableText(
-                        context
-                                .read<AccountsCubit>()
-                                .activeAccount
-                                ?.address
-                                .hex ??
-                            '',
-                        textAlign: TextAlign.left,
-                      )
-                    ],
-                  ),
-                ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.format_paint),
                   title: const Text('Dark Mode'),
@@ -151,9 +85,7 @@ class SettingsView extends StatelessWidget {
                     // change button value to selected value
                     onChanged: (NetworkPresets? newValue) {
                       if (newValue != null) {
-                        context
-                            .read<SettingsCubit>()
-                            .changeNetworkPreset(newValue);
+                        throw UnimplementedError();
                       }
                     },
                   ),

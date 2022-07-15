@@ -1,35 +1,16 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/cubits/account/views/create_account_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_sarafu/cubits/account/cubit.dart';
+import 'package:my_sarafu/utils/hdwallet.dart';
+import 'package:my_sarafu/utils/logger.dart';
+import 'package:my_sarafu/widgets/pin_screen.dart';
 
 class LandingView extends StatelessWidget {
   const LandingView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Widget _buildConnectAccountButton() {
-      return TextButton(
-        onPressed: () {
-          showModalBottomSheet<void>(
-            context: context,
-            builder: (BuildContext context) {
-              return Form(
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Center(
-                    child: Column(
-                      children: [],
-                    ),
-                  ),
-                ),
-              );
-            },
-          );
-        },
-        child: const Text('Connect Account'),
-      );
-    }
-
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -50,27 +31,61 @@ class LandingView extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildConnectAccountButton(),
-                  TextButton(
-                    onPressed: null,
-                    child: const Text('Import Account'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      showModalBottomSheet<void>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return CreateAccountView();
-                        },
-                      );
-                    },
-                    child: const Text('Create Account'),
-                  )
-                ],
-              ),
+              BlocConsumer<AccountCubit, AccountState>(
+                listener: (context, state) {
+                  log.d(state.toString());
+                  if (state is VerifiedAccountState) {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/locked',
+                      (Route<dynamic> route) => false,
+                    );
+                  }
+                  if (state is UnverifiedAccountState) {
+                    Navigator.pushNamed(context, '/create_account');
+                  }
+                },
+                builder: (context, state) {
+                  if (state is NoAccountState) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const TextButton(
+                          onPressed: null,
+                          child: Text('Connect Account'),
+                        ),
+                        const TextButton(
+                          onPressed: null,
+                          child: Text('Import Account'),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            final pin = await Navigator.of(context).push(
+                              MaterialPageRoute<String>(
+                                builder: (BuildContext context) {
+                                  return const PinScreen(
+                                    PinOverlayType.newPin,
+                                  );
+                                },
+                              ),
+                            );
+                            final mnumonic = generateMnemonic();
+                            await context.read<AccountCubit>().createAccount(
+                                  mnumonic: mnumonic,
+                                  pin: pin!,
+                                );
+                            await Navigator.pushReplacementNamed(
+                              context,
+                              '/create_account',
+                            );
+                          },
+                          child: const Text('Create Account'),
+                        )
+                      ],
+                    );
+                  }
+                  return const Text('Account created successfully');
+                },
+              )
             ],
           ),
         ),

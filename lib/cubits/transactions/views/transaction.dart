@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/cubits/account/cubit.dart';
 import 'package:my_sarafu/cubits/vouchers/vouchers_cubit.dart';
-import 'package:my_sarafu/model/account.dart';
 import 'package:my_sarafu/model/transaction.dart';
 import 'package:my_sarafu/utils/converter.dart';
 import 'package:my_sarafu/widgets/icon.dart';

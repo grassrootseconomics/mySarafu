@@ -6,7 +6,6 @@ import 'package:my_sarafu/model/network_presets.dart';
 import 'package:my_sarafu/repository/vault_repository.dart';
 import 'package:my_sarafu/utils/hdwallet.dart';
 import 'package:my_sarafu/utils/logger.dart';
-import 'package:my_sarafu/utils/service_locator.dart';
 
 part 'state.dart';
 
@@ -15,7 +14,6 @@ class AccountCubit extends HydratedCubit<AccountState> {
   final VaultRepository vaultRepository;
 
   Future<void> createAccount({
-    required String name,
     required String mnumonic,
     required String pin,
     bool backup = false,
@@ -25,20 +23,26 @@ class AccountCubit extends HydratedCubit<AccountState> {
       emit(const ErrorAccountState(message: 'Invalid mnemonic'));
       return;
     }
-    final vault = sl.get<VaultRepository>();
     final mnemonic = generateMnemonic();
-    await vault.writePin(pin);
-    await vault.setSeed(mnemonic);
+    await vaultRepository.writePin(pin);
+    await vaultRepository.setSeed(mnemonic);
     final chain = createChain(mnemonic);
     final address = await getAddress(chain, 0);
     final account = Account(
       walletAddresses: [address],
-      name: name,
       activeVoucher: mainnet.defaultVoucherAddress,
     );
     log.d('Created account $account');
 
     emit(UnverifiedAccountState(account: account));
+  }
+
+  Future<void> verifyAccount({
+    String? phoneNumber,
+    String? email,
+    required String otp,
+  }) async {
+    emit(VerifiedAccountState(account: state.account!));
   }
 
   @override
@@ -58,6 +62,12 @@ class AccountCubit extends HydratedCubit<AccountState> {
       return <String, dynamic>{
         'account': state.account.toJson(),
         'verified': false,
+      };
+    }
+    if (state is VerifiedAccountState) {
+      return <String, dynamic>{
+        'account': state.account.toJson(),
+        'verified': true,
       };
     }
     return null;

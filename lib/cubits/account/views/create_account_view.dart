@@ -3,6 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_sarafu/cubits/account/cubit.dart';
 
+class CreateAccountScreen extends StatelessWidget {
+  const CreateAccountScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // final l10n = context.l10n;
+    return const Scaffold(
+      body: SafeArea(child: CreateAccountView()),
+    );
+  }
+}
+
 class CreateAccountView extends StatefulWidget {
   const CreateAccountView({Key? key}) : super(key: key);
 
@@ -57,13 +69,25 @@ class CreateAccountViewState extends State<CreateAccountView> {
     BuildContext context,
     UnverifiedAccountState state,
   ) {
-    return const Text('Verifying account...');
+    return TextButton(
+      onPressed: () {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            const SnackBar(content: Text('This currently is noop')),
+          );
+        context.read<AccountCubit>().verifyAccount(otp: '123456');
+      },
+      child: const Text('Verify Account'),
+    );
   }
 
   Widget _buildAccountCreated(
-      BuildContext context, VerifiedAccountState state) {
+    BuildContext context,
+    VerifiedAccountState state,
+  ) {
     return Text(
-      '''${state.account.name} created successfully address: ${state.account.activeWalletAddress}''',
+      '''Account created successfully: ${state.account.activeWalletAddress}''',
     );
   }
 
