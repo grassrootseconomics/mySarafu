@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:my_sarafu/contracts/contract-registry/contractRegistry.g.dart';
+import 'package:mysarafu/contracts/contract-registry/contractRegistry.g.dart';
 import 'package:web3dart/web3dart.dart';
 
 class RegistryRepository {

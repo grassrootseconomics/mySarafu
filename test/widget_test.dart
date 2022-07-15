@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_sarafu/app.dart';
+import 'package:mysarafu/app.dart';
 
 void main() {
   testWidgets(

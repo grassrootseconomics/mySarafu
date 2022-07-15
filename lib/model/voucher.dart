@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:my_sarafu/model/contact.dart';
-import 'package:my_sarafu/utils/converter.dart';
-import 'package:my_sarafu/utils/logger.dart';
+import 'package:mysarafu/model/contact.dart';
+import 'package:mysarafu/utils/converter.dart';
+import 'package:mysarafu/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';
 
 class Voucher extends Equatable {

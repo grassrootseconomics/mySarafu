@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:my_sarafu/model/chain.dart';
-import 'package:my_sarafu/utils/logger.dart';
+import 'package:mysarafu/model/chain.dart';
+import 'package:mysarafu/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';
 
 class Person extends Equatable {

@@ -1,4 +1,4 @@
-name: my_sarafu
+name: mysarafu
 description: Cross-platform application for interacting with the Sarafu Network
 version: 0.0.1+2
 publish_to: none
@@ -15,6 +15,7 @@ dependencies:
   contacts_service: ^0.6.3
   dart_bip32_bip44: ^0.2.0
   equatable: ^2.0.3
+  firebase_core: ^1.19.2
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1

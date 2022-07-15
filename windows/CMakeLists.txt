@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(my_sarafu LANGUAGES CXX)
+project(mysarafu LANGUAGES CXX)
 
-set(BINARY_NAME "my_sarafu")
+set(BINARY_NAME "mysarafu")
 
 cmake_policy(SET CMP0063 NEW)
 

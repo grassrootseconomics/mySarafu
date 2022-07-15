@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/cubits/settings/settings_cubit.dart';
-import 'package:my_sarafu/model/network_presets.dart';
-import 'package:my_sarafu/widgets/bottom_nav/view/bottom_nav.dart';
+import 'package:mysarafu/cubits/settings/settings_cubit.dart';
+import 'package:mysarafu/model/network_presets.dart';
+import 'package:mysarafu/widgets/bottom_nav/view/bottom_nav.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class SettingsView extends StatelessWidget {

@@ -3,11 +3,11 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/cubits/account/cubit.dart';
-import 'package:my_sarafu/cubits/vouchers/vouchers_cubit.dart';
-import 'package:my_sarafu/model/transaction.dart';
-import 'package:my_sarafu/utils/converter.dart';
-import 'package:my_sarafu/widgets/icon.dart';
+import 'package:mysarafu/cubits/account/cubit.dart';
+import 'package:mysarafu/cubits/vouchers/vouchers_cubit.dart';
+import 'package:mysarafu/model/transaction.dart';
+import 'package:mysarafu/utils/converter.dart';
+import 'package:mysarafu/widgets/icon.dart';
 import 'package:web3dart/credentials.dart';
 
 enum Direction { incoming, outgoing }

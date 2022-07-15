@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:my_sarafu/utils/logger.dart';
+import 'package:mysarafu/utils/logger.dart';
 import 'package:web3dart/credentials.dart';
 
 class Transaction extends Equatable {

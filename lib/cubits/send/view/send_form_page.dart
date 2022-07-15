@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/cubits/send/cubit/send_form_cubit.dart';
-import 'package:my_sarafu/cubits/send/view/send_form.dart';
-import 'package:my_sarafu/cubits/settings/settings_cubit.dart';
-import 'package:my_sarafu/repository/meta_repository.dart';
+import 'package:mysarafu/cubits/send/cubit/send_form_cubit.dart';
+import 'package:mysarafu/cubits/send/view/send_form.dart';
+import 'package:mysarafu/cubits/settings/settings_cubit.dart';
+import 'package:mysarafu/repository/meta_repository.dart';
 
 class SendPage extends StatelessWidget {
   const SendPage({Key? key}) : super(key: key);

@@ -4,8 +4,8 @@
 
 import 'dart:async';
 
-import 'package:my_sarafu/model/db/account.dart';
-import 'package:my_sarafu/model/db/contact.dart';
+import 'package:mysarafu/model/db/account.dart';
+import 'package:mysarafu/model/db/contact.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';

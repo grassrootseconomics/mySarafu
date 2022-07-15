@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>34199390450-qd449t3c3prrk4aorlso4lfqro4is91l.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.34199390450-qd449t3c3prrk4aorlso4lfqro4is91l</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB1KY8oyLcHJdw5rVq4iF3u5iE8pqijWKE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>34199390450</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.grassecon.org.my-sarafu</string>
+	<key>PROJECT_ID</key>
+	<string>mysarafu</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mysarafu.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:34199390450:ios:a5b31c54c3e45b8623e86b</string>
+</dict>
+</plist>

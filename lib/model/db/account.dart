@@ -1,6 +1,6 @@
 // Represent user-account
-import 'package:my_sarafu/model/db/appdb.dart';
-import 'package:my_sarafu/model/network_presets.dart';
+import 'package:mysarafu/model/db/appdb.dart';
+import 'package:mysarafu/model/network_presets.dart';
 import 'package:web3dart/credentials.dart';
 
 class Account {

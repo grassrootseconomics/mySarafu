@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:equatable/equatable.dart';
-import 'package:my_sarafu/model/network_presets.dart';
+import 'package:mysarafu/model/network_presets.dart';
 import 'package:web3dart/credentials.dart';
 
 enum AccountType {

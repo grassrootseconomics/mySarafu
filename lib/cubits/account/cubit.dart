@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:my_sarafu/model/account.dart';
-import 'package:my_sarafu/model/network_presets.dart';
-import 'package:my_sarafu/repository/vault_repository.dart';
-import 'package:my_sarafu/utils/hdwallet.dart';
-import 'package:my_sarafu/utils/logger.dart';
+import 'package:mysarafu/model/account.dart';
+import 'package:mysarafu/model/network_presets.dart';
+import 'package:mysarafu/repository/vault_repository.dart';
+import 'package:mysarafu/utils/hdwallet.dart';
+import 'package:mysarafu/utils/logger.dart';
 
 part 'state.dart';
 

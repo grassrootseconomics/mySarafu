@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/cubits/account/views/create_account_view.dart';
-import 'package:my_sarafu/screens/home_screen.dart';
-import 'package:my_sarafu/screens/lock_screen.dart';
-import 'package:my_sarafu/screens/settings_screen.dart';
-import 'package:my_sarafu/screens/vouchers_screen.dart';
+import 'package:mysarafu/cubits/account/views/create_account_view.dart';
+import 'package:mysarafu/screens/home_screen.dart';
+import 'package:mysarafu/screens/landing_screen.dart';
+import 'package:mysarafu/screens/lock_screen.dart';
+import 'package:mysarafu/screens/settings_screen.dart';
+import 'package:mysarafu/screens/vouchers_screen.dart';
 
 MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
   switch (route.name) {
@@ -26,6 +27,10 @@ MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
     case '/locked':
       return MaterialPageRoute<Widget>(
         builder: (context) => const AppLockScreen(),
+      );
+    case '/landing':
+      return MaterialPageRoute<Widget>(
+        builder: (context) => const LandingView(),
       );
     default:
       return MaterialPageRoute<Widget>(

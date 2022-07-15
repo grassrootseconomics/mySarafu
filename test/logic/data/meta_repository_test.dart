@@ -1,8 +1,8 @@
 // TODO(x): Rework and Mock Meta Repository
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_sarafu/model/network_presets.dart';
-import 'package:my_sarafu/model/person.dart';
-import 'package:my_sarafu/repository/meta_repository.dart';
+import 'package:mysarafu/model/network_presets.dart';
+import 'package:mysarafu/model/person.dart';
+import 'package:mysarafu/repository/meta_repository.dart';
 import 'package:web3dart/web3dart.dart';
 
 final testAddress =

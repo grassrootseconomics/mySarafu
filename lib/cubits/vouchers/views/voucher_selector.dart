@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/model/voucher.dart';
-import 'package:my_sarafu/utils/logger.dart';
-import 'package:my_sarafu/widgets/inputs/autocomplete.dart';
+import 'package:mysarafu/model/voucher.dart';
+import 'package:mysarafu/utils/logger.dart';
+import 'package:mysarafu/widgets/inputs/autocomplete.dart';
 
 class VoucherSelector extends StatelessWidget {
   const VoucherSelector({Key? key, required this.vouchers}) : super(key: key);

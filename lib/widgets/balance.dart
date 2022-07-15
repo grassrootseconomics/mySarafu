@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/cubits/vouchers/vouchers_cubit.dart';
+import 'package:mysarafu/cubits/vouchers/vouchers_cubit.dart';
 
 class BalanceView extends StatelessWidget {
   const BalanceView({Key? key}) : super(key: key);

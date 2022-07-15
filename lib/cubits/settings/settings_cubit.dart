@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:my_sarafu/model/network_presets.dart';
+import 'package:mysarafu/model/network_presets.dart';
 import 'package:web3dart/credentials.dart';
 
 part 'settings_state.dart';

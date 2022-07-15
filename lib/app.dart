@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart'; //You can also import the browser version
-import 'package:my_sarafu/cubits/account/cubit.dart';
-import 'package:my_sarafu/cubits/settings/settings_cubit.dart';
-import 'package:my_sarafu/cubits/vouchers/vouchers_cubit.dart';
-import 'package:my_sarafu/l10n/l10n.dart';
-import 'package:my_sarafu/repository/registry_repository.dart';
-import 'package:my_sarafu/repository/vault_repository.dart';
-import 'package:my_sarafu/repository/vouchers_repository.dart';
-import 'package:my_sarafu/routes.dart';
-import 'package:my_sarafu/utils/service_locator.dart';
-import 'package:my_sarafu/widgets/bottom_nav/cubit/nav_cubit.dart';
+import 'package:mysarafu/cubits/account/cubit.dart';
+import 'package:mysarafu/cubits/settings/settings_cubit.dart';
+import 'package:mysarafu/cubits/vouchers/vouchers_cubit.dart';
+import 'package:mysarafu/l10n/l10n.dart';
+import 'package:mysarafu/repository/registry_repository.dart';
+import 'package:mysarafu/repository/vault_repository.dart';
+import 'package:mysarafu/repository/vouchers_repository.dart';
+import 'package:mysarafu/routes.dart';
+import 'package:mysarafu/utils/service_locator.dart';
+import 'package:mysarafu/widgets/bottom_nav/cubit/nav_cubit.dart';
 import 'package:web3dart/web3dart.dart';
 
 final httpClient = Client();

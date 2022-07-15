@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_sarafu/utils/format.dart';
+import 'package:mysarafu/utils/format.dart';
 
 void main() {
   group('format', () {

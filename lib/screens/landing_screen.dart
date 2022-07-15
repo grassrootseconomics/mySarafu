@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/cubits/account/cubit.dart';
-import 'package:my_sarafu/utils/hdwallet.dart';
-import 'package:my_sarafu/utils/logger.dart';
-import 'package:my_sarafu/widgets/pin_screen.dart';
+import 'package:mysarafu/cubits/account/cubit.dart';
+import 'package:mysarafu/utils/hdwallet.dart';
+import 'package:mysarafu/utils/logger.dart';
+import 'package:mysarafu/widgets/pin_screen.dart';
 
 class LandingView extends StatelessWidget {
   const LandingView({Key? key}) : super(key: key);
@@ -45,6 +45,8 @@ class LandingView extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
+                  log.d(state.toString());
+
                   if (state is NoAccountState) {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

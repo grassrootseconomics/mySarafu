@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:my_sarafu/cubits/account/cubit.dart';
-import 'package:my_sarafu/cubits/settings/settings_cubit.dart';
-import 'package:my_sarafu/cubits/transactions/transactions_cubit.dart';
-import 'package:my_sarafu/cubits/transactions/views/transaction.dart';
-import 'package:my_sarafu/model/transaction.dart';
-import 'package:my_sarafu/repository/cache_repository.dart';
+import 'package:mysarafu/cubits/account/cubit.dart';
+import 'package:mysarafu/cubits/settings/settings_cubit.dart';
+import 'package:mysarafu/cubits/transactions/transactions_cubit.dart';
+import 'package:mysarafu/cubits/transactions/views/transaction.dart';
+import 'package:mysarafu/model/transaction.dart';
+import 'package:mysarafu/repository/cache_repository.dart';
 import 'package:sticky_grouped_list/sticky_grouped_list.dart';
 
 class TransactionsView extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/l10n/l10n.dart';
-import 'package:my_sarafu/model/setting_item.dart';
+import 'package:mysarafu/l10n/l10n.dart';
+import 'package:mysarafu/model/setting_item.dart';
 
 enum UnlockOption { yes, no }
 

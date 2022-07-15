@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/cubits/account/cubit.dart';
-import 'package:my_sarafu/cubits/vouchers/views/voucher_list_item.dart';
-import 'package:my_sarafu/cubits/vouchers/vouchers_cubit.dart';
-import 'package:my_sarafu/model/voucher.dart';
-import 'package:my_sarafu/widgets/bottom_nav/view/bottom_nav.dart';
+import 'package:mysarafu/cubits/account/cubit.dart';
+import 'package:mysarafu/cubits/vouchers/views/voucher_list_item.dart';
+import 'package:mysarafu/cubits/vouchers/vouchers_cubit.dart';
+import 'package:mysarafu/model/voucher.dart';
+import 'package:mysarafu/widgets/bottom_nav/view/bottom_nav.dart';
 
 class VouchersView extends StatelessWidget {
   const VouchersView({Key? key}) : super(key: key);
