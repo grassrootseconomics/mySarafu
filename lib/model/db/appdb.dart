@@ -15,7 +15,7 @@ class DBHelper {
   DBHelper();
   static const int dbVersion = 1;
   static const String contactsSql = '''
-CREATE TABLE Contacts( 
+CREATE TABLE Contacts(  
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         name TEXT, 
         address TEXT, 

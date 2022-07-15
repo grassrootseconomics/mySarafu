@@ -17,9 +17,9 @@ class AccountRepository {
     final address = wallet.privateKey.address;
     final encryptedWallet = wallet.toJson();
     final account = Account(
-      encryptedWallet: encryptedWallet,
       name: name,
-      address: address,
+      walletAddresses: [address],
+      activeChainIndex: 0,
       activeVoucher: activeVoucherAddress ?? mainnet.defaultVoucherAddress,
     );
     return account;

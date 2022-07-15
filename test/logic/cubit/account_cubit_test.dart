@@ -1,25 +1,32 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:my_sarafu/cubits/account/cubit.dart';
+import 'package:my_sarafu/repository/vault_repository.dart';
 
+import 'account_cubit_test.mocks.dart';
+
+@GenerateMocks([VaultRepository])
 void main() {
+  VaultRepository vaultRepository = MockVaultRepository();
+
   group('AccountCubit', () {
     test('equality', () {
       expect(
-        AccountCubit().state,
-        AccountCubit().state,
+        AccountCubit(vaultRepository: vaultRepository).state,
+        AccountCubit(vaultRepository: vaultRepository).state,
       );
     });
     group('operations', () {
       blocTest<AccountCubit, AccountState>(
-        'createAccount emits CreatingAccountState then CreatedAccountState',
-        build: AccountCubit.new,
+        'createAccount emits UnverifiedAccountState',
+        build: () => AccountCubit(vaultRepository: vaultRepository),
         act: (cubit) => cubit.createAccount(
           name: 'test',
-          password: 'test',
-          passwordConfirmation: 'test',
+          mnumonic: 'test',
+          pin: 'test',
         ),
-        expect: () => [isA<CreatingAccountState>(), isA<CreatedAccountState>()],
+        expect: () => [isA<UnverifiedAccountState>()],
       );
 
       blocTest<AccountCubit, AccountState>(
@@ -55,26 +62,6 @@ void main() {
           )
         ],
       );
-      // blocTest<VouchersCubit, Color>(
-      //   'emits correct color for WeatherCondition.cloudy',
-      //   build: () => themeCubit,
-      //   act: (cubit) => cubit.updateTheme(cloudyWeather),
-      //   expect: () => <Color>[Colors.blueGrey],
-      // );
-
-      // blocTest<VouchersCubit, Color>(
-      //   'emits correct color for WeatherCondition.rainy',
-      //   build: () => themeCubit,
-      //   act: (cubit) => cubit.updateTheme(rainyWeather),
-      //   expect: () => <Color>[Colors.indigoAccent],
-      // );
-
-      // blocTest<VouchersCubit, Color>(
-      //   'emits correct color for WeatherCondition.unknown',
-      //   build: () => themeCubit,
-      //   act: (cubit) => cubit.updateTheme(unknownWeather),
-      //   expect: () => <Color>[ThemeCubit.defaultColor],
-      // );
     });
   });
 }

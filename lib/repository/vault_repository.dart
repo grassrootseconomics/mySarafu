@@ -3,7 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:my_sarafu/utils/encrypt.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Singleton for keystore access methods in android/iOS
+/// Singleton for keystore access methods
 class VaultRepository {
   static const String seedKey = 'sarafu_seed';
   static const String encryptionKey = 'sarafu_secret_phrase';

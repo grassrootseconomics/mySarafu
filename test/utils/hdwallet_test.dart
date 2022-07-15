@@ -9,13 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:my_sarafu/utils/hdwallet.dart';
 import 'package:web3dart/credentials.dart';
 
-const mockMnemonic =
-    // ignore: lines_longer_than_80_chars
-    'require rain scan insect goddess weird boring fortune blast round predict sort';
-final mockAddress0 =
-    EthereumAddress.fromHex('0x44388ec850286ba772beec22088c04a0da59c32a');
-final mockAddress1 =
-    EthereumAddress.fromHex('0xf83c712c294a1e89acd006b652a8919654bb9c6c');
+import '../helpers/mocks.dart';
 
 void main() {
   group('HDWallet', () {

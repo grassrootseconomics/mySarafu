@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:my_sarafu/cubits/accounts/accounts_cubit.dart';
+import 'package:my_sarafu/cubits/account/cubit.dart';
 import 'package:my_sarafu/cubits/settings/settings_cubit.dart';
 import 'package:my_sarafu/cubits/transactions/transactions_cubit.dart';
 import 'package:my_sarafu/cubits/transactions/views/transaction.dart';
@@ -15,7 +15,7 @@ class TransactionsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.select((SettingsCubit cubit) => cubit.state);
-    final account = context.read<AccountsCubit>().activeAccount;
+    final account = context.read<AccountCubit>().state.account;
     if (account == null) {
       return const Center(
         child: Text('No account selected'),
@@ -26,10 +26,10 @@ class TransactionsView extends StatelessWidget {
         BlocProvider(
           create: (context) => TransactionsCubit(
             CacheRepository(
-              address: account.address,
+              address: account.activeWalletAddress,
               cacheUrl: settings.cacheUrl,
             ),
-          )..fetchAllTransactions(account.address),
+          )..fetchAllTransactions(account.activeWalletAddress),
         ),
       ],
       child: const TransactionsWidget(),
@@ -42,7 +42,7 @@ class TransactionsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final account = context.read<AccountsCubit>().activeAccount;
+    final account = context.read<AccountCubit>().state.account;
     if (account == null) {
       return const Center(
         child: Text('No account selected'),
@@ -58,7 +58,7 @@ class TransactionsWidget extends StatelessWidget {
               child: RefreshIndicator(
                 onRefresh: () => context
                     .read<TransactionsCubit>()
-                    .fetchAllTransactions(account.address),
+                    .fetchAllTransactions(account.activeWalletAddress),
                 child: StickyGroupedListView<Transaction, DateTime>(
                   stickyHeaderBackgroundColor: Colors.grey.shade800,
                   elements: state.transactions.data,
