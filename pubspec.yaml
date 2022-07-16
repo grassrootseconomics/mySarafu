@@ -16,6 +16,7 @@ dependencies:
   dart_bip32_bip44: ^0.2.0
   equatable: ^2.0.3
   firebase_core: ^1.19.2
+  firebase_core_desktop: ^1.0.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1

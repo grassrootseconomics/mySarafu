@@ -17,15 +17,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return desktop;
       case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return desktop;
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -71,5 +65,12 @@ class DefaultFirebaseOptions {
     iosClientId:
         '34199390450-rbj37rpu103gjp8v1geuro3sqornbbce.apps.googleusercontent.com',
     iosBundleId: 'com.grassecon.org.mySarafu',
+  );
+  static const FirebaseOptions desktop = FirebaseOptions(
+    apiKey: 'AIzaSyB1KY8oyLcHJdw5rVq4iF3u5iE8pqijWKE',
+    appId: '1:34199390450:ios:86ca9f2e1ca6f38a23e86b',
+    projectId: 'mysarafu',
+    messagingSenderId: '34199390450',
+    authDomain: 'mysarafu.firebaseapp.com',
   );
 }
