@@ -1,7 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mysarafu/app_icons.dart';
+import 'package:mysarafu/cubits/account/cubit.dart';
 import 'package:mysarafu/dimens.dart';
 import 'package:mysarafu/l10n/l10n.dart';
 import 'package:mysarafu/model/authentication_method.dart';
@@ -35,8 +37,19 @@ class AppLockScreenState extends State<AppLockScreen> {
     // } else {
     //   await NanoUtil().loginAccount(context);
     // }
-    await Navigator.of(context)
-        .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+
+    final hasAccount = context.read<AccountCubit>().hasAccount;
+    final isVerified = context.read<AccountCubit>().isVerified;
+    log
+      ..d('goHome')
+      ..d('hasAccount $hasAccount, isVerified=$isVerified');
+    if (!hasAccount) {
+      await Navigator.pushReplacementNamed(context, '/landing');
+    } else if (hasAccount && !isVerified) {
+      await Navigator.pushReplacementNamed(context, '/verify_account');
+    } else {
+      await Navigator.pushReplacementNamed(context, '/home');
+    }
   }
 
   Widget _buildPinScreen(BuildContext context, String expectedPin) {
@@ -85,7 +98,6 @@ class AppLockScreenState extends State<AppLockScreen> {
   Future<void> authenticateWithPin({bool transitions = false}) async {
     final expectedPin = await sl.get<VaultRepository>().getPin();
     if (expectedPin == null) {
-      log.d('No PIN set');
       await Navigator.pushReplacementNamed(context, '/landing');
       return;
     }

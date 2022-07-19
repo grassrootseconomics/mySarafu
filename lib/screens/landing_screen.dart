@@ -34,15 +34,6 @@ class LandingView extends StatelessWidget {
               BlocConsumer<AccountCubit, AccountState>(
                 listener: (context, state) {
                   log.d(state.toString());
-                  if (state is VerifiedAccountState) {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      '/locked',
-                      (Route<dynamic> route) => false,
-                    );
-                  }
-                  if (state is UnverifiedAccountState) {
-                    Navigator.pushNamed(context, '/create_account');
-                  }
                 },
                 builder: (context, state) {
                   log.d(state.toString());
@@ -85,7 +76,8 @@ class LandingView extends StatelessWidget {
                       ],
                     );
                   }
-                  return const Text('Account created successfully');
+
+                  return const Text('Welcome');
                 },
               )
             ],

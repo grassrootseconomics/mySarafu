@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:mysarafu/model/account.dart';
 import 'package:mysarafu/model/network_presets.dart';
+import 'package:mysarafu/model/voucher.dart';
 import 'package:mysarafu/repository/vault_repository.dart';
 import 'package:mysarafu/utils/hdwallet.dart';
 import 'package:mysarafu/utils/logger.dart';
@@ -37,6 +37,24 @@ class AccountCubit extends HydratedCubit<AccountState> {
     emit(UnverifiedAccountState(account: account));
   }
 
+  bool get hasAccount => state.account != null;
+
+  bool get isVerified => state.account?.verified ?? false;
+
+  Future<void> setDefaultVoucher({
+    required Voucher voucher,
+  }) async {
+    if (!hasAccount) {
+      emit(const ErrorAccountState(message: 'No account'));
+      return;
+    }
+    emit(
+      state.copyWith(
+        account: state.account?.copyWith(activeVoucher: voucher.address),
+      ),
+    );
+  }
+
   Future<void> verifyAccount({
     String? phoneNumber,
     String? email,
@@ -49,27 +67,18 @@ class AccountCubit extends HydratedCubit<AccountState> {
   AccountState? fromJson(Map<String, dynamic> json) {
     if (json.isEmpty) return const NoAccountState();
     final accountJson = json['account'] as Map<String, dynamic>;
-    if (json['verified'] == true) {
-      return VerifiedAccountState(account: Account.fromJson(accountJson));
-    } else {
-      return UnverifiedAccountState(account: Account.fromJson(accountJson));
+    final account = Account.fromJson(accountJson);
+    if (account.verified) {
+      return VerifiedAccountState(account: account);
     }
+    return UnverifiedAccountState(account: account);
   }
 
   @override
   Map<String, dynamic>? toJson(AccountState state) {
-    if (state is UnverifiedAccountState) {
-      return <String, dynamic>{
-        'account': state.account.toJson(),
-        'verified': false,
-      };
-    }
-    if (state is VerifiedAccountState) {
-      return <String, dynamic>{
-        'account': state.account.toJson(),
-        'verified': true,
-      };
-    }
-    return null;
+    if (state.account == null) return null;
+    return <String, dynamic>{
+      'account': state.account!.toJson(),
+    };
   }
 }

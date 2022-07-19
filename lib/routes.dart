@@ -4,6 +4,7 @@ import 'package:mysarafu/screens/home_screen.dart';
 import 'package:mysarafu/screens/landing_screen.dart';
 import 'package:mysarafu/screens/lock_screen.dart';
 import 'package:mysarafu/screens/settings_screen.dart';
+import 'package:mysarafu/screens/verify_screen.dart';
 import 'package:mysarafu/screens/vouchers_screen.dart';
 
 MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
@@ -11,6 +12,10 @@ MaterialPageRoute onGenerateRoute(BuildContext context, RouteSettings route) {
     case '/create_account':
       return MaterialPageRoute<Widget>(
         builder: (_) => const CreateAccountScreen(),
+      );
+    case '/verify_account':
+      return MaterialPageRoute<Widget>(
+        builder: (_) => const VerifyScreen(),
       );
     case '/home':
       return MaterialPageRoute<Widget>(
