@@ -66,11 +66,14 @@ class DefaultFirebaseOptions {
         '34199390450-rbj37rpu103gjp8v1geuro3sqornbbce.apps.googleusercontent.com',
     iosBundleId: 'com.grassecon.org.mySarafu',
   );
+  // Use web configurations on Linux, Windows.
   static const FirebaseOptions desktop = FirebaseOptions(
-    apiKey: 'AIzaSyB1KY8oyLcHJdw5rVq4iF3u5iE8pqijWKE',
-    appId: '1:34199390450:ios:86ca9f2e1ca6f38a23e86b',
-    projectId: 'mysarafu',
+    apiKey: 'AIzaSyCvsq8j6a4KZNlUdIP7ub9dzQTpGoIB02Q',
+    appId: '1:34199390450:web:a682ce36260261c323e86b',
     messagingSenderId: '34199390450',
+    projectId: 'mysarafu',
     authDomain: 'mysarafu.firebaseapp.com',
+    storageBucket: 'mysarafu.appspot.com',
+    measurementId: 'G-4X3MWPZL8F',
   );
 }

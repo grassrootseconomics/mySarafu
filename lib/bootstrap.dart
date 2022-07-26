@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_sign_in_dartio/google_sign_in_dartio.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:mysarafu/firebase_options.dart';
 import 'package:mysarafu/utils/logger.dart';
@@ -53,6 +55,15 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
+      // This is used to emulate firebase auth.
+      // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+
+      await GoogleSignInDart.register(
+        clientId:
+            // ignore: lines_longer_than_80_chars
+            '34199390450-ujkabfk1pa8stdugrktfgcj08lc7h6kj.apps.googleusercontent.com',
+      );
+      await FirebaseAuth.instance.signOut();
       setupServiceLocator();
       final storage = await HydratedStorage.build(
         storageDirectory:

@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:mysarafu/widgets/auth/auth_service.dart';
+import 'package:mysarafu/widgets/auth/sms_dialog.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyScreen extends StatefulWidget {
@@ -21,30 +23,34 @@ class _VerifyScreenState extends State<VerifyScreen> {
   String countryDial = '+254';
   String verID = ' ';
   int screenState = 0;
-
-  Color blue = const Color.fromARGB(255, 64, 192, 87);
-
+  final AuthService _authService = AuthService();
   Future<void> verifyPhone(String number) async {
-    await FirebaseAuth.instance.verifyPhoneNumber(
+    await _authService.phoneAuth(
       phoneNumber: number,
-      timeout: const Duration(seconds: 20),
-      verificationCompleted: (PhoneAuthCredential credential) {
-        showSnackBarText('Auth Completed!');
-      },
-      verificationFailed: (FirebaseAuthException e) {
-        showSnackBarText('Auth Failed!');
-      },
-      codeSent: (String verificationId, int? resendToken) {
-        showSnackBarText('OTP Sent!');
-        verID = verificationId;
-        setState(() {
-          screenState = 1;
-        });
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        showSnackBarText('Timeout!');
+      smsCode: () {
+        return SMSDialog.of(context).show('SMS Code:', 'Sign in');
       },
     );
+    // await FirebaseAuth.instance.verifyPhoneNumber(
+    //   phoneNumber: number,
+    //   timeout: const Duration(seconds: 20),
+    //   verificationCompleted: (PhoneAuthCredential credential) {
+    //     showSnackBarText('Auth Completed!');
+    //   },
+    //   verificationFailed: (FirebaseAuthException e) {
+    //     showSnackBarText('Auth Failed!');
+    //   },
+    //   codeSent: (String verificationId, int? resendToken) {
+    //     showSnackBarText('OTP Sent!');
+    //     verID = verificationId;
+    //     setState(() {
+    //       screenState = 1;
+    //     });
+    //   },
+    //   codeAutoRetrievalTimeout: (String verificationId) {
+    //     showSnackBarText('Timeout!');
+    //   },
+    // );
   }
 
   Future<void> verifyOTP() async {
@@ -74,7 +80,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
         return Future.value(false);
       },
       child: Scaffold(
-        backgroundColor: blue,
+        backgroundColor: Colors.green,
         body: SizedBox(
           height: screenHeight,
           width: screenWidth,
@@ -115,7 +121,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                 child: AnimatedContainer(
                   height: bottom > 0 ? screenHeight : screenHeight / 2,
                   width: screenWidth,
-                  color: Colors.blue,
+                  color: Colors.green,
                   duration: const Duration(milliseconds: 800),
                   curve: Curves.fastLinearToSlowEaseIn,
                   child: Padding(
@@ -264,8 +270,8 @@ class _VerifyScreenState extends State<VerifyScreen> {
             });
           },
           pinTheme: PinTheme(
-            activeColor: blue,
-            selectedColor: blue,
+            activeColor: Colors.green,
+            selectedColor: Colors.green,
             inactiveColor: Colors.black26,
           ),
         ),

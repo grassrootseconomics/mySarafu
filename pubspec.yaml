@@ -28,6 +28,8 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   formz: ^0.4.1
   get_it: ^7.2.0
+  google_sign_in: ^5.4.0
+  google_sign_in_dartio: ^0.2.1
   hydrated_bloc: 9.0.0-dev.2
   intl: ^0.17.0
   intl_phone_field: ^3.1.0
@@ -41,7 +43,6 @@ dependencies:
   pin_code_fields: ^7.4.0
   settings_ui: ^2.0.2
   shared_preferences: ^2.0.15
-  sqflite: ^2.0.2+1
   sticky_grouped_list: ^3.0.0
   validators: ^3.0.0
   web3dart: 2.3.5
