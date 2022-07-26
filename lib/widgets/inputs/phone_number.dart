@@ -1,9 +1,9 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/cubits/send/cubit/send_form_cubit.dart';
-import 'package:my_sarafu/repository/contacts_repository.dart';
-import 'package:my_sarafu/widgets/loading.dart';
+import 'package:mysarafu/cubits/send/cubit/send_form_cubit.dart';
+import 'package:mysarafu/repository/contacts_repository.dart';
+import 'package:mysarafu/widgets/loading.dart';
 
 class PhoneNumberInput extends StatelessWidget {
   const PhoneNumberInput({

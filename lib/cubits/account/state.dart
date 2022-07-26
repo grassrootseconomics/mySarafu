@@ -2,10 +2,22 @@
 
 part of 'cubit.dart';
 
-@immutable
-abstract class AccountState extends Equatable {
+class AccountState extends Equatable {
   const AccountState({this.account});
   final Account? account;
+
+  AccountState copyWith({
+    Account? account,
+  }) {
+    return AccountState(
+      account: account ?? this.account,
+    );
+  }
+
+  @override
+  List<Object?> get props {
+    return [account];
+  }
 }
 
 class NoAccountState extends AccountState {

@@ -1,9 +1,9 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_sarafu/cubits/account/cubit.dart';
-import 'package:my_sarafu/model/account.dart';
-import 'package:my_sarafu/model/network_presets.dart';
-import 'package:my_sarafu/repository/vault_repository.dart';
+import 'package:mysarafu/cubits/account/cubit.dart';
+import 'package:mysarafu/model/account.dart';
+import 'package:mysarafu/model/network_presets.dart';
+import 'package:mysarafu/repository/vault_repository.dart';
 import 'package:web3dart/credentials.dart';
 
 import '../../helpers/hydrated_bloc.dart';

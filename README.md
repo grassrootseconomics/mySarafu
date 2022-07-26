@@ -1,4 +1,3 @@
-
 <p align="center">
   <img src="./docs/assets/logo.svg" />
 </p>
@@ -7,14 +6,16 @@
 [![Here Be Dragons](https://img.shields.io/badge/Here%20be%20Dragons-%F0%9F%90%89-success&color=white&)](https://en.wikipedia.org/wiki/Here_be_dragons)
 ![Maturity](https://img.shields.io/badge/maturity-alpha-red)
 
-
 > **mySarafu** is currently in **Alpha**. There are alot of features missing and features will break in the future.
 
 ## Info
-mySarafu is a cross-platform application that enables interaction with the **Sarafu Network** built by *[Grassroots Economics](https://www.grassrootseconomics.org/)* 
-- *[Grassroots Docs](http://docs.grassecon.org/)*
 
-If you would would like to help out with this project, please create an issue describing what areas you are interested in helping out with. 
+mySarafu is a cross-platform application that enables interaction with the **Sarafu Network** built by _[Grassroots Economics](https://www.grassrootseconomics.org/)_
+
+- _[Grassroots Docs](http://docs.grassecon.org/)_
+
+If you would would like to help out with this project, please create an issue describing what areas you are interested in helping out with.
+
 ## Installation
 
 - [Go to Releases](https://github.com/grassroots/mySarafu/releases) and download the latest `.apk` under assets.
@@ -103,7 +104,7 @@ This project relies on [flutter_localizations][flutter_localizations_link] and f
 3. Use the new string
 
 ```dart
-import 'package:my_sarafu/l10n/l10n.dart';
+import 'package:mysarafu/l10n/l10n.dart';
 
 @override
 Widget build(BuildContext context) {

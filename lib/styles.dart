@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/themes.dart';
+import 'package:mysarafu/themes.dart';
 
 class AppStyles {
   // Text style for paragraph text.

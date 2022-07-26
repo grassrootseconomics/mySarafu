@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:my_sarafu/utils/logger.dart';
+import 'package:mysarafu/utils/logger.dart';
 
 class BiometricUtil {
   ///

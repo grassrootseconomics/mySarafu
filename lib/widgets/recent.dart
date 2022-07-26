@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/cubits/send/view/send_card_view.dart';
+import 'package:mysarafu/cubits/send/view/send_card_view.dart';
 
 const recent = [
   RecentItem('Will'),

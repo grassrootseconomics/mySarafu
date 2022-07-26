@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:my_sarafu/utils/encrypt.dart';
+import 'package:mysarafu/utils/encrypt.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Singleton for keystore access methods

@@ -1,4 +1,4 @@
-name: my_sarafu
+name: mysarafu
 description: Cross-platform application for interacting with the Sarafu Network
 version: 0.0.1+2
 publish_to: none
@@ -15,6 +15,10 @@ dependencies:
   contacts_service: ^0.6.3
   dart_bip32_bip44: ^0.2.0
   equatable: ^2.0.3
+  firebase_auth: ^3.4.2
+  firebase_auth_desktop: ^1.0.1
+  firebase_core: ^1.19.2
+  firebase_core_desktop: ^1.0.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
@@ -24,8 +28,11 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   formz: ^0.4.1
   get_it: ^7.2.0
+  google_sign_in: ^5.4.0
+  google_sign_in_dartio: ^0.2.1
   hydrated_bloc: 9.0.0-dev.2
   intl: ^0.17.0
+  intl_phone_field: ^3.1.0
   json_serializable: ^6.3.1
   local_auth: ^2.1.0
   logger: ^1.1.0
@@ -33,9 +40,9 @@ dependencies:
   path_provider: ^2.0.11
   permission_handler: ^10.0.0
   phone_numbers_parser: ^5.0.5
+  pin_code_fields: ^7.4.0
   settings_ui: ^2.0.2
   shared_preferences: ^2.0.15
-  sqflite: ^2.0.2+1
   sticky_grouped_list: ^3.0.0
   validators: ^3.0.0
   web3dart: 2.3.5

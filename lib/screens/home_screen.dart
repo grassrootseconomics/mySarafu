@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/cubits/transactions/views/transactions.dart';
-import 'package:my_sarafu/widgets/balance.dart';
-import 'package:my_sarafu/widgets/bottom_nav/view/bottom_nav.dart';
-import 'package:my_sarafu/widgets/recent.dart';
+import 'package:mysarafu/cubits/transactions/views/transactions.dart';
+import 'package:mysarafu/widgets/balance.dart';
+import 'package:mysarafu/widgets/bottom_nav/view/bottom_nav.dart';
+import 'package:mysarafu/widgets/recent.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);

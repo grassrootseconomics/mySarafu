@@ -4,13 +4,13 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/app_icons.dart';
-import 'package:my_sarafu/l10n/l10n.dart';
-import 'package:my_sarafu/styles.dart';
-import 'package:my_sarafu/themes.dart';
-import 'package:my_sarafu/utils/logger.dart';
-import 'package:my_sarafu/utils/service_locator.dart';
-import 'package:my_sarafu/utils/sharedprefsutil.dart';
+import 'package:mysarafu/app_icons.dart';
+import 'package:mysarafu/l10n/l10n.dart';
+import 'package:mysarafu/styles.dart';
+import 'package:mysarafu/themes.dart';
+import 'package:mysarafu/utils/logger.dart';
+import 'package:mysarafu/utils/service_locator.dart';
+import 'package:mysarafu/utils/sharedprefsutil.dart';
 
 enum PinOverlayType { newPin, enterPin }
 

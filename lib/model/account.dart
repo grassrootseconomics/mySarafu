@@ -1,7 +1,8 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:equatable/equatable.dart';
-import 'package:my_sarafu/model/network_presets.dart';
+import 'package:mysarafu/model/network_presets.dart';
+import 'package:mysarafu/utils/logger.dart';
 import 'package:web3dart/credentials.dart';
 
 enum AccountType {
@@ -25,6 +26,7 @@ class Account extends Equatable {
   });
 
   factory Account.fromJson(Map<String, dynamic> json) {
+    log.d('Account.fromJson: $json');
     return Account(
       accountType: AccountType.values.byName(json['accountType'] as String),
       activeChainIndex: json['activeChainIndex'] as int,
@@ -62,12 +64,14 @@ class Account extends Equatable {
     int? activeChainIndex,
     EthereumAddress? activeVoucher,
     List<EthereumAddress>? walletAddresses,
+    bool? verified,
   }) {
     return Account(
       accountType: accountType ?? this.accountType,
       activeChainIndex: activeChainIndex ?? this.activeChainIndex,
       activeVoucher: activeVoucher ?? this.activeVoucher,
       walletAddresses: walletAddresses ?? this.walletAddresses,
+      verified: verified ?? this.verified,
     );
   }
 }

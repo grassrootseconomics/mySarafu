@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "34199390450",
+    "project_id": "mysarafu",
+    "storage_bucket": "mysarafu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34199390450:android:210b7d8c400dd0df23e86b",
+        "android_client_info": {
+          "package_name": "org.grassecon.mysarafu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34199390450-ujkabfk1pa8stdugrktfgcj08lc7h6kj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ1ig-rm3eg99sd-Mp-ffyJ_dlPzjcPpE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34199390450-ujkabfk1pa8stdugrktfgcj08lc7h6kj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

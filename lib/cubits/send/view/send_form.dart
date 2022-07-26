@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:my_sarafu/cubits/send/cubit/send_form_cubit.dart';
-import 'package:my_sarafu/cubits/vouchers/views/voucher_selector.dart';
-import 'package:my_sarafu/cubits/vouchers/vouchers_cubit.dart';
-import 'package:my_sarafu/widgets/inputs/phone_number.dart';
+import 'package:mysarafu/cubits/send/cubit/send_form_cubit.dart';
+import 'package:mysarafu/cubits/vouchers/views/voucher_selector.dart';
+import 'package:mysarafu/cubits/vouchers/vouchers_cubit.dart';
+import 'package:mysarafu/widgets/inputs/phone_number.dart';
 
 class SendForm extends StatelessWidget {
   const SendForm({Key? key}) : super(key: key);

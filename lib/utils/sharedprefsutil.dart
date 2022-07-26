@@ -3,11 +3,11 @@
 import 'dart:io';
 
 import 'package:intl/intl.dart';
-import 'package:my_sarafu/model/authentication_method.dart';
-import 'package:my_sarafu/model/device_lock_timeout.dart';
-import 'package:my_sarafu/repository/vault_repository.dart';
-import 'package:my_sarafu/utils/encrypt.dart';
-import 'package:my_sarafu/utils/service_locator.dart';
+import 'package:mysarafu/model/authentication_method.dart';
+import 'package:mysarafu/model/device_lock_timeout.dart';
+import 'package:mysarafu/repository/vault_repository.dart';
+import 'package:mysarafu/utils/encrypt.dart';
+import 'package:mysarafu/utils/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Price conversion preference values

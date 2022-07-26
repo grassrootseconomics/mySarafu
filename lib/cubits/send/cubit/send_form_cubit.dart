@@ -2,10 +2,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:my_sarafu/cubits/send/models/address.dart';
-import 'package:my_sarafu/cubits/send/models/amount.dart';
-import 'package:my_sarafu/repository/meta_repository.dart';
-import 'package:my_sarafu/utils/logger.dart';
+import 'package:mysarafu/cubits/send/models/address.dart';
+import 'package:mysarafu/cubits/send/models/amount.dart';
+import 'package:mysarafu/repository/meta_repository.dart';
+import 'package:mysarafu/utils/logger.dart';
 
 part 'send_form_state.dart';
 

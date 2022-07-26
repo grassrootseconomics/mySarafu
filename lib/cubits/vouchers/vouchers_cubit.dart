@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:my_sarafu/model/voucher.dart';
-import 'package:my_sarafu/repository/vouchers_repository.dart';
-import 'package:my_sarafu/utils/logger.dart';
+import 'package:mysarafu/model/voucher.dart';
+import 'package:mysarafu/repository/vouchers_repository.dart';
+import 'package:mysarafu/utils/logger.dart';
 import 'package:web3dart/web3dart.dart';
 
 part 'vouchers_state.dart';

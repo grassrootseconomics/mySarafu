@@ -2,13 +2,52 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/cubits/account/cubit.dart';
-import 'package:my_sarafu/utils/hdwallet.dart';
-import 'package:my_sarafu/utils/logger.dart';
-import 'package:my_sarafu/widgets/pin_screen.dart';
+import 'package:mysarafu/cubits/account/cubit.dart';
+import 'package:mysarafu/utils/hdwallet.dart';
+import 'package:mysarafu/widgets/pin_screen.dart';
 
 class LandingView extends StatelessWidget {
   const LandingView({Key? key}) : super(key: key);
+
+  Widget _noAccountView(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        const TextButton(
+          onPressed: null,
+          child: Text('Connect Account'),
+        ),
+        const TextButton(
+          onPressed: null,
+          child: Text('Import Account'),
+        ),
+        TextButton(
+          onPressed: () async {
+            final pin = await Navigator.of(context).push(
+              MaterialPageRoute<String>(
+                builder: (BuildContext context) {
+                  return const PinScreen(
+                    PinOverlayType.newPin,
+                  );
+                },
+              ),
+            );
+            final mnumonic = generateMnemonic();
+            await context.read<AccountCubit>().createAccount(
+                  mnumonic: mnumonic,
+                  pin: pin!,
+                );
+            await Navigator.pushReplacementNamed(
+              context,
+              '/create_account',
+            );
+          },
+          child: const Text('Create Account'),
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,58 +71,24 @@ class LandingView extends StatelessWidget {
                 ),
               ),
               BlocConsumer<AccountCubit, AccountState>(
-                listener: (context, state) {
-                  log.d(state.toString());
-                  if (state is VerifiedAccountState) {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      '/locked',
-                      (Route<dynamic> route) => false,
-                    );
-                  }
-                  if (state is UnverifiedAccountState) {
-                    Navigator.pushNamed(context, '/create_account');
-                  }
-                },
+                listener: (context, state) {},
                 builder: (context, state) {
                   if (state is NoAccountState) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const TextButton(
-                          onPressed: null,
-                          child: Text('Connect Account'),
-                        ),
-                        const TextButton(
-                          onPressed: null,
-                          child: Text('Import Account'),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            final pin = await Navigator.of(context).push(
-                              MaterialPageRoute<String>(
-                                builder: (BuildContext context) {
-                                  return const PinScreen(
-                                    PinOverlayType.newPin,
-                                  );
-                                },
-                              ),
-                            );
-                            final mnumonic = generateMnemonic();
-                            await context.read<AccountCubit>().createAccount(
-                                  mnumonic: mnumonic,
-                                  pin: pin!,
-                                );
-                            await Navigator.pushReplacementNamed(
-                              context,
-                              '/create_account',
-                            );
-                          },
-                          child: const Text('Create Account'),
-                        )
-                      ],
-                    );
+                    return _noAccountView(context);
                   }
-                  return const Text('Account created successfully');
+                  return TextButton(
+                    child: const Text('Welcome'),
+                    onPressed: () {
+                      if (state is VerifiedAccountState) {
+                        Navigator.pushReplacementNamed(context, '/home');
+                      } else {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          '/verify_account',
+                        );
+                      }
+                    },
+                  );
                 },
               )
             ],

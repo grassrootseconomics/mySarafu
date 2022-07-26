@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_sarafu/utils/hdwallet.dart';
+import 'package:mysarafu/utils/hdwallet.dart';
 
 import '../helpers/mocks.dart';
 

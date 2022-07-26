@@ -90,11 +90,11 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.grassecon.org.my-sarafu" "\0"
-            VALUE "FileDescription", "my_sarafu" "\0"
+            VALUE "FileDescription", "mysarafu" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "my_sarafu" "\0"
+            VALUE "InternalName", "mysarafu" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.grassecon.org.my-sarafu. All rights reserved." "\0"
-            VALUE "OriginalFilename", "my_sarafu.exe" "\0"
+            VALUE "OriginalFilename", "mysarafu.exe" "\0"
             VALUE "ProductName", "My Sarafu" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END

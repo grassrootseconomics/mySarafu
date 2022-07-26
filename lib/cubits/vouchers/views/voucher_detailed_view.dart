@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_sarafu/cubits/settings/settings_cubit.dart';
-import 'package:my_sarafu/cubits/vouchers/voucher_cubit.dart';
-import 'package:my_sarafu/model/voucher.dart';
-import 'package:my_sarafu/repository/meta_repository.dart';
-import 'package:my_sarafu/widgets/bottom_nav/view/bottom_nav.dart';
+import 'package:mysarafu/cubits/account/cubit.dart';
+import 'package:mysarafu/cubits/settings/settings_cubit.dart';
+import 'package:mysarafu/cubits/vouchers/voucher_cubit.dart';
+import 'package:mysarafu/model/voucher.dart';
+import 'package:mysarafu/repository/meta_repository.dart';
+import 'package:mysarafu/widgets/bottom_nav/view/bottom_nav.dart';
 
 class VoucherDetailedView extends StatelessWidget {
   const VoucherDetailedView({required this.voucher, Key? key})
@@ -152,6 +153,14 @@ class VoucherDetailedWidget extends StatelessWidget {
                   ListTile(
                     title: const Text('Email'),
                     trailing: Text(meta?.contact.email ?? ''),
+                  ),
+                  TextButton(
+                    child: const Text('Set as default'),
+                    onPressed: () {
+                      context
+                          .read<AccountCubit>()
+                          .setDefaultVoucher(voucher: voucher);
+                    },
                   )
                 ],
               ),

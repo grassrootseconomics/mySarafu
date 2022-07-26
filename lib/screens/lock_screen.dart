@@ -1,17 +1,22 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:my_sarafu/app_icons.dart';
-import 'package:my_sarafu/dimens.dart';
-import 'package:my_sarafu/l10n/l10n.dart';
-import 'package:my_sarafu/model/authentication_method.dart';
-import 'package:my_sarafu/repository/vault_repository.dart';
-import 'package:my_sarafu/styles.dart';
-import 'package:my_sarafu/themes.dart';
-import 'package:my_sarafu/utils/biometrics.dart';
-import 'package:my_sarafu/utils/format.dart';
-import 'package:my_sarafu/utils/service_locator.dart';
-import 'package:my_sarafu/utils/sharedprefsutil.dart';
-import 'package:my_sarafu/widgets/buttons.dart';
-import 'package:my_sarafu/widgets/pin_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mysarafu/app_icons.dart';
+import 'package:mysarafu/cubits/account/cubit.dart';
+import 'package:mysarafu/dimens.dart';
+import 'package:mysarafu/l10n/l10n.dart';
+import 'package:mysarafu/model/authentication_method.dart';
+import 'package:mysarafu/repository/vault_repository.dart';
+import 'package:mysarafu/styles.dart';
+import 'package:mysarafu/themes.dart';
+import 'package:mysarafu/utils/biometrics.dart';
+import 'package:mysarafu/utils/format.dart';
+import 'package:mysarafu/utils/logger.dart';
+import 'package:mysarafu/utils/service_locator.dart';
+import 'package:mysarafu/utils/sharedprefsutil.dart';
+import 'package:mysarafu/widgets/buttons.dart';
+import 'package:mysarafu/widgets/pin_screen.dart';
 
 class AppLockScreen extends StatefulWidget {
   const AppLockScreen({Key? key}) : super(key: key);
@@ -32,8 +37,19 @@ class AppLockScreenState extends State<AppLockScreen> {
     // } else {
     //   await NanoUtil().loginAccount(context);
     // }
-    await Navigator.of(context)
-        .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+
+    final hasAccount = context.read<AccountCubit>().hasAccount;
+    final isVerified = context.read<AccountCubit>().isVerified;
+    log
+      ..d('goHome')
+      ..d('hasAccount $hasAccount, isVerified=$isVerified');
+    if (!hasAccount) {
+      await Navigator.pushReplacementNamed(context, '/landing');
+    } else if (hasAccount && !isVerified) {
+      await Navigator.pushReplacementNamed(context, '/verify_account');
+    } else {
+      await Navigator.pushReplacementNamed(context, '/home');
+    }
   }
 
   Widget _buildPinScreen(BuildContext context, String expectedPin) {
@@ -82,7 +98,8 @@ class AppLockScreenState extends State<AppLockScreen> {
   Future<void> authenticateWithPin({bool transitions = false}) async {
     final expectedPin = await sl.get<VaultRepository>().getPin();
     if (expectedPin == null) {
-      throw Exception('Pin not set');
+      await Navigator.pushReplacementNamed(context, '/landing');
+      return;
     }
     bool? auth = false;
     if (transitions) {
